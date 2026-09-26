@@ -1,0 +1,1888 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Bearsaves compares Australian supplement prices by value per 100g, per serve and per day.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%232240FF%27/%3E%3Ctext x=%2750%27 y=%2770%27 font-size=%2758%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27Arial%27 font-weight=%27bold%27%3EB%3C/text%3E%3C/svg%3E">
+<title>Bearsaves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#FFFFFF; --surface:#FFFFFF; --ink:#111111; --muted:#6F6F6F; --line:#E6E6E6;
+  --blue:#2240FF; --blue-deep:#1A33D6; --blue-soft:#EEF1FF; --on-blue:#FFFFFF;
+  --action:#2240FF; --action-hover:#1A33D6; --on-action:#FFFFFF;
+  --good:#2240FF; --good-bg:#EEF1FF;
+  --tile1:#F2F2F2; --tile2:#F2F2F2; --tile3:#F2F2F2; --tile4:#F2F2F2;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:"Barlow",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55;padding-inline:20px}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed",system-ui,sans-serif;font-weight:700;letter-spacing:-.015em;text-wrap:balance;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+.promo{background:var(--ink);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:8px 16px;margin-inline:-20px}
+.promo b{color:#FFFFFF}
+nav{display:flex;align-items:center;gap:18px;padding-block:14px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-text{display:grid;line-height:1.05}
+.logo-text b{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:24px}
+.logo-text b span{color:var(--blue)}
+.logo-text small{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.search{flex:1 1 300px;display:flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:4px 4px 4px 18px;min-width:0}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;color:var(--ink);padding-block:8px;outline:none}
+.search svg{flex:none;color:var(--muted)}
+.search:focus-within{border-color:var(--blue)}
+.search button{font:inherit;font-weight:600;border:0;border-radius:999px;padding:9px 18px;background:var(--blue);color:var(--on-blue);cursor:pointer}
+.basket-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;padding:10px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.basket-btn:hover{border-color:var(--blue)}
+.count{min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--action);color:var(--on-action);font-size:12px;font-weight:700;display:inline-grid;place-items:center}
+
+.cats{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;scrollbar-width:none}
+.cat{flex:none;display:flex;align-items:center;gap:8px;font:inherit;font-weight:600;font-size:14px;padding:9px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none}
+.cat:hover{border-color:var(--blue)}
+.cat.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cat-div{flex:none;width:2px;background:var(--line);margin-inline:4px;border-radius:2px}
+.cat.soon{border-style:dashed;color:var(--muted)}
+.cat em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--blue-soft);color:var(--blue-deep);padding:2px 7px;border-radius:999px}
+
+/* DEAL OF THE DAY */
+.hero{margin-block:12px 28px}
+.dotd{background:var(--blue);color:#fff;border-radius:30px;padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,.85fr);grid-template-areas:"img info side";gap:26px;align-items:center;position:relative;overflow:hidden}
+.dotd>.img{grid-area:img}.dotd>.info{grid-area:info}.dotd>.side{grid-area:side}
+.dotd::before{content:"";position:absolute;left:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.dotd .img{position:relative;background:#fff;border-radius:24px;aspect-ratio:1/1;display:grid;place-items:center;max-width:100%}
+.dotd .img svg{width:74%;height:auto}
+.dotd .big-off{position:absolute;top:14px;left:14px;background:var(--action);color:#111111;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:20px;padding:6px 14px;border-radius:999px}
+.dotd .label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:6px 12px;border-radius:999px}
+.dotd h1{font-size:clamp(30px,3.8vw,46px);line-height:1.05;margin:14px 0 6px;color:#fff}
+.dotd .by{opacity:.9;font-weight:700}
+.dotd .prices{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:16px 0 6px}
+.dotd .now{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:clamp(46px,6vw,64px);line-height:1}
+.dotd .was{font-size:20px;text-decoration:line-through;opacity:.75}
+.dotd .save-big{display:inline-block;background:#fff;color:#111111;font-weight:700;padding:6px 12px;border-radius:10px}
+.dotd .fine{font-size:13px;opacity:.85;margin:10px 0 0}
+.dotd .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;padding:13px 22px;border-radius:999px;border:0;background:var(--action);color:var(--on-action);cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--action-hover)}
+.btn.ghost{background:rgba(255,255,255,.16);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.26)}
+.btn.added{background:var(--good-bg);color:var(--good)}
+.side{display:flex;flex-direction:column;justify-content:center;gap:14px;align-self:stretch}
+.side-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin:0}
+.mini2{background:#fff;color:#111111;border-radius:20px;padding:14px;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;position:relative}
+.mini2 .th{width:72px;height:72px;border-radius:14px;display:grid;place-items:center;position:relative}
+.mini2 .th svg{width:64%;height:auto}
+.mini2 .o{position:absolute;top:-6px;left:-6px;background:var(--action);color:#111111;font-weight:700;font-size:12px;padding:2px 8px;border-radius:999px}
+.mini2 .t{font-weight:600;font-size:14px;line-height:1.25}
+.mini2 .st{font-size:12px;color:#6F6F6F}
+.mini2 .p{margin-top:4px}
+.mini2 .p b{font-family:"Barlow Condensed",sans-serif;font-size:18px}
+.mini2 .p s{color:#6F6F6F;margin-left:6px;font-size:13px}
+.mini2 .add{grid-column:1/-1;font:inherit;font-weight:700;font-size:14px;padding:9px 14px;border-radius:999px;border:0;background:var(--action);color:#111111;cursor:pointer}
+.mini2 .add.added{background:#EEF1FF;color:#2240FF}
+.dotd .btn.added{background:#fff;color:#2240FF}
+
+.hot{background:var(--surface);border:2px solid var(--line);border-radius:30px;padding:18px;display:grid;gap:10px;align-content:start}
+.hot h2{font-size:18px;margin:2px 4px 4px}
+.mini{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;padding:8px;border-radius:16px;text-decoration:none;cursor:pointer;border:0;background:transparent;font:inherit;color:inherit;text-align:left}
+.mini:hover{background:var(--bg)}
+.mini .th{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;position:relative}
+.mini .th svg{width:66%;height:auto}
+.mini .t{font-weight:600;font-size:14px;line-height:1.25}
+.mini .p{font-size:14px}
+.mini .p b{font-family:"Barlow Condensed",sans-serif}
+.mini .p s{color:var(--muted);margin-left:6px}
+.mini .pct{color:var(--good);font-weight:700;font-size:12px}
+
+.stores{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:34px;font-size:14px}
+.stores .lbl{font-weight:600;color:var(--muted);margin-right:4px}
+.store-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:12px;background:var(--surface);border:2px solid var(--line);font-weight:600}
+.store-chip i{width:8px;height:8px;border-radius:50%;background:var(--good)}
+.store-chip.soon{border-style:dashed;color:var(--muted)}
+.store-chip.soon i{background:var(--line)}
+
+
+/* shop-mode switch */
+.modebar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:12px 14px;margin-block:4px 12px}
+.switch{position:relative;display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border-radius:999px;padding:4px;min-width:min(420px,100%);flex:0 1 420px;border:0;font:inherit;cursor:pointer;color:var(--ink)}
+.switch .thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:999px;background:var(--blue);transition:transform .25s ease}
+.switch[aria-checked="true"] .thumb{transform:translateX(100%)}
+.switch span.opt{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;font-weight:700;font-size:14px;border-radius:999px;transition:color .2s}
+.switch[aria-checked="false"] .opt.left,.switch[aria-checked="true"] .opt.right{color:#fff}
+.mode-info{flex:1 1 260px;font-size:14px;color:var(--muted)}
+.mode-info b{color:var(--ink)}
+.city{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.city label{font-weight:600;font-size:14px}
+.city select{font:inherit;font-weight:700;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.city-prompt{background:var(--surface);border:2px dashed var(--blue);border-radius:24px;padding:36px 24px;text-align:center;display:grid;gap:8px;justify-items:center;margin-bottom:40px}
+.city-prompt h2{font-size:24px}
+.city-prompt p{margin:0;color:var(--muted);max-width:52ch}
+.pickup-note{background:var(--blue-soft);border-radius:16px;padding:12px 16px;font-size:14px;margin-bottom:22px}
+@media (prefers-reduced-motion:reduce){ .switch .thumb{transition:none} }
+
+
+.sortbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-18px 0 30px;font-size:14px;color:var(--muted)}
+.sortbar label{font-weight:600;color:var(--ink)}
+.sortbar select{font:inherit;font-weight:700;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.unit{display:flex;align-items:baseline;gap:4px;padding:6px 8px;margin-inline:4px;background:var(--blue-soft);border-radius:10px;justify-self:start}
+.unit b{font-family:"Barlow Condensed",sans-serif;font-size:20px;color:var(--blue-deep)}
+.unit span{font-size:13px;font-weight:600;color:var(--blue-deep)}
+.rank{position:absolute;top:10px;right:10px;background:var(--ink);color:var(--bg);font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:4px 8px;border-radius:999px}
+.cmp{margin-inline:4px;font-size:13px}
+.cmp summary{cursor:pointer;font-weight:600;color:var(--good)}
+.cmp ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.cmp li{display:flex;justify-content:space-between;gap:8px;color:var(--muted)}
+.cmp li a{font-weight:700;color:var(--ink)}
+
+
+/* live search suggestions */
+.search{position:relative}
+.suggest{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:30;background:var(--surface);border:2px solid var(--line);border-radius:20px;box-shadow:0 24px 50px -20px rgba(17,17,17,.45);padding:8px;max-height:min(70vh,520px);overflow-y:auto}
+.sg-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 10px}
+.sg-head button{font:inherit;font-size:12px;border:0;background:none;color:var(--blue-deep);cursor:pointer;letter-spacing:0;text-transform:none;font-weight:600}
+.sg{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:14px;cursor:pointer;width:100%;border:0;background:none;font:inherit;color:var(--ink);text-align:left}
+.sg[aria-selected="true"],.sg:hover{background:var(--blue-soft)}
+.sg .th{width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
+.sg .th svg{width:66%;height:auto}
+.sg .t{font-weight:600;font-size:14px;line-height:1.25}
+.sg .t mark{background:none;color:var(--blue);font-weight:700}
+.sg .st{font-size:12px;color:var(--muted)}
+.sg .r{text-align:right;font-size:13px}
+.sg .r b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:15px}
+.sg .r span{color:var(--blue-deep);font-weight:600}
+.sg.recent{grid-template-columns:24px 1fr}
+.sg.recent svg{color:var(--muted)}
+.sg-empty{padding:14px 10px;color:var(--muted);font-size:14px}
+.search .suggest button.sg{background:transparent;color:var(--ink);border-radius:14px;padding:8px 10px;font-weight:400}
+.search .suggest button.sg[aria-selected="true"],.search .suggest button.sg:hover{background:var(--blue-soft)}
+.search .suggest .sg-head button{background:none;color:var(--blue-deep);padding:0;border-radius:0}
+.card.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,40%{border-color:var(--action);box-shadow:0 0 0 4px rgba(34,64,255,.35)}100%{box-shadow:none}}
+
+
+/* scanner button */
+.scan-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;padding:10px 16px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);cursor:pointer}
+.scan-btn:hover{opacity:.9}
+/* modals */
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,calc(100% - 32px));max-height:calc(100% - 40px);overflow-y:auto;background:var(--bg);border-radius:24px;z-index:42;box-shadow:0 30px 80px -20px rgba(17,17,17,.6)}
+.m-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:2px solid var(--line);background:var(--surface);position:sticky;top:0}
+.m-head h2{font-size:20px}
+.m-body{padding:18px 20px 22px;display:grid;gap:14px}
+.rs-top,.sc-hit{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center}
+.rs-top .th,.sc-hit .th{width:64px;height:64px;border-radius:14px;display:grid;place-items:center}
+.rs-top .th svg,.sc-hit .th svg{width:66%;height:auto}
+.rs-top .brand,.sc-hit .brand{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep)}
+.rs-top h3{font-size:18px}
+.rs-top .meta{font-size:13px;color:var(--muted)}
+.rs-plan{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.rs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rs-stats div{background:var(--blue-soft);border-radius:14px;padding:10px 12px;display:grid}
+.rs-stats span{font-size:12px;font-weight:600;color:var(--blue-deep);text-transform:uppercase;letter-spacing:.05em}
+.rs-stats b{font-family:"Barlow Condensed",sans-serif;font-size:20px}
+.rs-save{background:var(--good-bg);color:var(--ink);border-radius:14px;padding:12px 14px;font-size:14px}
+.rs-save b{color:var(--good)}
+.m-body h4{margin:4px 0 -4px;font-family:"Barlow Condensed",sans-serif;font-size:15px}
+.rs-cal{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rs-cal li{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:10px;display:grid;gap:2px}
+.rs-cal li:first-child{border-color:var(--action)}
+.rs-cal .rs-n{font-size:11px;font-weight:700;color:var(--muted)}
+.rs-cal span:nth-child(2){font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:17px}
+.rs-cal small{font-size:11px;color:var(--muted);line-height:1.3}
+.sc-intro{margin:0;color:var(--muted)}
+.sc-upload{display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border:2px dashed var(--blue);border-radius:16px;font-weight:700;color:var(--blue-deep);cursor:pointer;background:var(--blue-soft)}
+.sc-small{margin:0;font-size:13px;color:var(--muted)}
+.sc-demos{display:flex;flex-wrap:wrap;gap:8px}
+.sc-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.sc-list li{display:flex;justify-content:space-between;padding:10px 12px;border-radius:12px;background:var(--surface);border:2px solid var(--line)}
+.sc-list li.best{border-color:var(--good);background:var(--good-bg)}
+.sc-list em{font-style:normal;font-size:11px;font-weight:700;color:var(--good);text-transform:uppercase;margin-left:6px}
+.sc-save{margin:0;font-size:14px}
+#sc-result{display:grid;gap:12px}
+/* plan panel */
+.plan{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:16px 18px;display:grid;gap:12px;margin-bottom:18px}
+.plan-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.plan-l{font-weight:700;font-size:13px;min-width:92px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.pchip{font:inherit;font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.pchip:hover{border-color:var(--blue)}
+.pchip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.seg{display:inline-flex;background:var(--bg);border-radius:999px;padding:3px;gap:2px;margin-right:6px}
+.seg .pchip{border:0;padding:6px 12px}
+.plan-note{margin:0;font-size:13px;color:var(--muted)}
+.subunit{font-size:12px;color:var(--muted);padding-inline:6px;margin-top:-4px}
+.planline{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font:inherit;font-size:13px;text-align:left;margin-inline:4px;padding:8px 10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.planline:hover{border-color:var(--blue)}
+.planline .pl-cta{font-weight:700;color:var(--blue-deep)}
+.leaf{position:absolute;bottom:10px;left:10px;background:var(--good);color:#fff;font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+/* Bear's picks */
+.picks{margin-bottom:40px}
+.picks-head h2{font-size:clamp(24px,3vw,32px)}
+.picks-head p{margin:2px 0 14px;color:var(--muted)}
+.picks-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.pick{display:grid;gap:8px;align-content:start;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:14px;cursor:pointer}
+.pick:hover{border-color:var(--blue)}
+.pk-t{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--action)}
+.pick .th{height:90px;border-radius:14px;display:grid;place-items:center}
+.pick .th svg{height:72%;width:auto}
+.pk-n{font-weight:600;line-height:1.3}
+.pk-w{font-size:13px;color:var(--good);font-weight:600}
+.pk-p{font-size:13px;color:var(--muted)}
+.pk-p b{font-family:"Barlow Condensed",sans-serif;color:var(--ink);font-size:16px}
+@media (max-width:1040px){ .picks-row{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:760px){ .picks-row{grid-template-columns:repeat(2,1fr)} .rs-cal{grid-template-columns:repeat(2,1fr)} .plan-l{min-width:100%} }
+
+
+.plan-top{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+.seg2{display:inline-flex;background:var(--bg);border-radius:999px;padding:4px;gap:2px;border:2px solid var(--line)}
+.seg-b{font:inherit;font-weight:600;font-size:14px;padding:8px 16px;border-radius:999px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.seg-b.on{background:var(--blue);color:#fff}
+.plan-slider{display:grid;gap:6px}
+.plan-slider label{font-weight:700;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.slider-row{display:flex;align-items:center;gap:16px}
+.slider-row input[type=range]{flex:1;accent-color:var(--blue);height:28px;min-width:0}
+.slider-row output{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:20px;min-width:150px;text-align:right;color:var(--blue-deep)}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding-right:166px}
+@media (max-width:600px){ .slider-row output{min-width:0;font-size:17px} .ticks{padding-right:0} }
+/* supplements dropdown */
+.menu{position:relative;flex:none}
+.menu>button{display:flex;align-items:center;gap:8px}
+.menu>button svg{transition:transform .2s}
+.menu>button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.menu-list{position:absolute;top:calc(100% + 8px);left:0;z-index:25;background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:8px;min-width:300px;white-space:nowrap;box-shadow:0 20px 44px -18px rgba(17,17,17,.45);display:grid;gap:2px}
+.menu-list a{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;text-decoration:none;font-weight:600}
+.menu-list a:hover{background:var(--blue-soft)}
+.menu-list a span{color:var(--muted);font-weight:700;font-size:13px}
+.cats{overflow:visible;flex-wrap:wrap}
+/* about */
+.about{background:var(--surface);border:2px solid var(--line);border-radius:30px;padding:clamp(22px,4vw,44px);margin-bottom:40px;display:grid;gap:28px;scroll-margin-top:16px}
+.about-hero{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.about-hero svg{width:72px;height:72px}
+.about h2{font-size:clamp(28px,4vw,40px)}
+.about .lead{font-size:18px;color:var(--muted);margin:6px 0 0;max-width:62ch}
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.about-card{background:var(--bg);border-radius:20px;padding:20px;display:grid;gap:8px;align-content:start}
+.about-card h3{font-size:18px}
+.about-card p{margin:0;color:var(--muted);font-size:15px}
+.tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tools li{background:var(--bg);border-radius:16px;padding:14px 16px;font-size:14px}
+.tools li b{display:block;font-size:15px;margin-bottom:2px}
+.tools li.soon b::after{content:"Coming soon";margin-left:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--blue-soft);color:var(--blue-deep);padding:2px 7px;border-radius:999px}
+.story{background:#111111;color:#fff;border-radius:24px;padding:clamp(22px,4vw,36px);display:grid;gap:14px}
+.story h3{color:#fff;font-size:clamp(22px,3vw,28px)}
+.story p{margin:0;opacity:.9;max-width:66ch;font-size:16px;line-height:1.65}
+.story .goal{background:rgba(255,255,255,.08);border-radius:16px;padding:16px 18px}
+.story .goal b{color:#FFFFFF}
+@media (max-width:900px){ .about-grid{grid-template-columns:1fr} .tools{grid-template-columns:1fr} }
+
+/* shelves */
+.shelf{margin-bottom:40px;scroll-margin-top:16px}
+.shelf-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.shelf-head h2{font-size:clamp(24px,3vw,32px)}
+.shelf-head p{margin:2px 0 0;color:var(--muted);font-size:15px}
+.shelf-count{font-weight:600;color:var(--blue-deep);background:var(--blue-soft);padding:5px 12px;border-radius:999px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:12px;display:grid;gap:8px;align-content:start;transition:transform .15s ease,border-color .15s ease}
+.card:hover{transform:translateY(-3px);border-color:var(--blue)}
+.card .img{border-radius:16px;aspect-ratio:4/3;display:grid;place-items:center;position:relative}
+.card .img svg{width:46%;height:auto}
+.off{position:absolute;top:10px;left:10px;background:var(--action);color:var(--on-action);font-weight:700;font-size:13px;padding:4px 10px;border-radius:999px}
+.member{position:absolute;top:10px;right:10px;background:var(--surface);color:var(--blue-deep);font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:4px 8px;border-radius:999px}
+.card .brand{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep);padding-inline:4px}
+.card .name{font-weight:600;line-height:1.3;padding-inline:4px}
+.card .meta{font-size:13px;color:var(--muted);padding-inline:4px}
+.prices{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding-inline:4px}
+.card .now{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:22px}
+.card .was{color:var(--muted);text-decoration:line-through;font-size:15px}
+.save{display:inline-block;font-size:13px;font-weight:700;color:var(--good);background:var(--good-bg);padding:3px 9px;border-radius:8px;margin-inline:4px;justify-self:start}
+.card .btn{width:100%;padding:11px 16px;font-size:15px}
+.card .at{font-size:12px;color:var(--muted);text-align:center}
+.card .at a{font-weight:600}
+.nores{grid-column:1/-1;color:var(--muted)}
+
+.member-shelf{background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:22px}
+.member-shelf .card{background:var(--bg)}
+.member-note{background:var(--blue-soft);color:var(--ink);border-radius:16px;padding:12px 16px;font-size:14px;margin-bottom:16px}
+.soon-sec{background:var(--surface);border:2px dashed var(--line);border-radius:26px;padding:30px;display:grid;gap:14px;margin-bottom:40px;scroll-margin-top:16px}
+.soon-sec .row{display:flex;gap:10px;flex-wrap:wrap}
+.soon-sec .pill{padding:10px 16px;border-radius:14px;background:var(--bg);font-weight:600}
+.soon-sec p{margin:0;color:var(--muted);max-width:60ch}
+.inline-form{display:flex;gap:10px;flex-wrap:wrap}
+.inline-form input{font:inherit;padding:12px 18px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);width:260px;max-width:100%}
+.ok{font-weight:600;color:var(--good);margin:0}
+
+.join{background:#111111;color:#fff;border:2px solid var(--line);border-radius:28px;padding:34px;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;margin-bottom:36px}
+.join svg.mark{width:80px;height:80px}
+.join h2{color:#fff;font-size:clamp(24px,3.4vw,34px)}
+.join p{margin:6px 0 0;opacity:.85}
+.join input{font:inherit;padding:13px 18px;border-radius:999px;border:0;width:260px;max-width:100%;background:#fff;color:#111111}
+.join .ok{grid-column:1/-1;color:#8FA0FF}
+footer{padding-block:20px 44px;color:var(--muted);font-size:13px;display:grid;gap:8px;border-top:2px solid var(--line)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* basket drawer */
+.backdrop{position:fixed;inset:0;background:rgba(17,17,17,.45);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);z-index:41;display:flex;flex-direction:column;box-shadow:-20px 0 60px -20px rgba(17,17,17,.5);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:2px solid var(--line);background:var(--surface)}
+.d-head h2{font-size:22px}
+.x{width:38px;height:38px;border-radius:50%;border:0;background:var(--bg);color:var(--ink);font-size:22px;cursor:pointer}
+.d-body{flex:1;overflow-y:auto;padding:16px 20px;display:grid;gap:14px;align-content:start}
+.summary{background:var(--good-bg);color:var(--good);border-radius:16px;padding:14px 16px;font-weight:600}
+.summary small{display:block;font-weight:600;color:var(--muted)}
+.store-box{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:10px}
+.store-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.store-top h3{font-size:17px}
+.store-top span{font-size:13px;color:var(--muted)}
+.line{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center}
+.thumb{width:48px;height:48px;border-radius:12px;display:grid;place-items:center}
+.thumb svg{width:70%;height:auto}
+.line .t{font-weight:700;font-size:14px;line-height:1.3}
+.line .s{font-size:12px;color:var(--good);font-weight:600}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;cursor:pointer}
+.ship{font-size:13px;display:grid;gap:6px}
+.bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:999px}
+.totals{display:grid;gap:4px;font-size:14px;border-top:2px dashed var(--line);padding-top:10px}
+.totals div{display:flex;justify-content:space-between}
+.totals .big{font-weight:700;font-size:16px}
+.store-box .btn{width:100%}
+.note{font-size:13px;font-weight:700;color:var(--blue-deep);margin:0}
+.d-foot{padding:16px 20px;border-top:2px solid var(--line);background:var(--surface);display:grid;gap:4px}
+.d-foot div{display:flex;justify-content:space-between;font-weight:600}
+.d-foot small{color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+
+@media (max-width:1040px){ .dotd{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-areas:"img side" "info side";gap:18px 20px;align-items:start} .dotd .img{aspect-ratio:3/2} .dotd .img svg{width:auto;height:86%} .dotd{align-items:stretch} .side{justify-content:flex-start;align-self:stretch} .mini2{flex:1;grid-template-columns:1fr;grid-template-rows:1fr auto auto;align-content:stretch;gap:10px} .mini2 .th{width:100%;height:100%;min-height:90px} .mini2 .th svg{width:auto;height:64px} .dotd .now{font-size:44px} .grid{grid-template-columns:repeat(3,1fr)} .join{grid-template-columns:1fr} }
+@media (max-width:600px){ .dotd{grid-template-columns:1fr;grid-template-areas:"img" "info" "side";padding:18px} .side{display:grid;grid-template-columns:1fr} .mini2{grid-template-columns:72px 1fr} .mini2 .th{width:72px;height:72px;min-height:0} } @media (max-width:760px){ .grid{grid-template-columns:repeat(2,1fr);gap:12px} .card .now{font-size:19px} }
+@media (prefers-reduced-motion:reduce){ .card{transition:none} .card:hover{transform:none} }
+
+/* ===== v3 layout: multi-page shop ===== */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin-inline:-20px;padding-inline:20px;transition:box-shadow .2s}
+.site-head.compact{box-shadow:0 10px 30px -18px rgba(17,17,17,.45)}
+.site-head nav{max-width:1180px;margin:0 auto;transition:padding .2s}
+.site-head.compact nav{padding-block:8px}
+.site-head.compact .logo-text small{display:none}
+.site-head.compact .logo svg{width:36px;height:36px}
+.fresh{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.fresh i{width:8px;height:8px;border-radius:50%;background:var(--good)}
+/* slim cards */
+.grid{grid-template-columns:repeat(5,1fr);gap:14px}
+.card{cursor:pointer;gap:6px;padding:10px}
+.card .img{aspect-ratio:1/1}
+.card .img svg{width:52%}
+.card .name{font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.card .unit b{font-size:17px}
+.card .now{font-size:19px}
+.card .btn{padding:10px 12px;font-size:14px}
+.card .at{font-size:12px}
+.card .more{color:var(--good);font-weight:600}
+.leaf{bottom:8px;left:8px;font-size:10px;padding:3px 8px}
+@media (max-width:1180px){ .grid{grid-template-columns:repeat(4,1fr)} }
+@media (max-width:900px){ .grid{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:640px){ .grid{grid-template-columns:repeat(2,1fr);gap:10px} }
+/* list view */
+.listview{display:grid;gap:8px}
+.lrow{display:grid;grid-template-columns:56px minmax(0,2.2fr) 1fr 1fr auto;gap:14px;align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:8px 12px;cursor:pointer}
+.lrow:hover{border-color:var(--blue)}
+.lrow .th{width:56px;height:56px;border-radius:12px;display:grid;place-items:center}
+.lrow .th svg{width:66%;height:auto}
+.lrow .t{font-weight:600;line-height:1.3}
+.lrow .s{font-size:12px;color:var(--muted)}
+.lrow .v b{font-family:"Barlow Condensed",sans-serif;color:var(--blue-deep)}
+.lrow .v span{font-size:12px;color:var(--blue-deep);font-weight:600}
+.lrow .pr b{font-family:"Barlow Condensed",sans-serif}
+.lrow .pr s{color:var(--muted);font-size:13px;margin-left:6px}
+.lrow .btn{padding:9px 14px;font-size:14px}
+@media (max-width:760px){ .lrow{grid-template-columns:48px 1fr auto} .lrow .v{display:none} .lrow .pr{grid-column:2} .lrow .btn{grid-row:1/3;grid-column:3} }
+/* home rows */
+.hrow{margin-bottom:34px}
+.hrow-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}
+.hrow-head h2{font-size:clamp(22px,2.8vw,28px)}
+.hrow-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.seeall{font-weight:700;color:var(--blue-deep);text-decoration:none;white-space:nowrap}
+.scroller{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 56px)/5);gap:14px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.scroller>*{scroll-snap-align:start}
+@media (max-width:1180px){ .scroller{grid-auto-columns:calc((100% - 42px)/4)} }
+@media (max-width:900px){ .scroller{grid-auto-columns:calc((100% - 28px)/3)} }
+@media (max-width:640px){ .scroller{grid-auto-columns:44%} }
+/* starter stack bundle */
+.stack{background:var(--surface);border:2px solid var(--line);border-radius:26px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-bottom:34px}
+.stack h2{font-size:clamp(22px,2.8vw,28px)}
+.stack p{margin:4px 0 12px;color:var(--muted)}
+.stack-items{display:flex;flex-wrap:wrap;gap:10px}
+.stack-item{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:8px 12px;text-decoration:none;color:var(--ink)}
+.stack-item .th{width:40px;height:40px;border-radius:10px;display:grid;place-items:center}
+.stack-item .th svg{width:66%;height:auto}
+.stack-item b{display:block;font-size:14px}
+.stack-item span{font-size:12px;color:var(--muted)}
+.stack-sum{text-align:right;display:grid;gap:4px;justify-items:end}
+.stack-sum .big{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:34px}
+.stack-sum small{color:var(--muted)}
+.stack-sum .save{margin:0}
+@media (max-width:760px){ .stack{grid-template-columns:1fr} .stack-sum{text-align:left;justify-items:start} }
+.teaser{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:34px}
+.teaser a{display:grid;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:22px}
+.teaser a:hover{border-color:var(--blue)}
+.teaser h3{font-size:20px}
+.teaser p{margin:0;color:var(--muted)}
+.teaser .go{font-weight:700;color:var(--blue-deep)}
+.teaser .dark{background:#111111;color:#fff;border-color:#111111}
+.teaser .dark h3{color:#fff}.teaser .dark p{color:#C9D4EE}.teaser .dark .go{color:#FFFFFF}
+@media (max-width:760px){ .teaser{grid-template-columns:1fr} }
+/* category page */
+.crumbs{font-size:13px;color:var(--muted);margin:6px 0 10px}
+.crumbs a{color:var(--muted)}
+.cat-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.cat-head h1{font-size:clamp(30px,4vw,44px)}
+.cat-head p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.cat-layout{display:grid;grid-template-columns:250px 1fr;gap:22px;align-items:start;margin-bottom:40px}
+.filters{position:sticky;top:96px;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:16px;max-height:calc(100vh - 120px);overflow-y:auto}
+.filters h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.filters label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:4px 0;cursor:pointer}
+.filters input[type=checkbox]{accent-color:var(--blue);width:17px;height:17px}
+.filters select{width:100%;font:inherit;font-weight:700;padding:9px 10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.filters .seg2{width:100%;justify-content:space-between}
+.filters .seg-b{flex:1;padding:8px 6px;font-size:13px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.toolbar .tcount{font-weight:600;color:var(--muted)}
+.viewtog{display:inline-flex;gap:4px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:3px}
+.viewtog button{font:inherit;font-weight:600;font-size:13px;border:0;background:transparent;color:var(--muted);padding:6px 12px;border-radius:9px;cursor:pointer}
+.viewtog button.on{background:var(--blue);color:#fff}
+.filter-open{display:none}
+@media (max-width:900px){
+  .cat-layout{grid-template-columns:1fr}
+  .filters{position:static;max-height:none;display:none}
+  .filters.show{display:grid}
+  .filter-open{display:inline-flex}
+}
+/* product page */
+.pp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:30px;align-items:start;margin-bottom:32px}
+.pp-img{border-radius:28px;aspect-ratio:1/1;display:grid;place-items:center;position:relative;max-width:100%}
+.pp-img svg{width:58%;height:auto}
+.pp-img .off{font-size:16px;padding:6px 14px;top:16px;left:16px}
+.pp-info{display:grid;gap:12px}
+.pp-info .brand{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep)}
+.pp-info h1{font-size:clamp(28px,3.6vw,40px);line-height:1.1}
+.pp-info .meta{color:var(--muted)}
+.pp-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pp-price .now{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:44px;line-height:1}
+.pp-price .was{font-size:18px;color:var(--muted);text-decoration:line-through}
+.pp-values{display:flex;gap:10px;flex-wrap:wrap}
+.pp-values .unit{margin:0}
+.pp-values .unit b{font-size:22px}
+.pp-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn.line{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
+.btn.line:hover{border-color:var(--blue);background:var(--surface)}
+.pp-note{font-size:14px;background:var(--blue-soft);border-radius:14px;padding:10px 14px}
+.block{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:20px;margin-bottom:24px}
+.block h2{font-size:22px;margin-bottom:12px}
+.ctable-wrap{overflow-x:auto}
+.ctable{width:100%;border-collapse:collapse;min-width:560px}
+.ctable th,.ctable td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:15px}
+.ctable th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.ctable tr.best td{background:var(--good-bg)}
+.ctable tr.best td:first-child{border-radius:12px 0 0 12px}
+.ctable tr.best td:last-child{border-radius:0 12px 12px 0}
+.ctable .tag{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--good);margin-left:6px}
+.ctable a.go{font-weight:600;color:var(--blue-deep)}
+.alt-lead{margin:-4px 0 14px;color:var(--muted)}
+.switch-save{display:block;font-size:12px;font-weight:700;color:var(--good);background:var(--good-bg);border-radius:8px;padding:4px 8px;margin-inline:2px}
+.inline-plan{display:grid;gap:14px}
+/* pro & account pages */
+.page-hero{display:grid;gap:10px;margin:10px 0 26px;max-width:760px}
+.page-hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.05}
+.page-hero p{margin:0;font-size:18px;color:var(--muted)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+.plan-card{background:var(--surface);border:2px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:12px;align-content:start}
+.plan-card.hot{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.plan-card h3{font-size:20px}
+.plan-card .pr{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:40px;line-height:1}
+.plan-card .pr span{font-family:"Barlow",sans-serif;font-size:15px;font-weight:700;color:var(--muted)}
+.plan-card ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.plan-card li{display:flex;gap:8px;font-size:15px}
+.plan-card li::before{content:"✓";color:var(--good);font-weight:700}
+.ribbon{justify-self:start;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--action);color:var(--on-action);padding:4px 10px;border-radius:999px}
+.give{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.give div{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:18px}
+.give b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:26px;color:var(--blue-deep)}
+.give span{color:var(--muted);font-size:14px}
+.fine-print{font-size:13px;color:var(--muted);max-width:70ch}
+@media (max-width:900px){ .plans,.give{grid-template-columns:1fr} .pp{grid-template-columns:1fr} .pp-img{max-width:420px} }
+.acct{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-bottom:34px}
+.acct .block{margin:0}
+.interests{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 14px;margin:10px 0 14px}
+.interests label{display:flex;gap:8px;align-items:center;font-weight:700;font-size:14px}
+.interests input{accent-color:var(--blue);width:17px;height:17px}
+.acct input[type=email]{font:inherit;width:100%;padding:12px 16px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:10px}
+@media (max-width:760px){ .acct{grid-template-columns:1fr} .interests{grid-template-columns:1fr} }
+/* sticky basket bar */
+.bbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:18;width:min(720px,calc(100% - 32px));background:#111111;color:#fff;border-radius:20px;padding:10px 10px 10px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px -18px rgba(17,17,17,.6)}
+.bbar .txt{flex:1;font-size:14px;line-height:1.35}
+.bbar .txt b{color:#8FA0FF}
+.bbar .btn{padding:10px 16px;font-size:14px;white-space:nowrap}
+/* mobile bottom nav */
+.mnav{display:none}
+@media (max-width:760px){
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .mnav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:19;background:var(--surface);border-top:2px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+  .mnav button{font:inherit;font-size:11px;font-weight:600;border:0;background:none;color:var(--muted);display:grid;justify-items:center;gap:2px;padding:4px;cursor:pointer;position:relative}
+  .mnav button.on{color:var(--blue)}
+  .mnav .count{position:absolute;top:0;right:18%;min-width:18px;height:18px;font-size:11px}
+  .bbar{bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+  .site-head .scan-btn,.site-head .basket-btn{display:none}
+  .site-head .logo-text small{display:none}
+  .site-head nav{gap:10px}
+  .search{flex-basis:100%}
+  .search button[type=submit]{padding:9px 14px}
+}
+/* exit modal */
+.exit-body{display:grid;gap:12px}
+.exit-body .inline-form{flex-wrap:wrap}
+
+.pp-ctas .btn{white-space:nowrap;flex:0 0 auto}
+@media (max-width:760px){
+  .cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-20px;padding-inline:20px}
+  .cats::-webkit-scrollbar{display:none}
+  .menu-list{position:fixed;left:16px;right:16px;top:auto;bottom:calc(82px + env(safe-area-inset-bottom,0px));min-width:0;z-index:30;box-shadow:0 -10px 40px -10px rgba(17,17,17,.5)}
+  .modebar{padding:8px;gap:8px}
+  .mode-info{display:none}
+  .switch{flex-basis:100%;min-width:0}
+  .switch span.opt{font-size:13px;padding:9px 6px}
+  .promo{font-size:12px}
+}
+
+.lasts{font-size:12px;color:var(--muted);padding-inline:4px}
+.lasts b{color:var(--ink)}
+.one-store{background:var(--surface);border:2px dashed var(--blue);border-radius:16px;padding:12px 14px;display:grid;gap:8px}
+.one-store p{margin:0;font-size:13px;color:var(--muted)}
+.os-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 12px}
+.os-name{display:block;font-weight:700}
+.os-sub{display:block;font-size:13px;color:var(--muted)}
+.os-swaps{display:block;font-size:12px;color:var(--blue-deep);margin-top:4px}
+.os-row .btn{padding:8px 14px;font-size:13px;flex:none;white-space:nowrap}
+.co-progress{display:grid;gap:6px;font-size:13px;font-weight:600;color:var(--muted)}
+.step-tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--action)}
+.store-box.done{opacity:.6}
+.store-box.done .step-tag{color:var(--good)}
+.done-tog{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;justify-content:center}
+.done-tog input{accent-color:var(--good);width:17px;height:17px}
+
+.cat-layout .grid{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1180px){ .cat-layout .grid{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:640px){ .cat-layout .grid{grid-template-columns:repeat(2,1fr)} }
+.unit{flex-wrap:wrap}
+
+.one-store{position:relative}
+.one-store.rec{border-style:solid;border-color:var(--good);background:var(--good-bg)}
+.os-badge{justify-self:start;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--good);color:#fff;padding:3px 9px;border-radius:999px}
+.os-row.top{background:var(--surface);border:2px solid var(--good)}
+
+.os-row{flex-wrap:wrap}.os-row>div{flex:1 1 220px}.os-row.top .btn{flex:1 1 100%}
+.summary .vs-line{font-size:14px;color:var(--ink);font-weight:700;margin-top:6px}
+.summary .vs-line b{color:var(--good)}
+.why{margin-top:8px;color:var(--ink);font-weight:600}
+.why summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--blue-deep)}
+.why ul{list-style:none;margin:6px 0 10px;padding:0;display:grid;gap:6px}
+.why li{display:flex;justify-content:space-between;gap:10px;font-size:13px;background:var(--surface);border-radius:10px;padding:8px 10px}
+.why li small{display:block;color:var(--muted);font-weight:600}
+.why li b{color:var(--good);white-space:nowrap}
+.why-h{margin:8px 0 0;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.why-note{margin:0;font-size:12px;color:var(--muted);font-weight:600}
+
+.sv{display:grid;gap:10px;color:var(--ink)}
+.sv-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sv-head span{font-weight:700;color:var(--good);font-size:15px}.sv-head small{display:block;font-size:12px;font-weight:700;color:var(--muted)}
+.sv-head b{font-family:"Barlow Condensed",sans-serif;font-size:30px;color:var(--good);line-height:1}
+.sv-rows{display:grid;gap:4px}
+.sv-rows div{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:700}
+.sv-rows span{color:var(--muted)}
+.sv-rows b{color:var(--ink)}
+.os-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.os-row.top .btn{flex:0 0 auto}
+.os-row{flex-wrap:nowrap}
+
+.sv2{background:linear-gradient(135deg,#2240FF,#2240FF);color:#fff;border-radius:22px;padding:18px 18px 14px;display:grid;gap:10px;box-shadow:0 18px 40px -20px rgba(22,163,74,.7)}
+.sv2-top{display:flex;justify-content:space-between;align-items:center}
+.sv2-l{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.sv2-pct{background:#fff;color:#2240FF;font-weight:700;font-size:14px;padding:4px 10px;border-radius:999px}
+.sv2-big{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:clamp(44px,12vw,56px);line-height:1;letter-spacing:-.02em}
+.sv2-bar{display:flex;height:12px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.2)}
+.sv2-bar i{display:block;background:#fff}
+.sv2-bar em{display:block;background:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 6px,rgba(255,255,255,.12) 6px 12px)}
+.sv2-legend{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.sv2-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sv2-legend .k1{background:#fff}.sv2-legend .k2{background:rgba(255,255,255,.35)}
+.sv2-legend s{opacity:.8}
+.sv2-chip{justify-self:start;background:rgba(0,0,0,.18);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.sv2 .why summary{color:#fff;opacity:.9}
+.sv2 .why li{background:rgba(255,255,255,.95);color:#111111}
+.sv2 .why li small{color:#6F6F6F}
+.sv2 .why li b{color:#2240FF}
+.sv2 .why-h,.sv2 .why-note{color:rgba(255,255,255,.85)}
+
+.sv-pill{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font:inherit;border:0;cursor:pointer;background:var(--good-bg);color:var(--good);border-radius:14px;padding:10px 14px;font-weight:600;font-size:15px}
+.sv-pill b{font-family:"Barlow Condensed",sans-serif;font-size:18px}
+.sv-pill-pct{font-size:13px;font-weight:700;background:var(--good);color:#fff;padding:3px 9px;border-radius:999px}
+
+.acct-list{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:#C9D4EE}
+.acct-list li::before{content:"✓ ";color:#8FA0FF;font-weight:700}
+.acct-head{display:flex;align-items:center;gap:16px;margin:10px 0 20px;flex-wrap:wrap}
+.acct-head h1{font-size:clamp(28px,4vw,40px)}
+.acct-head p{margin:2px 0 0;color:var(--muted)}
+.acct-head .btn{margin-left:auto;white-space:nowrap}
+.acct-av{width:60px;height:60px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:26px}
+.acct-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.acct-stats div{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:14px 16px;display:grid;gap:2px}
+.acct-stats span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.acct-stats b{font-family:"Barlow Condensed",sans-serif;font-size:24px}
+.acct-stats small{color:var(--muted);font-size:13px}
+.acct2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.acct2 .block{margin-bottom:20px}
+.acct-rows{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.acct-rows li{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:10px 12px;flex-wrap:wrap}
+.acct-rows small{display:block;color:var(--muted);font-size:13px}
+.pill-ok{font-size:12px;font-weight:700;background:var(--good-bg);color:var(--good);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.tp{display:flex;gap:6px}
+.tp input{width:92px;font:inherit;padding:8px 10px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.tp .btn{padding:8px 12px;font-size:13px}
+.menu-btn{display:flex;align-items:center;gap:8px}
+@media (max-width:900px){ .acct-stats{grid-template-columns:repeat(2,1fr)} .acct2{grid-template-columns:1fr} }
+
+
+/* ===== Sport theme (concept 3B): black, white, blue, grey ===== */
+*,*::before,*::after{border-radius:0!important}
+body{background:#fff}
+h1,h2,h3{font-family:"Barlow Condensed",system-ui,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.005em}
+.num{font-variant-numeric:tabular-nums}
+.promo{background:var(--blue);color:#fff;font-weight:500;letter-spacing:.02em}
+.promo b{color:#fff;font-weight:700}
+.site-head{border-bottom:0}
+.logo-text b{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:30px;letter-spacing:.01em}
+.logo-text small{font-weight:600;letter-spacing:.12em;font-size:10.5px}
+.search{border:0;background:#F2F2F2}
+.search input{font-size:15px}
+.search button{background:var(--ink);color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:13px}
+.scan-btn,.basket-btn{background:transparent;color:var(--ink);border:0;font-weight:600}
+.scan-btn:hover,.basket-btn:hover{color:var(--blue)}
+.count{background:var(--blue);color:#fff}
+.cats{gap:30px;border-bottom:1px solid var(--ink);margin-bottom:22px;padding-bottom:0}
+.cat{border:0!important;background:none!important;color:var(--ink)!important;padding:12px 0 10px;border-bottom:3px solid transparent!important;font-weight:500;font-size:15px}
+.cat:hover{border-bottom-color:var(--line)!important}
+.cat.on{border-bottom-color:var(--blue)!important;font-weight:600}
+.cat em{background:none;color:#9A9A9A;padding:0;font-size:10px;letter-spacing:.12em}
+.cat-div{visibility:hidden;margin-inline:auto}
+.modebar{border:1px solid var(--line)}
+.switch{background:#F2F2F2}
+
+/* buttons: blue for the main action, black for card adds, outlines elsewhere */
+.btn{font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:14px}
+.btn.added,.mini2 .add.added{background:var(--blue-soft);color:var(--blue)}
+.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px #CFCFCF}
+.card .btn,.mini2 .add{background:var(--ink);color:#fff;text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-size:13px}
+.card .btn:hover,.mini2 .add:hover{background:var(--blue)}
+.card .btn.added{background:var(--blue-soft);color:var(--blue)}
+.pchip,.seg-b{font-weight:600}
+
+/* deal of the day */
+.dotd{background:#111;padding:0;gap:0;align-items:stretch}
+.dotd::before{display:none}
+.dotd .img{background:#F2F2F2!important;aspect-ratio:auto;min-height:100%}
+.dotd .info{padding:30px 28px}
+.dotd .side{padding:22px;background:#1A1A1A}
+.side-title{color:#fff;opacity:.7}
+.dotd .label{background:none;padding:0;color:#8FA0FF;font-size:12px;letter-spacing:.16em;font-weight:600}
+.dotd h1{font-size:clamp(34px,4.2vw,54px);line-height:.98;margin-top:12px}
+.dotd .by{opacity:1;color:#A8A8A8;font-weight:500}
+.dotd .big-off{background:var(--blue);color:#fff;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px}
+.dotd .now{font-weight:700;font-size:clamp(58px,6.5vw,80px)}
+.dotd .save-big{background:var(--blue);color:#fff;font-weight:600;padding:5px 10px}
+.dotd .fine{color:#A8A8A8;opacity:1}
+.dotd .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px #fff}
+.dotd .btn.ghost:hover{background:rgba(255,255,255,.1)}
+.dotd .btn.added{background:#fff;color:var(--blue)}
+.mini2{border:0}
+.mini2 .o,.off{background:var(--blue);color:#fff;font-weight:700}
+
+/* WAS price stacked above the new price */
+.prices,.mini2 .p{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:0}
+.was,.mini2 .p s,.pp-price .was{color:#8A8A8A;text-decoration:line-through;text-decoration-thickness:2px;font-family:"Barlow Condensed",sans-serif;font-weight:600;opacity:1;margin:0}
+.was::before,.mini2 .p s::before{content:"Was";display:inline-block;text-decoration:none;font:600 11px/1 "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-right:6px;vertical-align:.25em}
+.card .was{font-size:18px}
+.card .now{font-weight:700;font-size:26px}
+.mini2 .p s{font-size:16px}
+.mini2 .p b{font-size:22px;font-weight:700}
+.dotd .was{font-size:30px;color:#9A9A9A;text-decoration-thickness:2.5px}
+.dotd .was::before{font-size:13px}
+.pp-price{gap:4px 14px}
+.pp-price .was{order:-1;flex-basis:100%;font-size:26px}
+.pp-price .now{font-weight:700;font-size:58px}
+.pp-price .save{align-self:center}
+.save{background:none;padding:0;color:var(--blue);font-weight:600}
+
+/* cards and panels */
+.card{border:1px solid var(--line);padding:0;gap:6px}
+.card:hover{transform:none;border-color:var(--ink)}
+.card>*:not(.img){margin-inline:14px}
+.card>*:last-child{margin-bottom:14px}
+.card .brand,.pp-info .brand{color:var(--muted);letter-spacing:.12em;font-weight:600}
+.card .name{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;font-weight:600;font-size:20px;line-height:1.08;padding:0}
+.card .brand,.card .meta,.prices,.unit,.cmp{padding-inline:0;margin-inline:14px}
+.unit{background:none;padding:0}
+.unit b,.unit span{color:var(--blue)}
+.rank{background:var(--ink);color:#fff}
+.hot,.pick,.plan,.lrow,.member-shelf,.soon-sec,.store-chip,.rs-plan,.rs-cal li,.sc-list li,.planline{border-width:1px}
+.store-chip{font-weight:500}
+.store-chip i{background:var(--blue)}
+.shelf-head h2,.picks-head h2{font-size:clamp(26px,3.2vw,38px)}
+.join{border:0}
+.card .btn{width:auto}
+.pp-price .save{font-size:17px}
+.dotd .img svg{width:62%}
+/* more black */
+.promo{background:#111;color:#fff}
+.promo b{color:#8FA0FF}
+.cats{background:#111;box-shadow:0 0 0 100vmax #111;clip-path:inset(0 -100vmax);border-bottom:0;margin-bottom:26px}
+.cat{color:#fff!important;padding:14px 0 11px}
+.cat:hover{border-bottom-color:#555!important}
+.cat.on{border-bottom-color:var(--blue)!important}
+.cat em{color:#8A8A8A}
+.search button{background:var(--blue)}
+.shelf-head,.picks-head{border-bottom:3px solid #111;padding-bottom:10px;margin-bottom:18px}
+.picks-head p{margin-bottom:0}
+.card:hover{border-color:#111}
+.card .img{background:#F2F2F2}
+footer{background:#111;color:#A8A8A8;box-shadow:0 0 0 100vmax #111;clip-path:inset(0 -100vmax);border-top:0;padding-block:28px 48px}
+footer a{color:#fff}
+.join{margin-bottom:0;box-shadow:0 0 0 100vmax #111;clip-path:inset(0 -100vmax);padding-inline:0;border-bottom:1px solid #2A2A2A}
+@media (max-width:760px){
+  .mnav{background:#111;border-top:0}
+  .mnav button{color:#9A9A9A}
+  .mnav button.on{color:#fff;box-shadow:inset 0 3px 0 var(--blue)}
+}
+
+/* one sticky block: black strip + header + black menu, same look all the way down */
+.site-head{background:#fff;padding-bottom:0}
+.site-head.compact nav{padding-block:14px}
+.site-head.compact .logo-text small{display:block}
+.site-head.compact .logo svg{width:44px;height:44px}
+.site-head.compact{box-shadow:0 12px 24px -16px rgba(0,0,0,.5)}
+.site-head .promo{margin-inline:-20px}
+.site-head .cats{max-width:none;margin:0 -20px;padding-inline:max(20px,calc(50% - 570px));box-shadow:none;clip-path:none}
+.site-head+.wrap{padding-top:22px}
+.filters{top:calc(var(--head-h,160px) + 16px);max-height:calc(100vh - var(--head-h,160px) - 32px)}
+.shelf,.about,.soon-sec{scroll-margin-top:calc(var(--head-h,160px) + 16px)}
+@media (max-width:760px){
+  .site-head .promo{font-size:11.5px;padding-block:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .site-head nav{padding-block:10px}
+  .site-head.compact nav{padding-block:10px}
+  .site-head.compact .logo svg,.site-head .logo svg{width:36px;height:36px}
+  .cat{padding:11px 0 9px}
+  .site-head .logo-text small{display:none!important}
+}
+body{margin:0}
+
+/* ===== Sample B: black + blue primary, white secondary ===== */
+body{font-size:17px}
+.promo{background:var(--blue);color:#fff;font-weight:500}
+.promo b{color:#fff;font-weight:700}
+.site-head{background:#111;color:#fff}
+.site-head .logo{color:#fff}
+.logo-text b span{color:#8FA0FF}
+.logo-text small{color:#9A9A9A}
+.search{background:#fff}
+.search input{color:#111}
+.search button{background:var(--blue);color:#fff}
+.scan-btn,.basket-btn{color:#fff}
+.scan-btn:hover,.basket-btn:hover{color:#8FA0FF}
+.count{background:var(--blue);color:#fff}
+.site-head .cats{background:#111;border-top:1px solid #2A2A2A;border-bottom:0}
+.site-head .cat{color:#fff!important;font-size:16px}
+.site-head .cat:hover{border-bottom-color:#555!important}
+.site-head .cat.on{border-bottom-color:var(--blue)!important}
+.site-head .cat em{color:#8A8A8A}
+.site-head .cat.soon{color:#BDBDBD!important}
+.modebar{border:2px solid #111}
+.storeline{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:15px;color:#555;margin:-8px 0 36px}
+.storeline b{color:#111}
+.hrow-head,.shelf-head,.picks-head{border-bottom:3px solid #111;padding-bottom:10px;margin-bottom:18px}
+.hrow-head h2{font-size:clamp(26px,3.2vw,38px)}
+
+/* the buy button (affiliate link) + basket square */
+.buyrow{display:flex;gap:8px;align-items:stretch}
+.buy{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:6px 12px;background:var(--blue);color:#fff;font:700 15px/1.15 "Barlow",sans-serif;text-align:center;text-decoration:none}
+.buy:hover{background:var(--blue-deep)}
+.buy svg{flex:none}
+.bk{flex:none;width:50px;min-height:50px;border:2px solid #111;background:#fff;color:#111;display:grid;place-items:center;position:relative;cursor:pointer;padding:0}
+.bk .bk-t{position:absolute;top:2px;right:4px;font:700 12px/1 "Barlow",sans-serif}
+.bk:hover{background:#F2F2F2}
+.bk.added{background:#111;color:#fff}
+
+/* product card */
+.pcard{border:2px solid #111;background:#fff;display:flex;flex-direction:column;cursor:pointer;min-width:0;scroll-snap-align:start}
+.pcard .img{position:relative;background:#F2F2F2!important;aspect-ratio:4/3;display:grid;place-items:center}
+.pcard .img svg{width:44%;height:auto}
+.pcard .off,.dotd .big-off{position:absolute;top:10px;left:10px;background:#111;color:#fff;font:700 18px/1 "Barlow Condensed",sans-serif;padding:6px 8px}
+.pcard .mem{position:absolute;top:10px;right:10px;background:#fff;border:1.5px solid #111;font:600 11px "Barlow",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:3px 6px}
+.pcard .bd{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pcard .brand{font:600 12px "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6F6F6F}
+.pcard .name{font:600 21px/1.08 "Barlow Condensed",sans-serif;text-transform:uppercase;min-height:2.16em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}
+.pcard .prices{margin:4px 0 0}
+.pcard .was{font-size:17px}
+.pcard .now{font:700 30px/1 "Barlow Condensed",sans-serif}
+.you{color:var(--blue);font-weight:700;font-size:15px}
+.pcard .cheap{font-size:14px;color:#555}
+.pcard .cheap b{color:#111}
+.lasts{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;width:100%;border:0;border-top:1px solid #E6E6E6;background:none;padding:8px 0 2px;margin-top:2px;font:inherit;font-size:14px;color:#111;text-align:left;cursor:pointer}
+.lasts u{text-decoration:none;color:var(--blue);font-weight:700}
+.lasts:hover u{text-decoration:underline}
+.pcard .buyrow{margin-top:auto;padding-top:6px}
+.pcard .foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;color:#555}
+.pcard .cmp,.dotd .hfoot a{color:#111;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.scroller{gap:18px}
+
+/* deal of the day */
+.hero{margin-block:4px 22px}
+.dotd{background:#fff;color:#111;border:2px solid #111;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-areas:"img info";padding:0;gap:0;align-items:stretch}
+.dotd .img{background:#F2F2F2!important;min-height:420px;aspect-ratio:auto;position:relative;display:grid;place-items:center}
+.dotd .img svg{width:52%;height:auto}
+.dotd .big-off{top:16px;left:16px;font-size:24px;padding:8px 10px}
+.dotd .info{padding:36px 38px;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.dotd .label{align-self:flex-start;background:#111;color:#fff;padding:6px 10px;font-size:12px;letter-spacing:.16em}
+.dotd h1{color:#111;font-size:clamp(34px,4vw,54px);line-height:.98;margin:10px 0 14px}
+.dotd .prices .was{color:#8A8A8A;font-size:28px}
+.dotd .now{color:#111;font-size:clamp(60px,6.5vw,88px)}
+.dotd .you{font-size:19px}
+.dotd .buyrow{max-width:470px;margin-top:18px}
+.dotd .buy{min-height:62px;font-size:19px}
+.dotd .bk{width:62px}
+.dotd .hfoot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;max-width:470px;font-size:14px;color:#555;margin-top:6px}
+@media (max-width:760px){
+  .dotd{grid-template-columns:1fr;grid-template-areas:"img" "info"}
+  .dotd .img{min-height:230px}
+  .dotd .img svg{width:auto;height:190px}
+  .dotd .info{padding:22px 18px}
+  .dotd .buyrow,.dotd .hfoot{max-width:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .pcard .bd{padding:12px}
+  .pcard .name{font-size:18px}
+  .pcard .now{font-size:26px}
+  .buy{font-size:14px;min-height:48px;padding:6px 8px}
+  .bk{width:46px;min-height:48px}
+  .pcard .foot{display:none}
+}
+/* list view + product page */
+.lrow{grid-template-columns:56px minmax(0,2.2fr) 1fr 1fr minmax(240px,auto);border:2px solid #111}
+.lrow .buy{min-height:44px;font-size:14px}
+.lrow .bk{width:44px;min-height:44px}
+.pp-ctas{align-items:stretch}
+.pp-ctas .buyrow{flex:1 1 360px;max-width:460px}
+.pp-ctas .buy{min-height:58px;font-size:18px}
+.pp-ctas .bk{width:58px}
+.pp-ctas .btn.line{min-height:58px}
+.pick,.stack,.teaser a:not(.dark){border:2px solid #111}
+
+/* basket first: Add to basket is the main action, store link is secondary */
+.addb{flex:1;min-height:52px;padding:6px 14px;border:0;background:var(--blue);color:#fff;font:700 16px/1.15 "Barlow",sans-serif;cursor:pointer;text-transform:none;letter-spacing:0}
+.addb:hover{background:var(--blue-deep)}
+.addb.added{background:#111;color:#fff}
+.golink{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:14px;font-weight:600;color:#111;text-decoration:underline;text-underline-offset:3px;padding:4px 0}
+.golink:hover{color:var(--blue)}
+.golink svg{width:13px;height:13px}
+.pcard .golink{align-self:center}
+.dotd .addb{min-height:62px;font-size:19px}
+.dotd .golink{align-self:flex-start;font-size:15px}
+.pp-ctas{flex-wrap:wrap}
+.pp-ctas .addb{min-height:58px;font-size:18px}
+.pp-ctas .golink{flex-basis:100%;justify-content:flex-start}
+.lbuy{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-width:170px}
+.lbuy .addb{min-height:44px;font-size:14px}
+.lbuy .golink{font-size:12.5px}
+@media (max-width:760px){ .addb{font-size:15px;min-height:48px} .pcard .golink{font-size:12.5px;text-align:center} }
+
+.prices,.pcard .prices,.dotd .prices{flex-direction:column;align-items:flex-start;gap:2px}
+.pcard .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:640px){ .scroller{grid-auto-columns:66%} }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gBody" x1="0" x2="1"><stop offset="0" stop-color="#C9C9C9"/><stop offset=".3" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1F1F1"/><stop offset="1" stop-color="#A3A3A3"/></linearGradient>
+    <linearGradient id="gDark" x1="0" x2="1"><stop offset="0" stop-color="#222"/><stop offset=".3" stop-color="#4A4A4A"/><stop offset=".65" stop-color="#1C1C1C"/><stop offset="1" stop-color="#050505"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" x2="1"><stop offset="0" stop-color="#1328B8"/><stop offset=".3" stop-color="#4A63FF"/><stop offset=".65" stop-color="#2240FF"/><stop offset="1" stop-color="#0E1E8F"/></linearGradient>
+    <linearGradient id="gHi" x1="0" x2="1"><stop offset=".2" stop-color="#fff" stop-opacity="0"/><stop offset=".28" stop-color="#fff" stop-opacity=".45"/><stop offset=".36" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="gShade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".2" stop-color="#000" stop-opacity="0"/><stop offset=".28" stop-color="#fff" stop-opacity=".4"/><stop offset=".36" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".38"/></linearGradient>
+    <radialGradient id="gSh"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <symbol id="bear" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#2240FF"/>
+      <circle cx="29" cy="31" r="12" fill="#FFFFFF"/><circle cx="71" cy="31" r="12" fill="#FFFFFF"/>
+      <circle cx="29" cy="31" r="5.5" fill="#C9D1FF"/><circle cx="71" cy="31" r="5.5" fill="#C9D1FF"/>
+      <circle cx="50" cy="55" r="30" fill="#FFFFFF"/>
+      <circle cx="39" cy="50" r="3.6" fill="#111111"/><circle cx="61" cy="50" r="3.6" fill="#111111"/>
+      <ellipse cx="50" cy="66" rx="13" ry="10" fill="#E4E8FF"/>
+      <path d="M44.5 61.5 h11 l-5.5 6.5 z" fill="#111111" stroke="#111111" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="tub" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><rect x="14" y="20" width="72" height="84" rx="7" fill="url(#gBody)"/><rect x="14" y="44" width="72" height="36" fill="url(#gBlue)"/><rect x="30" y="55" width="40" height="6" fill="#fff"/><rect x="37" y="66" width="26" height="4" fill="#fff" opacity=".6"/><rect x="14" y="20" width="72" height="84" rx="7" fill="url(#gHi)"/><rect x="16" y="6" width="68" height="17" rx="3" fill="url(#gDark)"/><rect x="16" y="20" width="68" height="3" fill="#000" opacity=".25"/></symbol>
+    <symbol id="jar" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><rect x="24" y="32" width="52" height="72" rx="6" fill="url(#gBody)"/><rect x="24" y="52" width="52" height="30" fill="url(#gDark)"/><rect x="34" y="62" width="32" height="5" fill="#fff"/><rect x="39" y="71" width="22" height="3.5" fill="#fff" opacity=".55"/><rect x="24" y="32" width="52" height="72" rx="6" fill="url(#gHi)"/><rect x="27" y="20" width="46" height="15" rx="3" fill="url(#gBlue)"/><rect x="27" y="32" width="46" height="3" fill="#000" opacity=".25"/></symbol>
+    <symbol id="bottle" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><path d="M34 24 h32 v8 q10 4 10 14 v50 q0 8 -8 8 h-36 q-8 0 -8 -8 v-50 q0 -10 10 -14z" fill="url(#gBody)"/><rect x="24" y="54" width="52" height="28" fill="url(#gBlue)"/><circle cx="50" cy="68" r="6" fill="#fff"/><path d="M34 24 h32 v8 q10 4 10 14 v50 q0 8 -8 8 h-36 q-8 0 -8 -8 v-50 q0 -10 10 -14z" fill="url(#gHi)"/><rect x="36" y="10" width="28" height="16" rx="3" fill="url(#gDark)"/></symbol>
+    <symbol id="pre" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><rect x="14" y="20" width="72" height="84" rx="7" fill="url(#gDark)"/><rect x="14" y="46" width="72" height="32" fill="url(#gBlue)"/><path d="M53 50 l-11 15 h8 l-4 10 l13 -17 h-8z" fill="#fff"/><rect x="14" y="20" width="72" height="84" rx="7" fill="url(#gHi)" opacity=".5"/><rect x="16" y="6" width="68" height="17" rx="3" fill="url(#gBlue)"/><rect x="16" y="20" width="68" height="3" fill="#000" opacity=".3"/></symbol>
+    <symbol id="caps" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><rect x="26" y="24" width="48" height="80" rx="9" fill="url(#gBody)"/><rect x="26" y="50" width="48" height="30" fill="url(#gDark)"/><ellipse cx="50" cy="65" rx="9" ry="4.5" fill="#fff"/><rect x="26" y="24" width="48" height="80" rx="9" fill="url(#gHi)"/><rect x="33" y="10" width="34" height="17" rx="3" fill="url(#gDark)"/><rect x="33" y="24" width="34" height="3" fill="#000" opacity=".3"/></symbol>
+    <symbol id="bar" viewBox="0 0 120 80"><ellipse cx="60" cy="64" rx="52" ry="4" fill="url(#gSh)"/><rect x="12" y="24" width="96" height="34" rx="3" fill="url(#gBlue)"/><rect x="6" y="26" width="8" height="30" fill="url(#gDark)"/><rect x="106" y="26" width="8" height="30" fill="url(#gDark)"/><rect x="36" y="33" width="48" height="7" fill="#fff"/><rect x="44" y="45" width="32" height="4" fill="#fff" opacity=".6"/><rect x="12" y="24" width="96" height="10" fill="#fff" opacity=".12"/></symbol>
+    <symbol id="shake" viewBox="0 0 100 110"><ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/><rect x="18" y="30" width="28" height="74" rx="7" fill="url(#gBody)"/><rect x="54" y="30" width="28" height="74" rx="7" fill="url(#gBody)"/><rect x="18" y="52" width="28" height="28" fill="url(#gBlue)"/><rect x="54" y="52" width="28" height="28" fill="url(#gBlue)"/><rect x="18" y="30" width="28" height="74" rx="7" fill="url(#gHi)"/><rect x="54" y="30" width="28" height="74" rx="7" fill="url(#gHi)"/><rect x="23" y="18" width="18" height="14" rx="3" fill="url(#gDark)"/><rect x="59" y="18" width="18" height="14" rx="3" fill="url(#gDark)"/></symbol>
+  </defs>
+</svg>
+
+
+<header class="site-head" id="site-head">
+  <div class="promo"><b>Prices update every 4 hours</b> · 14 Australian stores compared · ranked by price per 100g</div>
+  <nav>
+    <a class="logo" href="#home" aria-label="Bearsaves home">
+      <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
+      <span class="logo-text"><b>Bear<span>saves</span></b><small>Australia's health savings store</small></span>
+    </a>
+    <form class="search" role="search" id="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <label for="q" hidden>Search deals</label>
+      <input id="q" type="search" role="combobox" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false" autocomplete="off" placeholder="Search whey, creatine, fish oil, a brand or a store…">
+      <button type="submit">Search</button>
+      <div class="suggest" id="suggest" role="listbox" aria-label="Search suggestions" hidden></div>
+    </form>
+    <button class="scan-btn" id="open-scanner" aria-haspopup="dialog"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 8v8M11 8v8M14 8v8M17 8v8"/></svg>Scan barcode</button>
+    <button class="basket-btn" id="open-basket" aria-haspopup="dialog"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>Basket <span class="count" id="count">0</span></button>
+  </nav>
+  <div class="cats" role="navigation" aria-label="Categories">
+    <div class="menu">
+      <button class="cat on" id="supps-btn" aria-expanded="false" aria-controls="supps-menu">Supplements <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="menu-list" id="supps-menu" hidden>
+        <a href="#cat-protein">Protein <span>Whey &amp; plant</span></a>
+        <a href="#cat-health">Vitamins &amp; health <span>Daily cost</span></a>
+        <a href="#cat-creatine">Creatine <span>Per 100g</span></a>
+        <a href="#cat-pre">Pre-workout <span>Per serve</span></a>
+        <a href="#cat-members">Member-only deals <span>Musashi</span></a>
+      </div>
+    </div>
+    <div class="menu">
+      <button class="cat soon menu-btn" id="wear-btn" aria-expanded="false" aria-controls="wear-menu">Gymwear <em>Soon</em> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="menu-list" id="wear-menu" hidden>
+        <a href="#cat-wear-men">Men <span>Coming soon</span></a>
+        <a href="#cat-wear-women">Women <span>Coming soon</span></a>
+        <a href="#cat-wear-kids">Kids <span>Coming soon</span></a>
+      </div>
+    </div>
+    <a class="cat soon" href="#cat-equip">Equipment <em>Soon</em></a>
+    <span class="cat-div" aria-hidden="true"></span>
+    <a class="cat" href="#pro">Pro</a>
+    <a class="cat" href="#about">About Bearsaves</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="modebar" id="modebar">
+    <button class="switch" role="switch" aria-checked="false" id="mode-switch" aria-label="Switch between online deals and in-store pick-up deals">
+      <span class="thumb" aria-hidden="true"></span>
+      <span class="opt left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="13" height="10" rx="2"/><path d="M15 10h4l3 3v4h-7"/><circle cx="6.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Online delivery</span>
+      <span class="opt right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>In-store pick-up</span>
+    </button>
+    <div class="mode-info" id="mode-info"></div>
+    <div class="city" id="city-wrap" hidden>
+      <label for="city">Your city</label>
+      <select id="city">
+        <option value="">Choose a city</option>
+        <option>Melbourne</option><option>Sydney</option><option>Brisbane</option><option>Perth</option><option>Adelaide</option>
+        <option>Gold Coast</option><option>Canberra</option><option>Newcastle</option><option>Sunshine Coast</option><option>Wollongong</option>
+        <option>Geelong</option><option>Hobart</option><option>Townsville</option><option>Cairns</option><option>Darwin</option>
+      </select>
+    </div>
+  </div>
+
+  <main id="view"></main>
+
+  <section class="join" id="join">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
+    <div><h2>Never pay full price for supplements</h2><p>The week's best deals in one email. Pick only the topics you care about.</p></div>
+    <form class="inline-form" id="join-form" novalidate><label for="email" hidden>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Get free deals</button></form>
+    <p class="ok" id="join-ok" hidden></p>
+  </section>
+
+  <footer>
+    <div class="row"><span>© 2026 Bearsaves · Made in Melbourne</span><span><a href="#about">About</a> · <a href="#pro">Pro</a> · <a href="#account">Account</a></span></div>
+    <span>Some links may earn us a small commission at no extra cost to you. Prices checked 26 September 2026 from each store's website and may have changed. Protein value uses label protein per serve where loaded, otherwise a typical protein % (marked "est."). Vitamin cost per day uses the label dose. Musashi prices marked "Members" need a free Musashi United account. Bearsaves is independent and not affiliated with the stores listed. Product pictures are illustrations.</span>
+  </footer>
+</div>
+
+<div class="bbar" id="bbar" hidden></div>
+
+<nav class="mnav" id="mnav" aria-label="App navigation">
+  <button data-m="home" id="m-home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button data-m="scan" id="m-scan"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 8v8M11 8v8M14 8v8M17 8v8"/></svg>Scan</button>
+  <button data-m="basket" id="m-basket"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>Basket<span class="count" id="m-count">0</span></button>
+  <button data-m="account" id="m-account"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Account</button>
+</nav>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="basket-title" hidden>
+  <div class="d-head"><h2 id="basket-title">Your Bearsaves basket</h2><button class="x" id="close-basket" aria-label="Close basket">×</button></div>
+  <div class="d-body" id="d-body"></div>
+  <div class="d-foot" id="d-foot"></div>
+</aside>
+
+<div class="modal" id="scanner" role="dialog" aria-modal="true" aria-labelledby="sc-title" hidden>
+  <div class="m-head"><h2 id="sc-title">Scan a barcode</h2><button class="x" id="sc-close" aria-label="Close">×</button></div>
+  <div class="m-body">
+    <p class="sc-intro">In a shop and not sure it's a good price? Scan the barcode and we'll show you what it costs at every store we track.</p>
+    <label class="sc-upload" for="sc-file"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Take or upload a photo of the barcode</label>
+    <input type="file" id="sc-file" accept="image/*" capture="environment" hidden>
+    <p class="sc-small">On the live site this opens your phone camera and scans instantly. This preview can't use the camera, so try a demo:</p>
+    <div class="sc-demos" id="sc-demos">
+      <button class="pchip" data-demo="cw-gsw5">ON Gold Standard 2.27kg</button>
+      <button class="pchip" data-demo="cw-musashi2">Musashi 100% Whey 2kg</button>
+      <button class="pchip" data-demo="cw-fish">Blackmores Fish Oil 400</button>
+      <button class="pchip" data-demo="nw-bsc-cr">BSc Pure Creatine 500g</button>
+    </div>
+    <div id="sc-result"></div>
+  </div>
+</div>
+
+<div class="modal" id="restock" role="dialog" aria-modal="true" aria-labelledby="rs-title" hidden>
+  <div class="m-head"><h2 id="rs-title">Your restock plan</h2><button class="x" id="rs-close" aria-label="Close">×</button></div>
+  <div class="m-body" id="rs-body"></div>
+</div>
+<div class="modal" id="exit" role="dialog" aria-modal="true" aria-labelledby="exit-title" hidden>
+  <div class="m-head"><h2 id="exit-title">Leaving already?</h2><button class="x" id="exit-close" aria-label="Close">×</button></div>
+  <div class="m-body exit-body" id="exit-body"></div>
+</div>
+
+<script>
+const STORES={
+  cw:{name:"Chemist Warehouse",pickup:true,locations:"500+ stores",locator:"https://www.chemistwarehouse.com.au/aboutus/store-locator",ship:null,free:null,url:"https://www.chemistwarehouse.com.au"},
+  nw:{name:"Nutrition Warehouse",pickup:true,locations:"about 100 stores",locator:"https://www.nutritionwarehouse.com.au/pages/store-locator",ship:null,free:null,url:"https://www.nutritionwarehouse.com.au"},
+  elite:{name:"Elite Supps",pickup:true,locations:"150+ stores",locator:"https://www.elitesupps.com.au/pages/store-locator",ship:null,free:150,url:"https://www.elitesupps.com.au"},
+  sm:{name:"Supplement Mart",pickup:true,locations:"40+ stores",locator:"https://www.supplementmart.com.au",ship:null,free:150,url:"https://www.supplementmart.com.au"},
+  asn:{name:"ASN",pickup:true,locations:"stores in eastern states",locator:"https://www.australiansportsnutrition.com.au/pages/store-locator",ship:null,free:null,url:"https://www.australiansportsnutrition.com.au"},
+  bulk:{name:"Bulk Nutrients",pickup:false,ship:9,free:null,url:"https://www.bulknutrients.com.au"},
+  mp:{name:"Myprotein",pickup:false,ship:null,free:150,url:"https://au.myprotein.com"},
+  vpa:{name:"VPA",pickup:false,ship:null,free:150,url:"https://www.vpa.com.au"},
+  tp:{name:"True Protein",pickup:false,ship:null,free:null,url:"https://www.trueprotein.com.au"},
+  musashi:{name:"Musashi",pickup:false,ship:9.90,free:150,url:"https://musashi.com"},
+  psa:{name:"Protein Supplies Australia",pickup:false,ship:null,free:null,url:"https://www.proteinsuppliesaustralia.com.au"},
+  hw:{name:"Happy Way",pickup:false,ship:null,free:null,url:"https://www.happyway.com.au"},
+  mrv:{name:"Mr Vitamins",pickup:true,locations:"stores plus online",locator:"https://www.mrvitamins.com.au",ship:null,free:null,url:"https://www.mrvitamins.com.au"},
+  gpp:{name:"Good Price Pharmacy",pickup:true,locations:"pharmacy warehouse stores",locator:"https://www.goodpricepharmacy.com.au",ship:null,free:null,url:"https://www.goodpricepharmacy.com.au"}
+};
+const SECTIONS=[
+  {id:"protein",title:"Protein",unit:"100g",sub:"Ranked by price per 100g of powder. Cheapest first."},
+  {id:"health",title:"Vitamins & health",unit:"day",sub:"Ranked by cost per day at the label dose."},
+  {id:"creatine",title:"Creatine",unit:"100g",sub:"Ranked by price per 100g."},
+  {id:"pre",title:"Pre-workout",unit:"serve",sub:"Ranked by price per serve."}
+];
+// qty = grams (100g units), days, or serves. group = same product at several stores.
+const P=[
+  // ---- PROTEIN ----
+  {id:"mp-lean",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Myprotein",name:"Impact Lean Whey 1kg",meta:"16 serves (60g) · limit per order",now:34.99,was:97.99,qty:1000,store:"mp",url:"https://au.myprotein.com/p/sports-nutrition/impact-lean-whey/12544967/"},
+  {id:"cw-musashi2",type:"whey",pp:null,ppsrc:"est",scoop:33,group:"musashi-whey",sec:"protein",img:"tub",tile:"tile1",brand:"Musashi",name:"100% Whey 2kg",meta:"WPC/WPI blend",now:77.49,was:154.99,qty:2000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/91340/musashi-100-whey-vanilla-2kg"},
+  {id:"musashi-site2",type:"whey",pp:null,ppsrc:"est",scoop:33,group:"musashi-whey",sec:"protein",img:"tub",tile:"tile1",brand:"Musashi",name:"100% Whey 2kg",meta:"Musashi website, non-member price",now:154.99,qty:2000,store:"musashi",url:"https://musashi.com/products/100-whey-protein-powder"},
+  {id:"cw-inc-dyn",type:"whey",pp:74.9,ppsrc:"label",scoop:35,sec:"protein",img:"tub",tile:"tile2",brand:"INC.",name:"100 Dynamic Whey 2kg",meta:"WPI/WPC blend · 26g protein per 35g",now:77.99,was:129.99,qty:2000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/74330/inc-100-dynamic-whey-vanilla-flavour-2kg"},
+  {id:"mp-impact250",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile3",brand:"Myprotein",name:"Impact Whey Protein 250g",meta:"Trial size · limit per order",now:11.99,was:49.99,qty:250,store:"mp",url:"https://au.myprotein.com/p/sports-nutrition/impact-whey-protein/10530943/"},
+  {id:"cw-vital",type:"whey",pp:77.5,ppsrc:"label",scoop:20,sec:"protein",img:"tub",tile:"tile4",brand:"Vital Strength",name:"Launch Whey Protein 2kg",meta:"31g protein per serve",now:106.79,was:177.99,qty:2000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/59348/vital-strength-launch-whey-protein-chocolate-2kg"},
+  {id:"cw-inc-wpi",type:"whey",pp:81.9,ppsrc:"label",scoop:32,sec:"protein",img:"tub",tile:"tile1",brand:"INC.",name:"100 WPI 2kg",meta:"Whey protein isolate",now:116.99,was:194.99,qty:2000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/74332/inc-100-wpi-vanilla-flavour-2kg"},
+  {id:"bulk-wpc",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"Bulk Nutrients",name:"Whey Protein Concentrate 1kg",meta:"Buy 5 bags: $54 each ($5.40/100g)",now:59,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/whey-protein-concentrate"},
+  {id:"cw-on-iso",type:"whey",pp:78.1,ppsrc:"label",scoop:32,sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard Isolate 2.27kg",meta:"71 serves",now:134.34,was:223.95,qty:2270,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/109208/optimum-nutrition-isolate-vanilla-softserve-2-27kg"},
+  {id:"nw-gsw10",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw10",sec:"protein",img:"tub",tile:"tile4",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 4.54kg",meta:"149 serves",now:280.88,was:330.45,qty:4540,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/gold-standard-100-whey-by-optimum-nutrition"},
+  {id:"sm-gsw10",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw10",sec:"protein",img:"tub",tile:"tile4",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 4.54kg",meta:"10lb",now:330.45,qty:4540,store:"sm",url:"https://www.supplementmart.com.au/products/gold-standard-whey"},
+  {id:"asn-gsw10",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw10",sec:"protein",img:"tub",tile:"tile4",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 4.54kg",meta:"10lb",now:330.45,qty:4540,store:"asn",url:"https://www.australiansportsnutrition.com.au/products/optimum-nutrition-100-whey-gold-standard"},
+  {id:"elite-gsw10",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw10",sec:"protein",img:"tub",tile:"tile4",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 4.54kg",meta:"141 serves",now:339.90,qty:4540,store:"elite",url:"https://www.elitesupps.com.au/collections/whey-protein-powder"},
+  {id:"vpa-wpc",type:"whey",pp:80,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"VPA",name:"Premium Whey (WPC) 1kg",meta:"33 serves · 24g protein",now:65,qty:1000,store:"vpa",url:"https://www.vpa.com.au/products/premium-whey-wpc"},
+  {id:"cw-ip",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"International Protein",name:"Superior Whey 2.27kg",meta:"",now:149.99,was:177.95,qty:2270,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/78880/international-protein-superior-whey-vanilla-2-27kg"},
+  {id:"nw-gsw5",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw5",sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 2.27kg",meta:"5lb",now:152.96,was:179.95,qty:2270,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/gold-standard-100-whey-by-optimum-nutrition"},
+  {id:"cw-gsw5",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw5",sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 2.27kg",meta:"74 serves",now:169.99,was:179.95,qty:2270,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/150487/optimum-nutrition-gold-standard-100-whey-double-rich-chocolate-2-27kg"},
+  {id:"sm-gsw5",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw5",sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 2.27kg",meta:"5lb",now:179.95,qty:2270,store:"sm",url:"https://www.supplementmart.com.au/products/gold-standard-whey"},
+  {id:"asn-gsw5",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw5",sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 2.27kg",meta:"5lb",now:179.95,qty:2270,store:"asn",url:"https://www.australiansportsnutrition.com.au/products/optimum-nutrition-100-whey-gold-standard"},
+  {id:"elite-gsw5",type:"whey",pp:78.9,ppsrc:"label",scoop:30.4,group:"on-gsw5",sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Whey 2.27kg",meta:"72 serves",now:179.90,qty:2270,store:"elite",url:"https://www.elitesupps.com.au/collections/whey-protein-powder"},
+  {id:"nw-genetix",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Genetix Nutrition",name:"Lean Whey 3kg",meta:"75 serves",now:219.95,qty:3000,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/protein-powder"},
+  {id:"elite-emrald45",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Emrald Labs",name:"100% Whey Protein 4.5kg",meta:"",now:344.90,qty:4500,store:"elite",url:"https://www.elitesupps.com.au/collections/whey-protein-powder"},
+  {id:"tp-wpc",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"True Protein",name:"WPC80 1kg",meta:"80% protein concentrate",now:78,qty:1000,store:"tp",url:"https://www.trueprotein.com.au/products/wpc80"},
+  {id:"bulk-wpi",type:"whey",pp:86.7,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile3",brand:"Bulk Nutrients",name:"Whey Protein Isolate 1kg",meta:"Buy 5 bags: $72 each ($7.20/100g)",now:79,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/whey-protein-isolate"},
+  {id:"elite-isozero",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Biotech USA",name:"Iso Whey Zero 2.27kg",meta:"90 serves",now:219.90,qty:2270,store:"elite",url:"https://www.elitesupps.com.au/collections/protein-supplements"},
+  {id:"tp-wpi",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"True Protein",name:"WPI90 1kg",meta:"90% protein isolate",now:98,qty:1000,store:"tp",url:"https://www.trueprotein.com.au/products/wpi90"},
+  // ---- NEW: more whey + plant-based protein ----
+  {id:"psa-whey",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile3",brand:"Protein Supplies Australia",name:"Australian Whey 1kg",meta:"Unflavoured",now:52.46,was:69.95,qty:1000,store:"psa",url:"https://www.proteinsuppliesaustralia.com.au/collections/protein"},
+  {id:"psa-wpi",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Protein Supplies Australia",name:"Whey Isolate (WPI) 1kg",meta:"Unflavoured or banana",now:87.96,was:109.95,qty:1000,store:"psa",url:"https://www.proteinsuppliesaustralia.com.au/collections/protein"},
+  {id:"hw-whey",type:"whey",pp:63.3,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Happy Way",name:"Whey Protein Powder 500g",meta:"19g protein per 30g",now:56.96,qty:500,store:"hw",url:"https://www.happyway.com.au/products/choc-banana-whey-protein-powder-500g"},
+  {id:"cw-inc-plant",type:"plant",pp:69.4,ppsrc:"label",scoop:36,sec:"protein",img:"tub",tile:"tile3",brand:"INC.",name:"Plant Protein 1kg",meta:"25g protein per 36g",now:26.99,was:44.99,qty:1000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/100854/inc-plant-protein-chocolate-1kg"},
+  {id:"bulk-pea",type:"plant",pp:78.3,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"Bulk Nutrients",name:"Pea Protein Isolate 1kg",meta:"About 23.5g protein per 30g · 5 bags $30.40 each",now:35,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/pea-protein-isolate"},
+  {id:"cw-vital-plant",type:"plant",pp:68.3,ppsrc:"label",scoop:41,sec:"protein",img:"tub",tile:"tile4",brand:"Vital Strength",name:"Plant Vegan Protein 1kg",meta:"28g protein per 41g",now:36.49,was:60.89,qty:1000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/111908/vital-strength-plant-vegan-protein-vanilla-1kg"},
+  {id:"bulk-earth",type:"plant",pp:73.3,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Bulk Nutrients",name:"Earth Protein (vegan blend) 1kg",meta:"22g protein per 30g · 2+ bags $40.25",now:42,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/earth-protein"},
+  {id:"cw-bsc-plant",type:"plant",pp:75,ppsrc:"label",scoop:40,sec:"protein",img:"tub",tile:"tile2",brand:"BSc",name:"Clean Plant Protein 1kg",meta:"30g protein per 40g",now:44.89,was:74.95,qty:1000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/116024/bsc-clean-plant-protein-premium-vanilla-1kg"},
+  {id:"psa-pea",type:"plant",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile3",brand:"Protein Supplies Australia",name:"Organic Pea Protein Isolate 1kg",meta:"Unflavoured",now:52.46,was:69.95,qty:1000,store:"psa",url:"https://www.proteinsuppliesaustralia.com.au/collections/protein"},
+  {id:"tp-plant",type:"plant",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"True Protein",name:"Plant Protein 750g",meta:"",now:78,qty:750,store:"tp",url:"https://www.trueprotein.com.au/collections/protein-powders"},
+  {id:"hw-vegan",type:"plant",pp:63.3,ppsrc:"label",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Happy Way",name:"Vegan Protein Powder 500g",meta:"19g protein per 30g",now:55.93,qty:500,store:"hw",url:"https://www.happyway.com.au/products/choc-banana-vegan-protein-powder-500g"},
+  // ---- NEW: same vitamins at other stores ----
+  {id:"mrv-fish",group:"bm-fish400",sec:"health",img:"caps",tile:"tile1",brand:"Blackmores",name:"Fish Oil 1000mg, 400 capsules",meta:"2 a day",now:36.49,was:72.99,qty:200,store:"mrv",url:"https://www.mrvitamins.com.au/products/blackmores-fish-oil-1000-200c"},
+  {id:"mrv-fish-odour",group:"bm-odour400",sec:"health",img:"caps",tile:"tile3",brand:"Blackmores",name:"Odourless Fish Oil 1000mg, 400 capsules",meta:"2 a day",now:38.49,was:76.99,qty:200,store:"mrv",url:"https://www.mrvitamins.com.au/products/blackmores-odourless-fish-oil-1000mg-200c"},
+  {id:"gpp-swisse-men",group:"swisse-men120",sec:"health",img:"bottle",tile:"tile1",brand:"Swisse",name:"Men's Multivitamin, 120 tablets",meta:"1 a day",now:35.99,was:48.00,qty:120,store:"gpp",url:"https://www.goodpricepharmacy.com.au/swisse-ultivite-men-s-multivitamin-120-tablets-9311770608800"},
+  // ---- VITAMINS & HEALTH (qty = days at label dose) ----
+  {id:"cw-d3",sec:"health",img:"caps",tile:"tile2",brand:"Wagner",name:"Vitamin D3 1000IU, 250 capsules",meta:"1 a day",now:7.49,was:14.99,qty:250,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/84677/wagner-vitamin-d3-1000iu-250-capsules"},
+  {id:"cw-fish",group:"bm-fish400",sec:"health",img:"caps",tile:"tile1",brand:"Blackmores",name:"Fish Oil 1000mg, 400 capsules",meta:"2 a day",now:36.49,was:72.99,qty:200,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/50010/blackmores-fish-oil-1000mg-400-capsules"},
+  {id:"cw-fish-odour",group:"bm-odour400",sec:"health",img:"caps",tile:"tile3",brand:"Blackmores",name:"Odourless Fish Oil 1000mg, 400 capsules",meta:"2 a day",now:38.49,was:76.99,qty:200,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/55300/blackmores-odourless-fish-oil-1000mg-400-capsules"},
+  {id:"cw-mag-no",sec:"health",img:"bottle",tile:"tile4",brand:"Nature's Own",name:"Magnesium Glycinate 1150mg, 300 tablets",meta:"2 a day",now:29.99,was:44.99,qty:150,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/150812/natures-own-magnesium-glycinate-1100mg-300-tablets"},
+  {id:"cw-mag-hc",sec:"health",img:"bottle",tile:"tile2",brand:"Healthy Care",name:"Magnesium Glycinate, 120 tablets",meta:"2 a day for muscles",now:12.00,was:29.99,qty:60,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/159128/healthy-care-magnesium-glycinate-120-tablets"},
+  {id:"cw-swisse-men",group:"swisse-men120",sec:"health",img:"bottle",tile:"tile1",brand:"Swisse",name:"Men's Multivitamin, 120 tablets",meta:"1 a day",now:35.99,was:83.99,qty:120,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/116799/swisse-mens-multivitamin-120-tablets"},
+  {id:"elite-greens",sec:"health",img:"jar",tile:"tile3",brand:"Switch Nutrition",name:"Greens, 20 serves",meta:"1 serve a day",now:37.90,was:49.90,qty:20,store:"elite",url:"https://www.elitesupps.com.au/collections/sale"},
+  // ---- CREATINE ----
+  {id:"cw-inc-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"INC.",name:"Creatine 500g",meta:"",now:22.79,was:37.99,qty:500,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/74336/inc-creatine-500g"},
+  {id:"bulk-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Bulk Nutrients",name:"Creatine Monohydrate 1kg",meta:"333 serves (3g)",now:48,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/creatine-monohydrate"},
+  {id:"cw-bsc-cr",group:"bsc-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"BSc",name:"Pure Creatine 500g",meta:"Micronised",now:23.99,was:40.00,qty:500,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/171191/bsc-pure-creatine-500g"},
+  {id:"nw-bsc-cr",group:"bsc-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"BSc",name:"Pure Creatine 500g",meta:"",now:29.95,qty:500,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
+  {id:"cw-purelean-cr",sec:"creatine",img:"jar",tile:"tile4",brand:"Pure Lean Nutrition",name:"Creatine Monohydrate 1kg",meta:"Online only",now:57.95,was:79.95,qty:1000,store:"cw",online:true,url:"https://www.chemistwarehouse.com.au/buy/159056/pure-lean-nutrition-creatine-monohydrate-powder-1kg"},
+  {id:"cw-faction-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Faction Labs",name:"Creatine Monohydrate 1kg",meta:"Unflavoured",now:59.95,was:79.95,qty:1000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/170194/faction-labs-creatine-monohydrate-unflavoured-1kg"},
+  {id:"nw-on-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"Optimum Nutrition",name:"Micronized Creatine 1.2kg",meta:"400 serves",now:75.96,was:94.95,qty:1200,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
+  {id:"nw-genetix-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"Genetix Nutrition",name:"100% Pure Creatine 1kg",meta:"333 serves",now:79.95,qty:1000,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
+  {id:"elite-faction150",sec:"creatine",img:"jar",tile:"tile4",brand:"Faction Labs",name:"Creatine Monohydrate 150g",meta:"",now:19.90,was:29.90,qty:150,store:"elite",url:"https://www.elitesupps.com.au/collections/sale"},
+  // ---- PRE-WORKOUT (qty = serves) ----
+  {id:"cw-disorder",sec:"pre",img:"pre",tile:"tile2",brand:"Faction Labs",name:"Disorder Original, 50 serves",meta:"",now:69.95,qty:50,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/152193/faction-labs-disorder-original-50-serves-orange-firm"},
+  {id:"cw-spike",sec:"pre",img:"pre",tile:"tile1",brand:"Pure Lean Nutrition",name:"SPIKE Pre-Workout, 60 serves",meta:"2 × 30-serve tubs · online only",now:94.95,was:119.95,qty:60,store:"cw",online:true,url:"https://www.chemistwarehouse.com.au/buy/161744/pure-lean-nutrition-spike-pre-workout-extreme-focus-energy-fuel-gym-caffeine-pumps-bulk-60-serves"},
+  {id:"nw-per4m",sec:"pre",img:"pre",tile:"tile3",brand:"Nexus Sports Nutrition",name:"Per4m 2.0, 50 serves",meta:"",now:89.99,qty:50,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
+  {id:"nw-abe",sec:"pre",img:"pre",tile:"tile4",brand:"Applied Nutrition",name:"ABE Pre-Workout, 30 serves",meta:"",now:59.46,was:69.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
+  {id:"nw-stack3d",sec:"pre",img:"pre",tile:"tile1",brand:"Anabolix Nutrition",name:"Stack3d, 40 serves",meta:"",now:79.95,qty:40,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
+  {id:"nw-freak3d",sec:"pre",img:"pre",tile:"tile2",brand:"Anabolix Nutrition",name:"Freak3d, 30 serves",meta:"",now:64.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
+  // ---- MEMBER-ONLY (Musashi United, free account; sale ends 30 Sep) ----
+  {id:"m-high",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",member:true,img:"tub",tile:"tile3",brand:"Musashi",name:"High Protein Powder 900g",meta:"From price",now:25.99,was:39.99,qty:900,store:"musashi",url:"https://musashi.com/products/high-protein-powder"},
+  {id:"m-shred",type:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",member:true,img:"tub",tile:"tile4",brand:"Musashi",name:"Shred & Burn Protein 900g",meta:"From price",now:25.99,was:39.99,qty:900,store:"musashi",url:"https://musashi.com/collections/sale"},
+  {id:"m-whey",type:"whey",pp:null,ppsrc:"est",scoop:33,sec:"protein",member:true,img:"tub",tile:"tile1",brand:"Musashi",name:"100% Whey Protein 900g",meta:"Member price",now:55.24,was:84.99,qty:900,store:"musashi",url:"https://musashi.com/products/100-whey-protein-powder"},
+  {id:"m-whey-cr",type:"whey",pp:null,ppsrc:"est",scoop:33,sec:"protein",member:true,img:"tub",tile:"tile2",brand:"Musashi",name:"100% Whey + Creatine 900g",meta:"Member price",now:55.24,was:84.99,qty:900,store:"musashi",url:"https://musashi.com/collections/sale"},
+  {id:"m-creatine",sec:"creatine",member:true,img:"jar",tile:"tile4",brand:"Musashi",name:"Creatine Monohydrate 350g",meta:"From price",now:25.99,was:39.99,qty:350,store:"musashi",url:"https://musashi.com/collections/sale"},
+  {id:"m-reaper-cr",sec:"creatine",member:true,img:"jar",tile:"tile1",brand:"Musashi",name:"Reaper Creatine Power Matrix 300g",meta:"Member price",now:38.34,was:58.99,qty:300,store:"musashi",url:"https://musashi.com/collections/sale"}
+];
+
+const VB={tub:"0 0 100 110",jar:"0 0 100 110",bottle:"0 0 100 110",pre:"0 0 100 110",caps:"0 0 100 110",shake:"0 0 100 110",bar:"0 0 120 80"};
+const CHECKED="26 Sep 2026";
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+const secOf=id=>SECTIONS.find(s=>s.id===id);
+const fmt=n=>"$"+n.toFixed(2);
+const unitPrice=p=>{const s=secOf(p.sec); return s.unit==="100g"?p.now/p.qty*100:p.now/p.qty;};
+const unitLabel=p=>"/"+secOf(p.sec).unit;
+const pct=p=>p.was?Math.round((p.was-p.now)/p.was*100):0;
+const PAL=[["#F4F4F4","#1F3BFF","#111111"],["#1A1A1A","#C19A3F","#C19A3F"],["#EEF2EC","#2F6B3A","#2F6B3A"],["#141A2E","#D8342F","#D8342F"],["#F4F4F4","#1C2B5A","#1C2B5A"],["#EDE6DA","#6B4A2F","#3A2A1C"],["#F4F4F4","#6A3FA0","#111111"],["#222222","#F2F2F2","#F2F2F2"],["#F4F4F4","#E0702A","#111111"],["#F4F4F4","#1F8A8A","#1F8A8A"],["#0F2A4A","#F2C230","#F2C230"],["#F4F4F4","#C2185B","#C2185B"]];
+const BRANDPAL={"Musashi":["#F2F2F2","#111111","#111111"],"Optimum Nutrition":["#1A1A1A","#C19A3F","#C19A3F"],"INC.":["#EEF2EC","#2F6B3A","#2F6B3A"],"BSc":["#141A2E","#D8342F","#D8342F"],"Bulk Nutrients":["#F4F4F4","#1C2B5A","#1C2B5A"]};
+const palOf=p=>{if(BRANDPAL[p.brand]) return BRANDPAL[p.brand]; let h=0; for(const ch of p.brand) h=(h*31+ch.charCodeAt(0))>>>0; return PAL[h%PAL.length];};
+const lightHex=c=>{const n=parseInt(c.slice(1),16);return ((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000>150;};
+function icon(p){
+  const [b,l,c]=palOf(p), t=lightHex(l)?"#111":"#fff", S='fill="url(#gShade)"';
+  const sh='<ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/>';
+  const body=(x,y,w,h,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${b}"/>`;
+  const shade=(x,y,w,h,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" ${S}/>`;
+  let g;
+  if(p.img==="bar") return `<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="4" fill="url(#gSh)"/><rect x="12" y="24" width="96" height="34" rx="3" fill="${l}"/><rect x="12" y="24" width="96" height="34" rx="3" ${S} opacity=".6"/><rect x="6" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="106" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="36" y="33" width="48" height="7" fill="${t}"/><rect x="44" y="45" width="32" height="4" fill="${t}" opacity=".6"/></svg>`;
+  if(p.img==="caps") g=`${body(26,24,48,80,9)}<rect x="26" y="50" width="48" height="30" fill="${l}"/><ellipse cx="50" cy="65" rx="9" ry="4.5" fill="${t}"/>${shade(26,24,48,80,9)}<rect x="33" y="10" width="34" height="17" rx="3" fill="${c}"/>${shade(33,10,34,17,3)}`;
+  else if(p.img==="bottle") g=`${body(24,26,52,78,10)}<rect x="24" y="54" width="52" height="28" fill="${l}"/><circle cx="50" cy="68" r="6" fill="${t}"/>${shade(24,26,52,78,10)}<rect x="36" y="10" width="28" height="18" rx="3" fill="${c}"/>${shade(36,10,28,18,3)}`;
+  else if(p.img==="shake") g=`${body(18,30,28,74,7)}${body(54,30,28,74,7)}<rect x="18" y="52" width="28" height="28" fill="${l}"/><rect x="54" y="52" width="28" height="28" fill="${l}"/>${shade(18,30,28,74,7)}${shade(54,30,28,74,7)}<rect x="23" y="18" width="18" height="14" rx="3" fill="${c}"/><rect x="59" y="18" width="18" height="14" rx="3" fill="${c}"/>`;
+  else if(p.img==="jar") g=`${body(24,32,52,72,6)}<rect x="24" y="52" width="52" height="30" fill="${l}"/><rect x="34" y="62" width="32" height="5" fill="${t}"/><rect x="39" y="71" width="22" height="3.5" fill="${t}" opacity=".55"/>${shade(24,32,52,72,6)}<rect x="27" y="20" width="46" height="15" rx="3" fill="${c}"/>${shade(27,20,46,15,3)}<rect x="27" y="32" width="46" height="3" fill="#000" opacity=".25"/>`;
+  else g=`${body(14,20,72,84,7)}<rect x="14" y="44" width="72" height="36" fill="${l}"/><rect x="30" y="55" width="40" height="6" fill="${t}"/><rect x="37" y="66" width="26" height="4" fill="${t}" opacity=".6"/>${shade(14,20,72,84,7)}<rect x="16" y="6" width="68" height="17" rx="3" fill="${c}"/>${shade(16,6,68,17,3)}<rect x="16" y="20" width="68" height="3" fill="#000" opacity=".25"/>`;
+  return `<svg viewBox="0 0 100 110" aria-hidden="true">${sh}${g}</svg>`;
+}
+const ARR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+const BK='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>';
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store=k=>{try{return JSON.parse(localStorage.getItem(k)||"null");}catch(e){return null;}};
+const keep=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+
+let basket=store("bs-basket3")||{};
+const saveBasket=()=>keep("bs-basket3",basket);
+let mode=store("bs-mode2")||"online", city=store("bs-city2")||"";
+let query="";
+const pickupOk=p=>STORES[p.store].pickup&&!p.online;
+const visible=p=>mode==="online"||pickupOk(p);
+const matches=(p,q)=>!q||(p.brand+" "+p.name+" "+p.meta+" "+STORES[p.store].name+" "+secOf(p.sec).title).toLowerCase().includes(q);
+
+// ---------- protein plan (daily protein from shakes) ----------
+const EST={whey:75,plant:72};
+const ppOf=p=>p.pp||EST[p.type];
+let plan=Object.assign({mode:"grams",grams:30,scoops:2,diet:"all"},store("bs-plan2")||{}); plan.mode="grams"; // grams only
+const savePlan=()=>keep("bs-plan2",plan);
+const powderPerDay=p=>plan.mode==="grams"?plan.grams/(ppOf(p)/100):plan.scoops*p.scoop;
+const proteinPerDay=p=>plan.mode==="grams"?plan.grams:plan.scoops*p.scoop*ppOf(p)/100;
+const daysLast=p=>p.qty/powderPerDay(p);
+const perMonth=p=>p.now/daysLast(p)*30.44;
+const perYear=p=>p.now/daysLast(p)*365;
+const per30Protein=p=>p.now/(p.qty*ppOf(p)/100)*30;
+// value used for ranking + display
+const value=p=>p.sec==="protein"?per30Protein(p):unitPrice(p);
+const rankKey=p=>p.sec==="protein"?perMonth(p):unitPrice(p);
+const valueBox=p=>p.sec==="protein"
+  ?`<div class="unit" title="Price for 30g of actual protein"><b class="num">${fmt(per30Protein(p))}</b><span>/30g protein${p.pp?"":" est."}</span></div>`
+  :`<div class="unit"><b class="num">${fmt(unitPrice(p))}</b><span>${unitLabel(p)}</span></div>`;
+const dayFmt=d=>d.toLocaleDateString("en-AU",{day:"numeric",month:"short"});
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+Math.round(n));return x;};
+// creatine 5g a day, pre-workout 5 sessions a week, vitamins at label dose
+const lastsDays=p=>p.sec==="protein"?daysLast(p):p.sec==="creatine"?p.qty/5:p.sec==="pre"?p.qty*7/5:p.qty;
+
+// ---------- grouping: same product at several stores ----------
+function family(p){ return p.group?P.filter(x=>x.group===p.group):[p]; }
+function cheapestOf(p){ return family(p).filter(visible).sort((a,b)=>a.now-b.now)[0]||p; }
+function cardsFor(list,sortBy="unit"){
+  const groups={}, out=[];
+  list.forEach(p=>{ if(p.group){(groups[p.group]=groups[p.group]||[]).push(p);} else out.push({main:p,others:[]}); });
+  Object.values(groups).forEach(g=>{ g.sort((a,b)=>a.now-b.now); out.push({main:g[0],others:g.slice(1)}); });
+  const key={unit:c=>rankKey(c.main),price:c=>c.main.now,save:c=>-pct(c.main)}[sortBy];
+  return out.sort((a,b)=>key(a)-key(b));
+}
+
+// ---------- slim card + list row ----------
+const buyLink=(p,cls="buy")=>`<a class="${cls}" href="${esc(p.url)}" target="_blank" rel="sponsored noopener">${cls==="golink"?"or buy now at":mode==="store"&&pickupOk(p)?"Reserve at":"Buy at"} ${STORES[p.store].name} ${ARR}</a>`;
+const bkBtn=p=>{const inB=!!basket[p.id];return `<button class="bk${inB?" added":""}" data-add="${p.id}" aria-label="${inB?"Remove from basket":"Add to basket"}" title="${inB?"In your basket":"Add to basket"}">${BK}<span class="bk-t">${inB?"✓":"+"}</span></button>`;};
+const addRow=p=>{const inB=!!basket[p.id];return `<div class="buyrow"><button class="addb${inB?" added":""}" data-add="${p.id}">${inB?"✓ In basket":"Add to basket"}</button></div>${buyLink(p,"golink")}`;};
+const priceBlock=p=>`<div class="prices">${p.was?`<span class="was num">${fmt(p.was)}</span>`:""}<span class="now num">${fmt(p.now)}</span></div>${p.was?`<div class="you num">You save ${fmt(p.was-p.now)}</div>`:""}`;
+function card(c,rank,opts={}){
+  const p=c.main, others=c.others.filter(visible).length;
+  return `<article class="pcard" data-href="#p-${p.id}" id="card-${p.id}${opts.suffix||""}">
+    <div class="img" style="background:var(--${p.tile})">${p.was?`<span class="off">-${pct(p)}%</span>`:""}${p.member?'<span class="mem">Members</span>':""}${icon(p)}</div>
+    <div class="bd">
+      <div class="brand">${p.brand}${p.type==="plant"?" · Plant-based":""}</div>
+      <h3 class="name">${p.name}</h3>
+      ${priceBlock(p)}
+      <div class="cheap">${others?"Cheapest at":mode==="store"?"Pick up at":"At"} <b>${STORES[p.store].name}</b></div>
+      ${opts.extra||""}
+      ${p.sec==="protein"?`<button class="lasts" data-restock="${p.id}"><span>Lasts <b>${Math.round(daysLast(p))} days</b> · <b class="num">${fmt(perMonth(p))}</b>/mo</span><u>Restock plan ›</u></button>`:""}
+      ${addRow(p)}
+      <div class="foot"><span class="num">${fmt(value(p))}${p.sec==="protein"?" per 30g protein":unitLabel(p).replace("/"," per ")}</span>${others?`<a class="cmp" href="#p-${p.id}">Compare ${others+1} stores</a>`:""}</div>
+    </div>
+  </article>`;
+}
+function row(c){
+  const p=c.main, inB=!!basket[p.id], others=c.others.filter(visible).length;
+  return `<div class="lrow" data-href="#p-${p.id}">
+    <span class="th" style="background:var(--${p.tile})">${icon(p)}</span>
+    <span><span class="t">${p.brand} ${p.name}</span><br><span class="s">${STORES[p.store].name}${others?` · cheapest of ${others+1} stores`:""}${p.type==="plant"?" · plant-based":""}</span></span>
+    <span class="v"><b class="num">${fmt(value(p))}</b> <span>${p.sec==="protein"?"/30g protein":unitLabel(p)}</span></span>
+    <span class="pr"><b class="num">${fmt(p.now)}</b>${p.was?`<s class="num">${fmt(p.was)}</s>`:""}</span>
+    <span class="lbuy"><button class="addb${basket[p.id]?" added":""}" data-add="${p.id}">${basket[p.id]?"✓ Added":"Add"}</button>${buyLink(p,"golink")}</span>
+  </div>`;
+}
+
+// ---------- routing ----------
+const view=document.getElementById("view");
+const CATS={
+  protein:{title:"Protein",sub:"Whey and plant-based protein, ranked by what your daily protein costs per month."},
+  health:{title:"Vitamins & health",sub:"Ranked by cost per day at the label dose."},
+  creatine:{title:"Creatine",sub:"Ranked by price per 100g. At 5g a day, every 100g lasts 20 days."},
+  pre:{title:"Pre-workout",sub:"Ranked by price per serve."},
+  members:{title:"Member-only deals",sub:"Musashi shows these prices only after you join Musashi United (free). Sale ends 30 September."},
+  "wear-men":{title:"Men's gymwear",soon:true},"wear-women":{title:"Women's gymwear",soon:true},"wear-kids":{title:"Kids' gymwear",soon:true},equip:{title:"Equipment",soon:true}
+};
+let catState={sort:"unit",sale:false,stores:[],view:"grid",filtersOpen:false};
+function route(){
+  const h=(location.hash||"#home").slice(1);
+  closeMenus();
+  closeSg();
+  if(h.startsWith("p-")&&byId[h.slice(2)]) renderProduct(byId[h.slice(2)]);
+  else if(h.startsWith("cat-")&&CATS[h.slice(4)]) renderCategory(h.slice(4));
+  else if(h==="about") renderAbout();
+  else if(h==="pro") renderPro();
+  else if(h==="account") renderAccount();
+  else if(h==="results") renderResults();
+  else renderHome();
+  const showMode=(h.startsWith("cat-")&&!(CATS[h.slice(4)]||{}).soon)||h==="results"||((h==="home"||h==="")&&mode==="store");
+  document.getElementById("modebar").hidden=!showMode;
+  document.querySelectorAll(".mnav button").forEach(b=>b.classList.toggle("on",(b.dataset.m==="home"&&(h==="home"||h===""))||(b.dataset.m==="account"&&h==="account")));
+  updateCount();
+}
+window.addEventListener("hashchange",()=>{route(); window.scrollTo({top:0});});
+function go(h){ if(location.hash===h) route(); else location.hash=h; }
+
+// ---------- HOME ----------
+function cityPrompt(){ return `<div class="city-prompt"><svg width="56" height="56" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg><h2>Where do you shop?</h2><p>Choose your city above and we'll show deals you can reserve online and pick up in store, so you skip delivery fees.</p></div>`; }
+function renderHome(){
+  if(mode==="store"&&!city){ view.innerHTML=cityPrompt(); return; }
+  const recent=(store("bs-viewed")||[]).map(id=>byId[id]).filter(p=>p&&visible(p)).slice(0,10);
+  const rows=["protein","health","creatine","pre"].map(sec=>{
+    const cards=cardsFor(P.filter(p=>p.sec===sec&&!p.member&&visible(p))).slice(0,8);
+    return `<section class="hrow" aria-labelledby="hr-${sec}"><div class="hrow-head"><div><h2 id="hr-${sec}">${CATS[sec].title}</h2><p>${CATS[sec].sub}</p></div><a class="seeall" href="#cat-${sec}">See all ›</a></div>
+      <div class="scroller">${cards.map((c,i)=>card(c,i,{suffix:"-h"})).join("")}</div></section>`;
+  }).join("");
+  view.innerHTML=`
+    <header class="hero" id="top"><div class="dotd" id="dotd"></div></header>
+    <p class="storeline"><span><b>${Object.values(STORES).filter(st=>mode==="online"||st.pickup).length} Australian stores</b> compared</span><span>Cheapest first, ranked by price per 100g</span><span>Prices update every 4 hours · last checked ${CHECKED}</span></p>
+    ${recent.length?`<section class="hrow"><div class="hrow-head"><div><h2>Your usual</h2><p>Products you've looked at, with today's cheapest price.</p></div></div><div class="scroller">${recent.map(p=>card({main:cheapestOf(p),others:family(p).filter(x=>x.id!==cheapestOf(p).id)},null,{suffix:"-u"})).join("")}</div></section>`:""}
+    <section class="picks" id="picks" aria-label="Bear's picks"></section>
+    ${stackHTML()}
+    ${rows}
+    <div class="teaser">
+      <a href="#pro" class="dark"><h3>Bearsaves Pro · $3.49 a month</h3><p>Instant price-drop alerts, a monthly $20 gift card draw, and half goes to a children's charity.</p><span class="go">See Pro ›</span></a>
+      <a href="#about"><h3>Why Bearsaves exists</h3><p>Our mission to save you money, and the story behind our goal to help kids with sudden brain illness.</p><span class="go">Read our story ›</span></a>
+    </div>`;
+  renderDotd(); renderPicks();
+}
+
+// Deal of the day (face of the business)
+const DOTD=byId["cw-musashi2"];
+function renderDotd(){
+  const el=document.getElementById("dotd"); if(!el) return;
+  const p=DOTD, n=family(p).length;
+  el.innerHTML=`
+    <a class="img" href="#p-${p.id}" aria-label="View ${p.brand} ${p.name}">${icon(p)}<span class="big-off">-${pct(p)}%</span></a>
+    <div class="info">
+      <span class="label">Deal of the day</span>
+      <h1><a href="#p-${p.id}" style="color:inherit;text-decoration:none">${p.brand} ${p.name}</a></h1>
+      ${priceBlock(p).replace("You save "+fmt(p.was-p.now),"You save "+fmt(p.was-p.now)+(pct(p)>=49?" · half price":""))}
+      ${addRow(p)}
+      <div class="hfoot"><span>${fmt(unitPrice(p))} per 100g · cheapest of ${n} stores</span><a href="#p-${p.id}">Compare stores</a></div>
+    </div>`;
+}
+// Bear's picks
+function renderPicks(){
+  const el=document.getElementById("picks"); if(!el) return;
+  const pool=P.filter(p=>!p.member&&visible(p));
+  const best=(arr,fn)=>arr.slice().sort((a,b)=>fn(a)-fn(b))[0];
+  const picks=[
+    ["Best value whey",best(pool.filter(p=>p.sec==="protein"&&p.type==="whey"),per30Protein),p=>`${fmt(per30Protein(p))} for every 30g of protein${p.pp?"":" (est.)"}`],
+    ["Best plant-based protein",best(pool.filter(p=>p.sec==="protein"&&p.type==="plant"),per30Protein),p=>`${fmt(per30Protein(p))} per 30g of protein, dairy free`],
+    ["Best value isolate",best(pool.filter(p=>p.sec==="protein"&&/isolate|wpi/i.test(p.name)&&p.type==="whey"),per30Protein),p=>`Leanest option for the money: ${fmt(per30Protein(p))} per 30g protein`],
+    ["Cheapest creatine",best(pool.filter(p=>p.sec==="creatine"),unitPrice),p=>`${fmt(unitPrice(p))} per 100g, about ${fmt(unitPrice(p)*0.05)} a day at 5g`],
+    ["Best daily vitamin value",best(pool.filter(p=>p.sec==="health"),unitPrice),p=>`About ${Math.round(unitPrice(p)*100)}c a day`]
+  ].filter(x=>x[1]);
+  el.innerHTML=`<div class="picks-head"><div><h2>Bear's picks</h2><p>The standout buys right now, picked from today's prices.</p></div></div>
+  <div class="picks-row">${picks.map(([t,p,why])=>`<button class="pick" data-href="#p-${p.id}"><span class="pk-t">${t}</span><span class="th" style="background:var(--${p.tile})">${icon(p)}</span><span class="pk-n">${p.brand} ${p.name}</span><span class="pk-w">${why(p)}</span><span class="pk-p"><b class="num">${fmt(p.now)}</b> at ${STORES[p.store].name}</span></button>`).join("")}</div>`;
+}
+// Starter stack bundle
+function stackParts(){
+  const pool=P.filter(p=>!p.member&&visible(p));
+  const best=(arr,fn)=>arr.slice().sort((a,b)=>fn(a)-fn(b))[0];
+  const whey=best(pool.filter(p=>p.sec==="protein"&&p.type==="whey"),perMonth);
+  const cr=best(pool.filter(p=>p.sec==="creatine"),unitPrice);
+  const multi=best(pool.filter(p=>p.sec==="health"&&/multi/i.test(p.name)),unitPrice)||best(pool.filter(p=>p.sec==="health"),unitPrice);
+  const monthly=p=>p.sec==="protein"?perMonth(p):p.sec==="creatine"?unitPrice(p)*0.05*30.44:unitPrice(p)*30.44;
+  const avg=(arr,fn)=>arr.reduce((a,x)=>a+fn(x),0)/arr.length;
+  const typical=avg(pool.filter(p=>p.sec==="protein"&&p.type==="whey"),perMonth)+avg(pool.filter(p=>p.sec==="creatine"),p=>unitPrice(p)*0.05*30.44)+(multi?avg(pool.filter(p=>p.sec==="health"&&/multi/i.test(p.name)),p=>unitPrice(p)*30.44)||monthly(multi):0);
+  const parts=[whey,cr,multi].filter(Boolean);
+  const total=parts.reduce((a,p)=>a+monthly(p),0);
+  return {parts,total,typical,monthly};
+}
+function stackHTML(){
+  const {parts,total,typical,monthly}=stackParts(); if(parts.length<2) return "";
+  const save=typical-total;
+  return `<section class="stack" aria-labelledby="stack-title">
+    <div><h2 id="stack-title">The Bearsaves starter stack</h2><p>The best-value whey, creatine and multivitamin we track, at ${plan.mode==="grams"?plan.grams+"g":plan.scoops+" scoops"} of protein and 5g of creatine a day.</p>
+      <div class="stack-items">${parts.map(p=>`<a class="stack-item" href="#p-${p.id}"><span class="th" style="background:var(--${p.tile})">${icon(p)}</span><span><b>${p.brand} ${p.name}</b><span>${fmt(monthly(p))}/month at ${STORES[p.store].name}</span></span></a>`).join("")}</div></div>
+    <div class="stack-sum"><small>Your monthly cost</small><span class="big num">${fmt(total)}</span>${save>1?`<span class="save num">Save about ${fmt(save*12)} a year vs the average</span>`:""}<button class="btn" id="stack-add">Add all 3 to basket</button></div>
+  </section>`;
+}
+
+// ---------- CATEGORY ----------
+function renderCategory(sec){
+  const meta=CATS[sec];
+  if(meta.soon){
+    view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › ${meta.title}</p>
+    <section class="soon-sec"><h1 style="font-size:36px">${meta.title} is coming soon</h1><p>We're starting with supplements. Leave your email and we'll tell you the day ${meta.title.toLowerCase()} deals go live.</p>
+    <form class="inline-form" id="soon-form" novalidate><label for="soon-email" hidden>Email address</label><input id="soon-email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Notify me</button></form><p class="ok" id="soon-ok" hidden></p></section>`;
+    wire("soon-form","soon-email","soon-ok"); return;
+  }
+  if(mode==="store"&&!city){ view.innerHTML=cityPrompt(); return; }
+  const isProt=sec==="protein", isMem=sec==="members";
+  const base=P.filter(p=>(isMem?p.member:(p.sec===sec&&!p.member))&&visible(p));
+  const storeKeys=[...new Set(base.map(p=>p.store))];
+  const list=base.filter(p=>(!isProt||plan.diet==="all"||p.type===plan.diet)&&(!catState.sale||p.was)&&(!catState.stores.length||catState.stores.includes(p.store))&&matches(p,query));
+  const cards=cardsFor(list,catState.sort);
+  const isG=plan.mode==="grams", val=isG?plan.grams:plan.scoops;
+  const seg=(k,v,l,cur)=>`<button class="seg-b${cur===v?" on":""}" data-pk="${k}" data-pv="${v}">${l}</button>`;
+  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › <a href="#cat-protein">Supplements</a> › ${meta.title}</p>
+    <div class="cat-head"><div><h1>${meta.title}</h1><p>${meta.sub}</p></div><span class="fresh"><i></i>Prices checked ${CHECKED}</span></div>
+    <div class="cat-layout">
+      <aside class="filters${catState.filtersOpen?" show":""}" aria-label="Filters">
+        <div><h3>Sort by</h3><label for="sort" hidden>Sort by</label><select id="sort"><option value="unit"${catState.sort==="unit"?" selected":""}>Best value</option><option value="price"${catState.sort==="price"?" selected":""}>Lowest price</option><option value="save"${catState.sort==="save"?" selected":""}>Biggest discount</option></select></div>
+        <div><h3>Deals</h3><label><input type="checkbox" id="f-sale"${catState.sale?" checked":""}> On sale only</label></div>
+        <div><h3>Stores</h3>${storeKeys.map(k=>`<label><input type="checkbox" data-fstore="${k}" id="fs-${k}"${catState.stores.includes(k)?" checked":""}> ${STORES[k].name}</label>`).join("")}</div>
+      </aside>
+      <div>
+        ${isProt?`<div class="plan" id="plan-panel">
+          <div class="plan-top">
+            <div class="seg2" role="group" aria-label="Diet">${seg("diet","all","All",plan.diet)}${seg("diet","whey","Whey &amp; dairy",plan.diet)}${seg("diet","plant","Plant-based",plan.diet)}</div>
+          </div>
+          <div class="plan-slider">
+            <label for="daily">Your daily protein from shakes</label>
+            <div class="slider-row"><input type="range" id="daily" min="${isG?15:0.5}" max="${isG?60:4}" step="${isG?5:0.5}" value="${val}"><output id="daily-out" for="daily">${isG?val+"g":val+(val===1?" scoop":" scoops")} a day</output></div>
+            <div class="ticks" aria-hidden="true">${isG?"<span>15g</span><span>30g</span><span>45g</span><span>60g</span>":"<span>½</span><span>1½</span><span>2½</span><span>4</span>"}</div>
+          </div>
+          <p class="plan-note">Ranked by what your daily protein costs per month. Each tub is compared on real protein, so filler-heavy powders drop down. Tap "Restock plan" on any card to see when you'll run out.</p>
+        </div>`:""}
+        <div class="toolbar"><span class="tcount">${cards.length} product${cards.length===1?"":"s"}${query?` matching "${esc(query)}"`:""}</span>
+          <span style="display:flex;gap:8px"><button class="btn line filter-open" id="toggle-filters" style="padding:7px 14px;font-size:13px">Filters</button>
+          <span class="viewtog"><button data-view="grid" class="${catState.view==="grid"?"on":""}">Grid</button><button data-view="list" class="${catState.view==="list"?"on":""}">List</button></span></span></div>
+        ${cards.length?(catState.view==="grid"?`<div class="grid">${cards.map((c,i)=>card(c,catState.sort==="unit"?i:null,{lasts:isProt})).join("")}</div>`:`<div class="listview">${cards.map(row).join("")}</div>`):'<p class="nores">Nothing matches those filters. Try clearing a store or "On sale only".</p>'}
+      </div>
+    </div>`;
+}
+
+// ---------- PRODUCT ----------
+function renderProduct(p){
+  let viewed=store("bs-viewed")||[]; viewed=[p.id,...viewed.filter(x=>x!==p.id&&(!byId[x]||!byId[p.id].group||byId[x].group!==byId[p.id].group))].slice(0,12); keep("bs-viewed",viewed);
+  const fam=family(p).slice().sort((a,b)=>a.now-b.now), cheapest=fam[0];
+  const inB=!!basket[p.id], st=STORES[p.store];
+  const unitCol=p.sec==="protein"?"Per 30g protein":"Per "+secOf(p.sec).unit;
+  const delivery=s=>s.free!==null?`Free over $${s.free}${s.ship!==null?`, else ${fmt(s.ship)}`:""}`:s.ship!==null?`${fmt(s.ship)} flat`:"At checkout";
+  // cheaper alternatives
+  const peers=P.filter(x=>x.sec===p.sec&&!x.member&&visible(x)&&(p.sec!=="protein"||x.type===p.type)&&(!p.group||x.group!==p.group)&&x.id!==p.id);
+  const alts=cardsFor(peers).filter(c=>rankKey(c.main)<rankKey(p)-0.001).slice(0,4);
+  const similar=alts.length?alts:cardsFor(peers).slice(0,4);
+  const saveLine=x=>{ if(p.sec==="protein"){const d=perMonth(p)-perMonth(x); return d>0.5?`<span class="switch-save">Switch and save ${fmt(d)}/month</span>`:"";}
+    const d=unitPrice(p)-unitPrice(x); return d>0.005?`<span class="switch-save">${fmt(d)} less ${unitLabel(x).slice(1)==="day"?"per day":"per "+secOf(x.sec).unit}</span>`:""; };
+  const d=lastsDays(p), today=new Date();
+  const dates=[1,2,3,4,5,6].map(i=>addDays(today,d*i));
+  const isG=plan.mode==="grams", val=isG?plan.grams:plan.scoops;
+  const seg=(k,v,l,cur)=>`<button class="seg-b${cur===v?" on":""}" data-pk="${k}" data-pv="${v}">${l}</button>`;
+  const lastsNote=p.sec==="protein"?`At ${isG?plan.grams+"g of protein":plan.scoops+" scoops"} a day (about ${Math.round(powderPerDay(p))}g of powder)`:p.sec==="creatine"?"At 5g a day":p.sec==="pre"?"At 5 workouts a week":"At the label dose";
+  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › <a href="#cat-${p.member?"members":p.sec}">${p.member?"Member-only deals":secOf(p.sec).title}</a> › ${p.brand} ${p.name}</p>
+  <div class="pp">
+    <div class="pp-img" style="background:var(--${p.tile})">${p.was?`<span class="off">-${pct(p)}%</span>`:""}${p.type==="plant"?'<span class="leaf" style="font-size:12px">Plant-based</span>':""}${icon(p)}</div>
+    <div class="pp-info">
+      <span class="brand">${p.brand}</span>
+      <h1>${p.name}</h1>
+      ${p.meta?`<span class="meta">${p.meta}</span>`:""}
+      <div class="pp-values">${valueBox(p)}${p.sec==="protein"?`<div class="unit" style="background:var(--bg)"><b class="num" style="color:var(--ink)">${fmt(unitPrice(p))}</b><span style="color:var(--muted)">/100g powder</span></div>`:""}</div>
+      <div class="pp-price"><span class="now num">${fmt(p.now)}</span>${p.was?`<span class="was num">${fmt(p.was)}</span><span class="save num">Save ${fmt(p.was-p.now)}</span>`:""}</div>
+      <span class="fresh"><i></i>Price checked ${CHECKED} at ${st.name}</span>
+      ${cheapest.id!==p.id?`<div class="pp-note">Cheaper at <b>${STORES[cheapest.store].name}</b>: ${fmt(cheapest.now)}. <a href="#p-${cheapest.id}">See it ›</a></div>`:fam.length>1?`<div class="pp-note" style="background:var(--good-bg)">This is the cheapest of the ${fam.length} stores we track for this product.</div>`:""}
+      ${p.member?`<div class="pp-note">Member price: Musashi asks you to join Musashi United (free) before checkout.</div>`:""}
+      ${p.online?`<div class="pp-note">Online only at ${st.name}.</div>`:""}
+      <div class="pp-ctas">${addRow(p)}<button class="btn line" data-save="${p.id}">${(store("bs-saved")||[]).includes(p.id)?"♥ Saved":"♡ Save"}</button></div>
+    </div>
+  </div>
+
+  ${fam.length>1?`<section class="block" aria-labelledby="cmp-title"><h2 id="cmp-title">Compare ${fam.length} stores</h2>
+    <div class="ctable-wrap"><table class="ctable"><thead><tr><th>Store</th><th>Price</th><th>${unitCol}</th><th>Delivery</th><th>Pick-up</th><th></th></tr></thead><tbody>
+    ${fam.map((x,i)=>{const s=STORES[x.store];return `<tr class="${i===0&&fam.length>1?"best":""}"><td><b>${s.name}</b>${i===0&&fam.length>1?'<span class="tag">Cheapest</span>':""}${x.member?'<span class="tag" style="color:var(--blue-deep)">Members</span>':""}</td><td class="num"><b>${fmt(x.now)}</b>${x.was?` <s style="color:var(--muted)">${fmt(x.was)}</s>`:""}</td><td class="num">${fmt(value(x))}</td><td>${delivery(s)}</td><td>${s.pickup&&!x.online?"Yes":"No"}</td><td><a class="go" href="${x.url}" target="_blank" rel="noopener">View ↗</a></td></tr>`;}).join("")}
+    </tbody></table></div></section>`:""}
+
+  <section class="block" aria-labelledby="last-title"><h2 id="last-title">How long it lasts</h2>
+    <div class="inline-plan">
+      ${p.sec==="protein"?`<div class="plan-slider"><label for="daily">Your daily protein from shakes</label>
+        <div class="slider-row"><input type="range" id="daily" min="${isG?15:0.5}" max="${isG?60:4}" step="${isG?5:0.5}" value="${val}"><output id="daily-out" for="daily">${isG?val+"g":val+(val===1?" scoop":" scoops")} a day</output></div></div>`:""}
+      <p class="plan-note" style="margin:0">${lastsNote}${p.sec==="protein"&&!p.pp?". Protein content estimated.":"."}</p>
+      <div class="rs-stats"><div><span>Lasts</span><b>${Math.round(d)} days</b></div><div><span>Per month</span><b class="num">${fmt(p.now/d*30.44)}</b></div><div><span>Per year</span><b class="num">${fmt(p.now/d*365)}</b></div></div>
+      <h4>Your restock calendar</h4>
+      <ol class="rs-cal">${dates.map((dt,i)=>`<li><span class="rs-n">${i+1}</span><span>${dayFmt(dt)}</span><small>${i===0?"Buy your next one around here":"Restock "+(i+1)}</small></li>`).join("")}</ol>
+      <button class="btn" id="rs-remind" style="justify-self:start">Remind me 5 days before I run out</button>
+      <p class="note" id="rs-note" hidden></p>
+    </div></section>
+
+  <section class="block" aria-labelledby="alt-title"><h2 id="alt-title">${alts.length?"Cheaper alternatives":"Similar picks"}</h2>
+    <p class="alt-lead">${alts.length?(p.sec==="protein"?`Same kind of protein (${p.type==="plant"?"plant-based":"whey & dairy"}), costing less for the protein you take.`:"Same category, better value."):`Nice. This is the best-value ${p.sec==="protein"?(p.type==="plant"?"plant protein":"whey"):secOf(p.sec).title.toLowerCase()} we track right now.`}</p>
+    <div class="grid">${similar.map((c,i)=>card(c,null,{suffix:"-alt",extra:saveLine(c.main)})).join("")}</div></section>`;
+  document.getElementById("rs-remind").addEventListener("click",()=>{const n=document.getElementById("rs-note");n.hidden=false;n.textContent=`Preview: on the live site we'll email or notify you around ${dayFmt(addDays(dates[0],-5))}, 5 days before you run out, with the cheapest place to restock that day.`;});
+}
+
+// ---------- SEARCH RESULTS ----------
+function renderResults(){
+  const list=P.filter(p=>visible(p)&&matches(p,query));
+  const cards=cardsFor(list);
+  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › Search</p><div class="cat-head"><div><h1>Results for "${esc(query)}"</h1><p>${cards.length} product${cards.length===1?"":"s"}, best value first.</p></div></div>
+  ${cards.length?`<div class="grid" style="margin-bottom:40px">${cards.map(c=>card(c,null)).join("")}</div>`:'<p class="nores" style="margin-bottom:40px">Nothing matches that yet. Try "whey", "creatine" or "fish oil".</p>'}`;
+}
+
+// ---------- ABOUT ----------
+function renderAbout(){
+  view.innerHTML=`<section class="about" id="about" aria-labelledby="about-title" style="margin-top:10px">
+    <div class="about-hero"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
+      <div><h1 id="about-title" style="font-size:clamp(30px,4.4vw,48px)">About Bearsaves</h1>
+      <p class="lead">Bearsaves does the price research for you. We check Australian stores, find the cheapest way to buy the health and fitness products you already use, and put it all on one website, so you save time and money.</p></div></div>
+    <div class="about-grid">
+      <div class="about-card"><h3>One site, every store</h3><p>Instead of opening ten tabs, compare the same product across chemists, supplement chains and brand websites in one place.</p></div>
+      <div class="about-card"><h3>Value, not sticker price</h3><p>A bigger tub can be the cheaper buy. We rank by price per 100g, per serve, per day and per gram of protein, so the real bargains rise to the top.</p></div>
+      <div class="about-card"><h3>Independent and honest</h3><p>We show the cheapest option even when it earns us nothing. Some links earn us a small commission, and we always say so.</p></div>
+    </div>
+    <div><h2 style="font-size:24px;margin-bottom:12px">Our price comparison tools</h2>
+      <ul class="tools">
+        <li><b>Value ranking</b>Every product ranked by what you actually pay per 100g, per serve or per day.</li>
+        <li><b>Same product, every store</b>See every store selling a product and which is cheapest.</li>
+        <li><b>Protein planner</b>Set your daily protein and see what it costs you per month, and how long a tub lasts.</li>
+        <li><b>Restock calendar</b>Know when you'll run out and when to buy next.</li>
+        <li><b>Cheaper alternatives</b>Every product page shows what you could switch to and how much you'd save.</li>
+        <li><b>Multi-store basket</b>Group your haul by store, with delivery and free-shipping thresholds worked out.</li>
+        <li><b>Barcode scanner</b>Scan a product in a shop and check if it's cheaper somewhere else.</li>
+        <li class="soon"><b>Price history</b>See if today's "sale" is really a low, with 90-day price charts.</li>
+        <li class="soon"><b>Price-drop alerts</b>Get told the moment the things you buy drop in price.</li>
+      </ul></div>
+    <div class="story">
+      <h2 style="color:#fff;font-size:clamp(24px,3vw,32px)">Why we give back</h2>
+      <p>The owner of Bearsaves has always wanted to start an initiative that gives back, and Bearsaves is the chance to do it.</p>
+      <p>Someone very close to him, whose nickname is Bear, had a brain aneurysm and went through surgery with a 10% chance of success. It worked. That experience brought home how many people don't get so lucky, and it starts with kids. Every kid deserves a full and happy life.</p>
+      <p>So Bearsaves has a simple mission: save people money while they look after their health, and turn that into a way to give back to kids. Half of every Bearsaves Pro membership, after card fees, will go to a registered children's charity partner.</p>
+      <div class="goal"><b>Our long-term goal:</b> to one day create our own charity for kids who've had a sudden brain illness or aneurysm. It would fund treatment and aftercare, and get kids out of hospital and doing fun things, away from their everyday environment, just being kids.</div>
+      <a class="btn" href="#pro" style="justify-self:start">Support it with Pro · $3.49 a month</a>
+    </div></section>`;
+}
+
+// ---------- PRO ----------
+function renderPro(){
+  view.innerHTML=`<div class="page-hero"><span class="pill" style="justify-self:start">Bearsaves Pro</span><h1>Save more, and help kids while you do it</h1><p>Pro gets you the alerts that catch the best prices first. Half of every membership goes to a children's charity.</p></div>
+  <div class="plans">
+    <div class="plan-card"><h3>Free</h3><div class="pr">$0</div><ul><li>Every price comparison and value ranking</li><li>Protein planner and restock calendar</li><li>Weekly deals email, only the topics you pick</li><li>Barcode scanner and multi-store basket</li></ul><a class="btn line" href="#account">Create free account</a></div>
+    <div class="plan-card hot"><span class="ribbon">Most popular</span><h3>Pro monthly</h3><div class="pr">$3.49 <span>/ month</span></div><ul><li>Everything in Free</li><li>Instant alerts when your products drop</li><li>Target prices, e.g. whey under $3.50/100g</li><li>Restock reminders before you run out</li><li>Monthly $20 gift card draw</li><li>Half goes to a children's charity</li></ul><button class="btn" data-pro="monthly">Join Pro</button></div>
+    <div class="plan-card"><span class="ribbon" style="background:var(--good);color:#fff">2 months free</span><h3>Pro yearly</h3><div class="pr">$34.99 <span>/ year</span></div><ul><li>Everything in Pro</li><li>Works out about $2.92 a month</li><li>More of your money reaches the charity (one card fee instead of twelve)</li></ul><button class="btn" data-pro="yearly">Join Pro yearly</button></div>
+  </div>
+  <p class="note" id="pro-note" hidden></p>
+  <h2 style="font-size:26px;margin:10px 0 12px">Where your $3.49 goes</h2>
+  <div class="give"><div><b>About $1.56</b><span>to a registered children's charity partner, every month</span></div><div><b>About $1.56</b><span>keeps Bearsaves running: price tracking, new stores, new tools</span></div><div><b>About $0.36</b><span>card processing fees</span></div></div>
+  <p class="fine-print">Figures are approximate and depend on card fees. The charity partner will be named here once confirmed. The monthly gift card draw will run under published terms and conditions, with a free way to enter. Cancel any time from your account.</p>`;
+}
+
+// ---------- ACCOUNT ----------
+function renderAccount(){
+  const topics=["Protein","Vitamins & health","Creatine","Pre-workout","Men's gymwear","Women's gymwear","Kids' gymwear","Equipment","Store promos"];
+  const chosen=store("bs-topics")||topics.slice(0,4).concat(["Store promos"]);
+  const user=store("bs-user");
+  if(!user){
+    view.innerHTML=`<div class="page-hero"><h1>Your Bearsaves account</h1><p>Free forever. Get the week's best deals and pick exactly what you hear about.</p></div>
+    <div class="acct">
+      <div class="block"><h2>Get free weekly deals</h2>
+        <form id="acct-form" novalidate><label for="acct-email" hidden>Email address</label><input id="acct-email" type="email" placeholder="you@email.com" autocomplete="email">
+        <p style="margin:0;font-weight:800">Email me about (untick anything you don't want):</p>
+        <div class="interests">${topics.map((t,i)=>`<label><input type="checkbox" data-topic="${esc(t)}" id="t-${i}"${chosen.includes(t)?" checked":""}> ${esc(t)}</label>`).join("")}</div>
+        <button class="btn" type="submit">Sign up free</button> <a href="#home" style="margin-left:10px;font-weight:800;color:var(--muted)">Continue as guest</a></form>
+        <p class="ok" id="acct-ok" hidden></p>
+        <button class="btn line" id="acct-demo" style="margin-top:10px;font-size:13px;padding:8px 14px">Preview a signed-in account</button></div>
+      <div class="block" style="background:#111111;color:#fff;border-color:#111111"><h2 style="color:#fff">What you get with an account</h2>
+        <ul class="acct-list"><li>Your saved products, always at today's cheapest price</li><li>Restock reminders before you run out</li><li>Price alerts at your target price</li><li>Your total savings through Bearsaves</li><li>Weekly deals, only on topics you choose</li></ul><a class="btn" href="#pro" style="margin-top:6px">See Pro · $3.49/mo</a></div>
+    </div>`;
+    document.getElementById("acct-form").addEventListener("submit",e=>{
+      e.preventDefault(); const ok=document.getElementById("acct-ok"), v=document.getElementById("acct-email").value.trim();
+      const pick=[...document.querySelectorAll("[data-topic]")].filter(c=>c.checked).map(c=>c.dataset.topic); keep("bs-topics",pick);
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ ok.hidden=false; ok.textContent="Enter a valid email address, like you@email.com."; return; }
+      keep("bs-user",{email:v,demo:true}); renderAccount(); window.scrollTo({top:0});
+    });
+    return;
+  }
+  // ----- signed in -----
+  const saved=(store("bs-saved")||[]).map(id=>byId[id]).filter(Boolean);
+  const viewed=(store("bs-viewed")||[]).map(id=>byId[id]).filter(Boolean);
+  const mine=saved.length?saved:viewed.slice(0,4);
+  const targets=store("bs-targets")||{};
+  const remind=mine.filter(p=>["protein","creatine","health"].includes(p.sec)).map(p=>({p,next:addDays(new Date(),lastsDays(p))})).sort((a,b)=>a.next-b.next);
+  const bSaved=Object.keys(basket).filter(id=>byId[id]).reduce((a,id)=>a+(byId[id].was?(byId[id].was-byId[id].now)*basket[id]:0),0);
+  const nm=user.email.split("@")[0];
+  view.innerHTML=`<div class="acct-head"><div class="acct-av">${esc(nm[0]||"B").toUpperCase()}</div><div><h1>G'day ${esc(nm)}</h1><p>${esc(user.email)} · Free account${user.demo?" · preview":""}</p></div><button class="btn line" id="acct-out">Sign out</button></div>
+  <div class="acct-stats">
+    <div><span>Saved in your basket</span><b class="num">${fmt(bSaved)}</b><small>vs stores' normal prices</small></div>
+    <div><span>Products you're watching</span><b>${mine.length}</b><small>${saved.length?"saved":"recently viewed"}</small></div>
+    <div><span>Next restock</span><b>${remind[0]?dayFmt(remind[0].next):"—"}</b><small>${remind[0]?remind[0].p.brand+" "+remind[0].p.name:"Save a product to start"}</small></div>
+    <div><span>Your daily protein</span><b>${plan.grams}g</b><small><a href="#cat-protein">Change</a></small></div>
+  </div>
+  <section class="block"><h2>My products</h2>${mine.length?`<p class="alt-lead">${saved.length?"Saved products":"You haven't saved any yet, so here's what you've viewed"}, at today's cheapest store. Tap ♡ Save on any product page.</p><div class="grid">${mine.map(p=>card({main:cheapestOf(p),others:family(p).filter(x=>x.id!==cheapestOf(p).id)},null,{suffix:"-a"})).join("")}</div>`:'<p class="alt-lead">Nothing here yet. Open any product and tap ♡ Save.</p>'}</section>
+  <div class="acct2">
+    <section class="block"><h2>Restock reminders</h2>${remind.length?`<ul class="acct-rows">${remind.map(r=>`<li><span><b>${r.p.brand} ${r.p.name}</b><small>Runs out around ${dayFmt(r.next)}${r.p.sec==="protein"?` at ${plan.grams}g a day`:""}</small></span><span class="pill-ok">Remind ${dayFmt(addDays(r.next,-5))}</span></li>`).join("")}</ul>`:'<p class="alt-lead">Save a protein, creatine or vitamin to get reminders.</p>'}</section>
+    <section class="block"><h2>Price alerts</h2>${mine.length?`<ul class="acct-rows">${mine.map(p=>{const c=cheapestOf(p);return `<li><span><b>${p.brand} ${p.name}</b><small>Now ${fmt(c.now)} at ${STORES[c.store].name}${targets[p.id]?` · alert at ${fmt(targets[p.id])}`:""}</small></span><span class="tp"><label for="tp-${p.id}" hidden>Target price</label><input id="tp-${p.id}" type="number" min="0" step="0.5" placeholder="$ target" value="${targets[p.id]||""}"><button class="btn line" data-target-save="${p.id}">Set</button></span></li>`;}).join("")}</ul><p class="plan-note">Free accounts get alerts in the weekly email. Pro gets them instantly.</p>`:'<p class="alt-lead">Save products to set target prices.</p>'}</section>
+  </div>
+  <div class="acct2">
+    <section class="block"><h2>Email preferences</h2><div class="interests">${topics.map((t,i)=>`<label><input type="checkbox" data-topic2="${esc(t)}" id="t2-${i}"${chosen.includes(t)?" checked":""}> ${esc(t)}</label>`).join("")}</div><p class="plan-note">Changes save straight away. Unsubscribe from everything with one click in any email.</p></section>
+    <section class="block"><h2>Pick-up and stores</h2><p class="alt-lead">Your city: <b>${city||"not set"}</b>. Shopping mode: <b>${mode==="store"?"In-store pick-up":"Online delivery"}</b>.</p><p class="plan-note">Change these with the switch at the top of any shop page.</p>
+      <h2 style="margin-top:14px">Bearsaves Pro</h2><p class="alt-lead">Instant alerts, restock reminders by push, the monthly $20 gift card draw, and half goes to a children's charity.</p><a class="btn" href="#pro">Upgrade · $3.49/mo</a></section>
+  </div>
+  <p class="fine-print" style="margin-bottom:30px">This is a preview. On the live site your account, saved products and alerts are stored securely and work on any device.</p>`;
+}
+document.addEventListener("change",e=>{ const t=e.target.dataset&&e.target.dataset.topic2; if(!t) return; const pick=[...document.querySelectorAll("[data-topic2]")].filter(c=>c.checked).map(c=>c.dataset.topic2); keep("bs-topics",pick); });
+
+// ---------- restock plan popup (from protein cards) ----------
+function openRestock(id){
+  const p=byId[id], d=daysLast(p), today=new Date();
+  const dates=[1,2,3,4,5,6].map(i=>addDays(today,d*i));
+  const same=P.filter(x=>x.sec==="protein"&&!x.member&&x.type===p.type);
+  const avg=same.reduce((a,x)=>a+perYear(x),0)/same.length, vsAvg=avg-perYear(p);
+  document.getElementById("rs-body").innerHTML=`
+    <div class="rs-top"><span class="th" style="background:var(--${p.tile})">${icon(p)}</span><div><div class="brand">${p.brand}</div><h3>${p.name}</h3><div class="meta">${fmt(p.now)} at ${STORES[p.store].name}</div></div></div>
+    <div class="rs-plan">Your plan: <b>${plan.mode==="grams"?plan.grams+"g of protein":plan.scoops+" scoop"+(plan.scoops===1?"":"s")}</b> a day, about ${Math.round(powderPerDay(p))}g of powder${p.pp?"":" (protein estimated)"}. Change it with the slider on the protein page.</div>
+    <div class="rs-stats"><div><span>Lasts</span><b>${Math.round(d)} days</b></div><div><span>Per month</span><b class="num">${fmt(perMonth(p))}</b></div><div><span>Per year</span><b class="num">${fmt(perYear(p))}</b></div></div>
+    ${vsAvg>1?`<div class="rs-save">That's <b class="num">${fmt(vsAvg)}</b> a year less than the average ${p.type==="plant"?"plant":"whey"} protein we track.</div>`:""}
+    <h4>Your restock calendar</h4>
+    <ol class="rs-cal">${dates.map((dt,i)=>`<li><span class="rs-n">${i+1}</span><span>${dayFmt(dt)}</span><small>${i===0?"Buy your next tub around here":"Restock "+(i+1)}</small></li>`).join("")}</ol>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" id="rs-remind2">Remind me 5 days before I run out</button><a class="btn line" href="#p-${p.id}" id="rs-view">View product</a></div>
+    <p class="note" id="rs-note2" hidden></p>`;
+  document.getElementById("rs-remind2").addEventListener("click",()=>{const n=document.getElementById("rs-note2");n.hidden=false;n.textContent=`Preview: on the live site we'll email or notify you around ${dayFmt(addDays(dates[0],-5))}, 5 days before this tub runs out, with the cheapest place to restock that day.`;});
+  document.getElementById("rs-view").addEventListener("click",closeRestock);
+  document.getElementById("restock").hidden=false; backdrop.hidden=false; document.getElementById("rs-close").focus();
+}
+function closeRestock(){ document.getElementById("restock").hidden=true; if(!anyOpen()) backdrop.hidden=true; }
+
+// ---------- global clicks ----------
+document.addEventListener("click",e=>{
+  const rs=e.target.closest("[data-restock]"); if(rs){ e.stopPropagation(); openRestock(rs.dataset.restock); return; }
+  const add=e.target.closest("[data-add]");
+  if(add&&!add.closest(".drawer")){ e.preventDefault(); e.stopPropagation(); const id=add.dataset.add; if(basket[id]) delete basket[id]; else basket[id]=1; saveBasket(); refreshButtons(); updateCount(); return; }
+  if(e.target.closest("#stack-add")){ stackParts().parts.forEach(p=>basket[p.id]=basket[p.id]||1); saveBasket(); refreshButtons(); updateCount(); openBasket(); return; }
+  const sv=e.target.closest("[data-save]"); if(sv){ let saved=store("bs-saved")||[]; const id=sv.dataset.save; saved=saved.includes(id)?saved.filter(x=>x!==id):[id,...saved]; keep("bs-saved",saved); sv.textContent=saved.includes(id)?"♥ Saved":"♡ Save"; if(location.hash==="#account") renderAccount(); return; }
+  if(e.target.closest("#acct-demo")){ keep("bs-user",{email:"you@email.com",demo:true}); renderAccount(); return; }
+  if(e.target.closest("#acct-out")){ try{localStorage.removeItem("bs-user");}catch(err){} renderAccount(); return; }
+  const tgt=e.target.closest("[data-target-save]"); if(tgt){ const id=tgt.dataset.targetSave, v=Number(document.getElementById("tp-"+id).value); const t=store("bs-targets")||{}; if(v>0) t[id]=v; else delete t[id]; keep("bs-targets",t); renderAccount(); return; }
+  const pro=e.target.closest("[data-pro]"); if(pro){ const n=document.getElementById("pro-note"); n.hidden=false; n.textContent=`Preview: on the live site this opens secure checkout for Pro ${pro.dataset.pro} (${pro.dataset.pro==="yearly"?"$34.99 a year":"$3.49 a month"}).`; return; }
+  const vt=e.target.closest("[data-view]"); if(vt){ catState.view=vt.dataset.view; route(); return; }
+  if(e.target.closest("#toggle-filters")){ catState.filtersOpen=!catState.filtersOpen; route(); return; }
+  const pk=e.target.closest("[data-pk]"); if(pk){ const v=pk.dataset.pv; plan[pk.dataset.pk]=isNaN(v)?v:Number(v); savePlan(); route(); return; }
+  const lnk=e.target.closest("[data-href]"); if(lnk&&!e.target.closest("a[href^='http']")){ go(lnk.dataset.href); return; }
+});
+function refreshButtons(){
+  document.querySelectorAll("[data-add]").forEach(b=>{const inB=!!basket[b.dataset.add]; b.classList.toggle("added",inB); if(b.classList.contains("bk")){ const t=b.querySelector(".bk-t"); if(t) t.textContent=inB?"✓":"+"; b.setAttribute("aria-label",inB?"Remove from basket":"Add to basket"); b.title=inB?"In your basket":"Add to basket"; return; } const short=b.closest(".lrow"); b.textContent=inB?(short?"✓ Added":"✓ In basket"):(short?"Add":"Add to basket");});
+}
+document.addEventListener("change",e=>{
+  if(e.target.id==="sort"){ catState.sort=e.target.value; route(); }
+  else if(e.target.id==="f-sale"){ catState.sale=e.target.checked; route(); }
+  else if(e.target.dataset&&e.target.dataset.fstore){ const k=e.target.dataset.fstore; catState.stores=e.target.checked?[...catState.stores,k]:catState.stores.filter(x=>x!==k); route(); }
+});
+let slideTimer=null;
+document.addEventListener("input",e=>{
+  if(e.target.id!=="daily") return;
+  const v=Number(e.target.value); if(plan.mode==="grams") plan.grams=v; else plan.scoops=v; savePlan();
+  const out=document.getElementById("daily-out"); if(out) out.textContent=(plan.mode==="grams"?v+"g":v+(v===1?" scoop":" scoops"))+" a day";
+  clearTimeout(slideTimer); slideTimer=setTimeout(()=>{ const y=window.scrollY; route(); window.scrollTo({top:y}); const d=document.getElementById("daily"); if(d) d.focus(); },200);
+});
+
+// ---------- mode switch ----------
+function renderMode(){
+  const sw=document.getElementById("mode-switch"), info=document.getElementById("mode-info"), wrap=document.getElementById("city-wrap");
+  sw.setAttribute("aria-checked",mode==="store"?"true":"false");
+  wrap.hidden=mode!=="store"; document.getElementById("city").value=city;
+  info.innerHTML=mode==="store"?"<b>In-store pick-up:</b> deals you can collect near you, with no delivery fee.":"<b>Online delivery:</b> every deal across Australia. Prices exclude delivery.";
+  const mc=document.querySelector('#supps-menu a[href="#cat-members"]'); if(mc) mc.hidden=mode==="store";
+}
+document.getElementById("mode-switch").addEventListener("click",()=>{mode=mode==="online"?"store":"online";keep("bs-mode2",mode);renderMode();route();});
+document.getElementById("city").addEventListener("change",e=>{city=e.target.value;keep("bs-city2",city);route();});
+
+// ---------- supplements dropdown ----------
+const sBtn=document.getElementById("supps-btn"), sMenu=document.getElementById("supps-menu");
+const MENUS=[[sBtn,sMenu],[document.getElementById("wear-btn"),document.getElementById("wear-menu")]];
+function closeMenus(except){ MENUS.forEach(([b,m])=>{ if(m!==except){ m.hidden=true; b.setAttribute("aria-expanded","false"); } }); }
+MENUS.forEach(([b,m])=>b.addEventListener("click",e=>{e.stopPropagation(); const open=m.hidden; closeMenus(m); m.hidden=!open; b.setAttribute("aria-expanded",open?"true":"false");}));
+document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus(); });
+
+// ---------- compact sticky header ----------
+const head=document.getElementById("site-head");
+window.addEventListener("scroll",()=>head.classList.toggle("compact",window.scrollY>40),{passive:true});
+const setHeadH=()=>document.documentElement.style.setProperty("--head-h",head.offsetHeight+"px");
+setHeadH(); window.addEventListener("resize",setHeadH); if(window.ResizeObserver) new ResizeObserver(setHeadH).observe(head);
+
+// ---------- live search ----------
+const qEl=document.getElementById("q"), sgEl=document.getElementById("suggest");
+let sgItems=[], sgIndex=-1, recentQ=store("bs-recent")||[];
+function saveRecent(t){ if(!t) return; recentQ=[t,...recentQ.filter(r=>r!==t)].slice(0,6); keep("bs-recent",recentQ); }
+function hl(text,term){ const t=esc(text); if(!term) return t; const i=text.toLowerCase().indexOf(term); return i<0?t:esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+term.length))+"</mark>"+esc(text.slice(i+term.length)); }
+function openSg(){ sgEl.hidden=false; qEl.setAttribute("aria-expanded","true"); }
+function closeSg(){ sgEl.hidden=true; qEl.setAttribute("aria-expanded","false"); sgIndex=-1; }
+function renderSg(){
+  const term=qEl.value.trim().toLowerCase(); sgIndex=-1;
+  if(!term){
+    if(!recentQ.length){ closeSg(); return; }
+    sgItems=recentQ.map(r=>({type:"recent",term:r}));
+    sgEl.innerHTML=`<div class="sg-head"><span>Recent searches</span><button type="button" id="sg-clear">Clear</button></div>`+sgItems.map((it,i)=>`<button type="button" class="sg recent" role="option" id="sg-${i}" data-i="${i}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="t">${esc(it.term)}</span></button>`).join("");
+    openSg(); return;
+  }
+  if(term.length<2){ closeSg(); return; }
+  const seen={}, rows=[];
+  P.filter(p=>visible(p)&&matches(p,term)).sort((a,b)=>value(a)-value(b)).forEach(p=>{const k=p.group||p.id; if(seen[k]){seen[k].n++;return;} seen[k]={n:1}; rows.push({p,k});});
+  sgItems=rows.slice(0,7).map(r=>({type:"product",p:r.p,n:seen[r.k].n}));
+  sgEl.innerHTML=sgItems.length?`<div class="sg-head"><span>${rows.length} match${rows.length===1?"":"es"} · best value first</span></div>`+sgItems.map((it,i)=>{const p=it.p;return `<button type="button" class="sg" role="option" id="sg-${i}" data-i="${i}">
+      <span class="th" style="background:var(--${p.tile})">${icon(p)}</span>
+      <span><span class="t">${hl(p.brand+" "+p.name,term)}</span><br><span class="st">${STORES[p.store].name}${it.n>1?` · cheapest of ${it.n} stores`:""}${p.member?" · members":""}</span></span>
+      <span class="r"><b class="num">${fmt(p.now)}</b><span class="num">${fmt(value(p))}${p.sec==="protein"?"/30g prot.":unitLabel(p)}</span></span></button>`;}).join("")
+    :`<div class="sg-empty">No products match "${esc(qEl.value.trim())}" yet. Try "whey", "creatine" or "fish oil".</div>`;
+  openSg();
+}
+function moveSg(d){ const btns=[...sgEl.querySelectorAll(".sg")]; if(!btns.length) return; sgIndex=(sgIndex+d+btns.length)%btns.length; btns.forEach((b,i)=>b.setAttribute("aria-selected",i===sgIndex?"true":"false")); qEl.setAttribute("aria-activedescendant","sg-"+sgIndex); btns[sgIndex].scrollIntoView({block:"nearest"}); }
+function pickSg(i){
+  const it=sgItems[i]; if(!it) return;
+  if(it.type==="recent"){ qEl.value=it.term; renderSg(); return; }
+  saveRecent(qEl.value.trim()); closeSg(); qEl.blur(); go("#p-"+cheapestOf(it.p).id);
+}
+qEl.addEventListener("input",renderSg);
+qEl.addEventListener("focus",renderSg);
+qEl.addEventListener("keydown",e=>{ if(sgEl.hidden) return;
+  if(e.key==="ArrowDown"){e.preventDefault();moveSg(1);} else if(e.key==="ArrowUp"){e.preventDefault();moveSg(-1);}
+  else if(e.key==="Enter"&&sgIndex>=0){e.preventDefault();pickSg(sgIndex);} else if(e.key==="Escape"){closeSg();} });
+sgEl.addEventListener("mousedown",e=>e.preventDefault());
+sgEl.addEventListener("click",e=>{ if(e.target.closest("#sg-clear")){ recentQ=[]; keep("bs-recent",[]); closeSg(); return; } const b=e.target.closest(".sg"); if(b) pickSg(Number(b.dataset.i)); });
+document.addEventListener("click",e=>{ if(!e.target.closest("#search")) closeSg(); });
+document.getElementById("search").addEventListener("submit",e=>{ e.preventDefault(); const t=qEl.value.trim(); if(!t) return; query=t.toLowerCase(); saveRecent(t); closeSg(); qEl.blur(); go("#results"); });
+
+// ---------- scanner ----------
+const backdrop=document.getElementById("backdrop");
+const scModal=document.getElementById("scanner"), scResult=document.getElementById("sc-result");
+function anyOpen(){ return !document.getElementById("drawer").hidden||!scModal.hidden||!document.getElementById("exit").hidden||!document.getElementById("restock").hidden; }
+function openScanner(){scModal.hidden=false;backdrop.hidden=false;scResult.innerHTML="";document.getElementById("sc-close").focus();}
+function closeScanner(){scModal.hidden=true; if(!anyOpen()) backdrop.hidden=true;}
+document.getElementById("open-scanner").addEventListener("click",openScanner);
+document.getElementById("sc-close").addEventListener("click",closeScanner);
+function showScan(id){
+  const p=byId[id]; const fam=family(p).slice().sort((a,b)=>a.now-b.now); const cheapest=fam[0], dearest=fam[fam.length-1];
+  scResult.innerHTML=`<div class="sc-hit"><span class="th" style="background:var(--${p.tile})">${icon(p)}</span><div><div class="brand">Scanned</div><b>${p.brand} ${p.name}</b></div></div>
+    <ul class="sc-list">${fam.map((x,i)=>`<li class="${i===0?"best":""}"><span>${STORES[x.store].name}${i===0?' <em>Cheapest</em>':""}</span><b class="num">${fmt(x.now)}</b></li>`).join("")}</ul>
+    ${fam.length>1?`<p class="sc-save">If the shelf in front of you says ${fmt(dearest.now)}, you'd save <b class="num">${fmt(dearest.now-cheapest.now)}</b> buying at ${STORES[cheapest.store].name}.</p>`:`<p class="sc-save">We track this at one store so far: ${fmt(cheapest.now)} at ${STORES[cheapest.store].name}.</p>`}
+    <button class="btn" id="sc-view">See it on Bearsaves</button>`;
+  document.getElementById("sc-view").addEventListener("click",()=>{closeScanner();go("#p-"+cheapest.id);});
+}
+document.getElementById("sc-demos").addEventListener("click",e=>{const b=e.target.closest("[data-demo]"); if(b) showScan(b.dataset.demo);});
+document.getElementById("sc-file").addEventListener("change",async e=>{
+  const f=e.target.files[0]; if(!f) return; scResult.innerHTML='<p class="sc-save">Reading barcode…</p>';
+  try{ if(!("BarcodeDetector" in window)) throw new Error("x"); const codes=await new BarcodeDetector().detect(await createImageBitmap(f));
+    scResult.innerHTML=codes.length?`<p class="sc-save">Found barcode <b>${esc(codes[0].rawValue)}</b>. Barcode data isn't loaded in this preview yet. On the live site this jumps straight to the price comparison.</p>`:'<p class="sc-save">We couldn\'t see a barcode in that photo. Try a closer, sharper shot.</p>';
+  }catch(err){ scResult.innerHTML='<p class="sc-save">This browser can\'t read barcodes from photos in the preview. Try a demo scan above.</p>'; }
+});
+
+
+// ---------- one-store option: rebuild the basket at a single store ----------
+function swapAt(p,key){
+  const same=family(p).find(x=>x.store===key&&!x.member); if(same) return {item:same,swapped:false};
+  if(p.sec==="health") return null; // vitamins only match the exact product
+  const opts=P.filter(x=>x.store===key&&x.sec===p.sec&&!x.member&&(p.sec!=="protein"||x.type===p.type)&&(key!=="cw"||true));
+  if(!opts.length) return null;
+  return {item:opts.sort((a,b)=>rankKey(a)-rankKey(b))[0],swapped:true};
+}
+function oneStoreOptions(){
+  const ids=Object.keys(basket).filter(id=>byId[id]); if(!ids.length) return [];
+  const splitSub=ids.reduce((a,id)=>a+byId[id].now*basket[id],0);
+  return Object.keys(STORES).map(key=>{
+    const st=STORES[key]; if(mode==="store"&&!st.pickup) return null;
+    const lines=[]; for(const id of ids){ const r=swapAt(byId[id],key); if(!r) return null; lines.push({from:byId[id],to:r.item,swapped:r.swapped,q:basket[id]}); }
+    const sub=lines.reduce((a,l)=>a+l.to.now*l.q,0);
+    const ship=mode==="store"&&st.pickup?0:(st.free!==null&&sub>=st.free?0:st.ship);
+    return {key,st,lines,sub,ship,diff:sub-splitSub,swaps:lines.filter(l=>l.swapped).length};
+  }).filter(Boolean).sort((a,b)=>a.sub-b.sub).slice(0,2);
+}
+function oneStoreHTML(nStores){
+  if(nStores<2) return "";
+  const opts=oneStoreOptions(); if(!opts.length) return `<div class="one-store"><b>Prefer one checkout?</b><p>No single store stocks everything in your basket yet, so a split checkout is needed for now.</p></div>`;
+  const rec=opts[0].diff<=5;
+  const cmp=o=>Math.abs(o.diff)<0.01?"same price as splitting":o.diff<0?`<b style="color:var(--good)">${fmt(-o.diff)} cheaper</b>`:`${fmt(o.diff)} more`;
+  const shipTxt=o=>o.ship===null?"+ delivery":o.ship===0?"free delivery":"+ "+fmt(o.ship)+" delivery";
+  return `<div class="one-store${rec?" rec":""}">
+    <div class="os-top">${rec?'<span class="os-badge">Recommended</span>':""}<b>One checkout instead of ${nStores}</b></div>
+    ${opts.map((o,i)=>`<div class="os-row${rec&&i===0?" top":""}"><div><span class="os-name">All at ${o.st.name}</span><span class="os-sub num">${fmt(o.sub)} · ${shipTxt(o)} · ${cmp(o)}</span>
+      ${o.swaps?`<span class="os-swaps">${o.swaps} swap${o.swaps>1?"s":""}: ${o.lines.filter(l=>l.swapped).map(l=>`${l.to.brand} ${l.to.name}`).join(", ")}</span>`:""}</div>
+      <button class="btn${rec&&i===0?"":" line"}" data-onestore="${o.key}">Switch</button></div>`).join("")}
+  </div>`;
+}
+let doneStores=[];
+// ---------- basket drawer ----------
+const drawer=document.getElementById("drawer"), dBody=document.getElementById("d-body"), dFoot=document.getElementById("d-foot");
+function openBasket(){drawer.hidden=false;backdrop.hidden=false;renderBasket();renderBbar();document.getElementById("close-basket").focus();}
+function closeBasket(){drawer.hidden=true; if(!anyOpen()) backdrop.hidden=true; renderBbar();}
+document.getElementById("open-basket").addEventListener("click",openBasket);
+document.getElementById("close-basket").addEventListener("click",closeBasket);
+backdrop.addEventListener("click",()=>{closeBasket();closeScanner();closeExit();closeRestock();});
+document.getElementById("rs-close").addEventListener("click",closeRestock);
+document.addEventListener("keydown",e=>{ if(e.key!=="Escape") return; if(!drawer.hidden)closeBasket(); if(!scModal.hidden)closeScanner(); if(!document.getElementById("exit").hidden)closeExit(); if(!document.getElementById("restock").hidden)closeRestock(); closeMenus(); });
+function basketGroups(){
+  const ids=Object.keys(basket).filter(id=>byId[id]); const groups={};
+  ids.forEach(id=>{const p=byId[id];(groups[p.store]=groups[p.store]||[]).push([p,basket[id]]);});
+  return groups;
+}
+function renderBasket(){
+  const groups=basketGroups();
+  if(!Object.keys(groups).length){dBody.innerHTML='<div class="empty"><p><strong>Your basket is empty.</strong></p><p>Add products from any store. Bearsaves groups them by store and shows your savings.</p></div>';dFoot.innerHTML="";return;}
+  let grand=0, saved=0, unknown=false, html=""; const n=Object.keys(groups).length; let step=0;
+  doneStores=doneStores.filter(k=>groups[k]);
+  Object.entries(groups).forEach(([key,items])=>{ step++; const done=doneStores.includes(key);
+    const st=STORES[key]; const sub=items.reduce((a,[p,q])=>a+p.now*q,0);
+    const freeHit=st.free!==null&&sub>=st.free; const ship=mode==="store"&&st.pickup?0:(freeHit?0:st.ship);
+    if(ship===null) unknown=true; grand+=sub+(ship||0); items.forEach(([p,q])=>saved+=p.was?(p.was-p.now)*q:0);
+    const shipLine=mode==="store"&&st.pickup?'<strong style="color:var(--good)">Click &amp; collect: no delivery fee</strong>':freeHit?'<strong style="color:var(--good)">Free delivery unlocked</strong>':st.free!==null?`Add <strong>${fmt(st.free-sub)}</strong> more for free delivery`:st.ship!==null?`${fmt(st.ship)} flat-rate delivery`:"Delivery cost shown at the store's checkout";
+    html+=`<div class="store-box${done?" done":""}">${n>1?`<div class="step-tag">Checkout ${step} of ${n}${done?" · done":""}</div>`:""}<div class="store-top"><h3>${st.name}</h3><span>${items.length} item${items.length>1?"s":""}</span></div>
+      ${items.map(([p,q])=>`<div class="line"><div class="thumb" style="background:var(--${p.tile})">${icon(p)}</div>
+        <div><div class="t">${p.brand} ${p.name}</div><div class="s">${fmt(p.now)} · ${fmt(value(p))}${p.sec==="protein"?"/30g protein":unitLabel(p)}</div></div>
+        <div class="qty"><button aria-label="Less ${esc(p.name)}" data-q="-1" data-id="${p.id}">−</button><span class="num">${q}</span><button aria-label="More ${esc(p.name)}" data-q="1" data-id="${p.id}">+</button></div></div>`).join("")}
+      <div class="ship"><span>${shipLine}</span>${st.free!==null&&!(mode==="store"&&st.pickup)?`<div class="bar"><i style="width:${Math.min(100,sub/st.free*100)}%"></i></div>`:""}</div>
+      <div class="totals"><div><span>Items</span><span class="num">${fmt(sub)}</span></div><div><span>Delivery</span><span class="num">${ship===0?"Free":ship===null?"At checkout":fmt(ship)}</span></div><div class="big"><span>Total at ${st.name}</span><span class="num">${fmt(sub+(ship||0))}${ship===null?" + delivery":""}</span></div></div>
+      <button class="btn" data-go="${key}">${done?"Open "+st.name+" again":"Check out at "+st.name}</button>${n>1?`<label class="done-tog"><input type="checkbox" data-done="${key}" id="done-${key}"${done?" checked":""}> I've checked out here</label>`:""}<p class="note" id="note-${key}" hidden></p></div>`;
+  });
+  const progress=n>1?`<div class="co-progress"><div class="bar"><i style="width:${doneStores.length/n*100}%"></i></div><span>${doneStores.length} of ${n} checkouts done</span></div>`:"";
+  // explain exactly what the savings are measured against
+  const lines=[]; let vsStores=0; const vsLines=[];
+  Object.values(groups).forEach(items=>items.forEach(([p,q])=>{
+    if(p.was) lines.push(`<li><span>${p.brand} ${p.name}${q>1?` ×${q}`:""}<small>${STORES[p.store].name}: ${fmt(p.was)} → ${fmt(p.now)}</small></span><b class="num">−${fmt((p.was-p.now)*q)}</b></li>`);
+    const fam=family(p).filter(x=>!x.member); if(fam.length>1){ const top=fam.slice().sort((a,b)=>b.now-a.now)[0]; const d=(top.now-p.now)*q; if(d>0.005){ vsStores+=d; vsLines.push(`<li><span>${p.brand} ${p.name}<small>${STORES[top.store].name} ${fmt(top.now)} → ${STORES[p.store].name} ${fmt(p.now)}</small></span><b class="num">−${fmt(d)}</b></li>`);} }
+  }));
+  const normal=Object.values(groups).reduce((a,items)=>a+items.reduce((x,[p,q])=>x+(p.was||p.now)*q,0),0);
+  const pay=normal-saved, offPct=normal?Math.round(saved/normal*100):0;
+  const summary=saved>0||vsStores>0?`<div class="sv2">
+    <div class="sv2-top"><span class="sv2-l">You save</span><span class="sv2-pct">${offPct}% off</span></div>
+    <div class="sv2-big num">${fmt(saved)}</div>
+    <div class="sv2-bar" aria-hidden="true"><i style="width:${100-offPct}%"></i><em style="width:${offPct}%"></em></div>
+    <div class="sv2-legend"><span><i class="k1"></i>You pay <b class="num">${fmt(pay)}</b></span><span><i class="k2"></i>Normal price <s class="num">${fmt(normal)}</s></span></div>
+    ${vsStores>0?`<div class="sv2-chip">+ <b class="num">${fmt(vsStores)}</b> cheaper than other stores</div>`:""}
+    <details class="why"><summary>Breakdown</summary>
+      ${lines.length?`<ul>${lines.join("")}</ul>`:""}
+      ${vsLines.length?`<p class="why-h">Vs other stores</p><ul>${vsLines.join("")}</ul>`:""}
+      <p class="why-note">Normal price = the store's was/RRP price. Checked ${CHECKED}.</p>
+    </details></div>`:"";
+  const pill=saved>0?`<button class="sv-pill" id="sv-jump"><span>You save <b class="num">${fmt(saved)}</b></span><span class="sv-pill-pct">${offPct}% off ↓</span></button>`:"";
+  dBody.innerHTML=pill+oneStoreHTML(n)+progress+html+summary;
+  const j=document.getElementById("sv-jump"); if(j) j.addEventListener("click",()=>{const b=dBody.querySelector(".sv2"); if(b) b.scrollIntoView({behavior:"smooth",block:"end"});});
+  dFoot.innerHTML=`<div><span>Total</span><span class="num">${fmt(grand)}${unknown?" + delivery":""}</span></div><small>You check out at each store. Prices checked ${CHECKED}.</small>`;
+}
+dBody.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.done; if(!k) return; doneStores=e.target.checked?[...new Set([...doneStores,k])]:doneStores.filter(x=>x!==k); renderBasket(); });
+dBody.addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]");
+  if(q){const id=q.dataset.id; basket[id]=(basket[id]||0)+Number(q.dataset.q); if(basket[id]<=0) delete basket[id]; saveBasket(); renderBasket(); refreshButtons(); updateCount(); return;}
+  const os=e.target.closest("[data-onestore]");
+  if(os){ const opt=oneStoreOptions().find(o=>o.key===os.dataset.onestore); if(opt){ basket={}; opt.lines.forEach(l=>basket[l.to.id]=(basket[l.to.id]||0)+l.q); saveBasket(); doneStores=[]; renderBasket(); refreshButtons(); updateCount(); } return; }
+  const g=e.target.closest("[data-go]");
+  if(g){const n=document.getElementById("note-"+g.dataset.go), st=STORES[g.dataset.go]; n.hidden=false; n.innerHTML=`In the live site this opens ${st.name} with these items in the cart, through your Bearsaves link. For now: <a href="${st.url}" target="_blank" rel="noopener">open ${st.name}</a>.`;}
+});
+
+// ---------- sticky basket bar ----------
+const bbar=document.getElementById("bbar");
+function renderBbar(){
+  const groups=basketGroups(), count=Object.values(basket).reduce((a,b)=>a+b,0);
+  if(!count||!drawer.hidden){ bbar.hidden=true; return; }
+  let saved=0, gapTxt="";
+  Object.entries(groups).forEach(([k,items])=>{ items.forEach(([p,q])=>saved+=p.was?(p.was-p.now)*q:0); });
+  const gaps=Object.entries(groups).map(([k,items])=>{const st=STORES[k]; const sub=items.reduce((a,[p,q])=>a+p.now*q,0); return st.free!==null&&sub<st.free&&!(mode==="store"&&st.pickup)?{st,gap:st.free-sub}:null;}).filter(Boolean).sort((a,b)=>a.gap-b.gap);
+  if(gaps.length) gapTxt=` · <b>${fmt(gaps[0].gap)}</b> to free delivery at ${gaps[0].st.name}`;
+  bbar.innerHTML=`<span class="txt">${count} item${count===1?"":"s"}${saved>0?` · you're saving <b>${fmt(saved)}</b>`:""}${gapTxt}</span><button class="btn" id="bbar-open">View basket</button>`;
+  bbar.hidden=false;
+  document.getElementById("bbar-open").addEventListener("click",openBasket);
+}
+function updateCount(){ const c=Object.values(basket).reduce((a,b)=>a+b,0); document.getElementById("count").textContent=c; document.getElementById("m-count").textContent=c; renderBbar(); }
+
+// ---------- mobile bottom nav ----------
+document.getElementById("mnav").addEventListener("click",e=>{
+  const b=e.target.closest("[data-m]"); if(!b) return; const m=b.dataset.m;
+  if(m==="home") go("#home"); else if(m==="account") go("#account"); else if(m==="scan") openScanner(); else if(m==="basket") openBasket();
+  else if(m==="search"){ window.scrollTo({top:0,behavior:"smooth"}); setTimeout(()=>qEl.focus(),250); }
+});
+
+// ---------- exit-intent price alert (desktop, once per visit) ----------
+const exitM=document.getElementById("exit");
+function closeExit(){ exitM.hidden=true; if(!anyOpen()) backdrop.hidden=true; }
+document.getElementById("exit-close").addEventListener("click",closeExit);
+let exitShown=false; try{exitShown=sessionStorage.getItem("bs-exit")==="1";}catch(e){}
+const loadedAt=Date.now();
+document.addEventListener("mouseout",e=>{
+  if(exitShown||e.relatedTarget||e.clientY>0||Date.now()-loadedAt<8000||anyOpen()||window.innerWidth<760) return;
+  exitShown=true; try{sessionStorage.setItem("bs-exit","1");}catch(err){}
+  const wheys=P.filter(p=>p.sec==="protein"&&p.type==="whey"&&!p.member).sort((a,b)=>unitPrice(a)-unitPrice(b));
+  const target=Math.floor(unitPrice(wheys[0])*2)/2;
+  document.getElementById("exit-body").innerHTML=`<p style="margin:0">Want us to tell you when whey drops below <b>${fmt(target)}/100g</b>? Right now the best is ${wheys[0].brand} ${wheys[0].name} at ${fmt(unitPrice(wheys[0]))}/100g.</p>
+    <form class="inline-form" id="exit-form" novalidate><label for="exit-email" hidden>Email address</label><input id="exit-email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Alert me</button></form><p class="ok" id="exit-ok" hidden></p>
+    <button class="btn line" id="exit-no" style="justify-self:start">No thanks</button>`;
+  exitM.hidden=false; backdrop.hidden=false;
+  wire("exit-form","exit-email","exit-ok");
+  document.getElementById("exit-no").addEventListener("click",closeExit);
+});
+
+function wire(formId,inputId,okId,text="Preview only: signups aren't saved yet. They go live with the website."){
+  const f=document.getElementById(formId); if(!f) return;
+  f.addEventListener("submit",e=>{ e.preventDefault(); const ok=document.getElementById(okId), v=document.getElementById(inputId).value.trim(); ok.hidden=false;
+    ok.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?text:"Enter a valid email address, like you@email.com."; });
+}
+wire("join-form","email","join-ok");
+
+renderMode(); route();
+
+</script>
+
+</body>
+</html>
