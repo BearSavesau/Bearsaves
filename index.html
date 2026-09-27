@@ -995,6 +995,21 @@ footer .row a{white-space:nowrap}
 .bj-free .bj-btn:hover{background:#DCE5FC}
 .bj-pro .bj-btn{background:#fff;color:var(--nv)}
 .bj-pro .bj-btn:hover{background:#E8ECF7}
+
+/* moving announcement bar */
+.promo{overflow:hidden;padding:0!important;text-align:left}
+.promo-track{display:flex;width:max-content;animation:promo-scroll 55s linear infinite}
+.promo:hover .promo-track{animation-play-state:paused}
+.promo-run{display:flex;flex:none}
+.pm{white-space:nowrap;padding:9px 0;font-size:13.5px;display:block}
+.pm::after{content:"";display:inline-block;width:5px;height:5px;background:#fff;opacity:.7;margin:0 26px;vertical-align:2px}
+@keyframes promo-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.promo-track{animation:none}.promo-run[aria-hidden]{display:none}.promo-run{flex-wrap:wrap}}
+/* dropdown menus: dark text on white (was white on white inside the black header) */
+.site-head .menu-list{background:#fff;border:2px solid #111;border-radius:0}
+.site-head .menu-list a{color:#111!important;border-radius:0}
+.site-head .menu-list a:hover{background:#EEF1FF;color:var(--blue)!important}
+.site-head .menu-list a span{color:#6F6F6F!important}
 </style>
 </head>
 <body>
@@ -1028,7 +1043,7 @@ footer .row a{white-space:nowrap}
 
 
 <header class="site-head" id="site-head">
-  <div class="promo"><b>Prices checked 26 Sep 2026</b> · 14 Australian stores compared · ranked by price per 100g</div>
+  <div class="promo" id="promo" aria-label="Bearsaves announcements"><b>Prices checked 26 Sep 2026</b> · 14 Australian stores compared · ranked by price per 100g</div>
   <nav>
     <a class="logo" href="#home" aria-label="Bearsaves home">
       <svg width="44" height="44" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
@@ -1052,7 +1067,8 @@ footer .row a{white-space:nowrap}
         <a href="#cat-health">Vitamins &amp; health <span>Daily cost</span></a>
         <a href="#cat-creatine">Creatine <span>Per 100g</span></a>
         <a href="#cat-pre">Pre-workout <span>Per serve</span></a>
-        <a href="#cat-members">Member-only deals <span>Musashi</span></a>
+        <a href="#cat-gainer">Mass gainers <span>Per 100g</span></a>
+        <a href="#cat-members">Member-only deals <span>Free sign-up</span></a>
       </div>
     </div>
     <div class="menu">
@@ -1155,6 +1171,9 @@ const STORES={
   asn:{name:"ASN",pickup:true,locations:"stores in eastern states",locator:"https://www.australiansportsnutrition.com.au/pages/store-locator",ship:null,free:null,url:"https://www.australiansportsnutrition.com.au"},
   bulk:{name:"Bulk Nutrients",pickup:false,ship:9,free:null,url:"https://www.bulknutrients.com.au"},
   mp:{name:"Myprotein",pickup:false,ship:null,free:150,url:"https://au.myprotein.com"},
+  maxs:{name:"Max's",pickup:false,ship:null,free:150,url:"https://maxs.com.au"},
+  oxy:{name:"Oxygen Nutrition",pickup:false,ship:null,free:null,url:"https://oxygennutrition.com.au"},
+  mm:{name:"Macro Mike",pickup:false,ship:null,free:null,url:"https://www.macromike.com.au"},
   vpa:{name:"VPA",pickup:false,ship:null,free:150,url:"https://www.vpa.com.au"},
   tp:{name:"True Protein",pickup:false,ship:null,free:null,url:"https://www.trueprotein.com.au"},
   musashi:{name:"Musashi",pickup:false,ship:9.90,free:150,url:"https://musashi.com"},
@@ -1167,7 +1186,8 @@ const SECTIONS=[
   {id:"protein",title:"Protein",unit:"100g",sub:"Ranked by price per 100g of powder. Cheapest first."},
   {id:"health",title:"Vitamins & health",unit:"day",sub:"Ranked by cost per day at the label dose."},
   {id:"creatine",title:"Creatine",unit:"100g",sub:"Ranked by price per 100g."},
-  {id:"pre",title:"Pre-workout",unit:"serve",sub:"Ranked by price per serve."}
+  {id:"pre",title:"Pre-workout",unit:"serve",sub:"Ranked by price per serve."},
+  {id:"gainer",title:"Mass gainers",unit:"100g",sub:"Ranked by price per 100g."}
 ];
 // qty = grams (100g units), days, or serves. group = same product at several stores.
 const P=[
@@ -1226,7 +1246,7 @@ const P=[
   {id:"cw-inc-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"INC.",name:"Creatine 500g",meta:"",now:22.79,was:37.99,qty:500,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/74336/inc-creatine-500g"},
   {id:"bulk-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Bulk Nutrients",name:"Creatine Monohydrate 1kg",meta:"333 serves (3g)",now:48,qty:1000,store:"bulk",url:"https://www.bulknutrients.com.au/products/creatine-monohydrate"},
   {id:"cw-bsc-cr",group:"bsc-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"BSc",name:"Pure Creatine 500g",meta:"Micronised",now:23.99,was:40.00,qty:500,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/171191/bsc-pure-creatine-500g"},
-  {id:"nw-bsc-cr",group:"bsc-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"BSc",name:"Pure Creatine 500g",meta:"",now:29.95,qty:500,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
+  {id:"nw-bsc-cr",group:"bsc-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"BSc",name:"Pure Creatine 500g",meta:"",now:40,qty:500,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
   {id:"cw-purelean-cr",sec:"creatine",img:"jar",tile:"tile4",brand:"Pure Lean Nutrition",name:"Creatine Monohydrate 1kg",meta:"Online only",now:57.95,was:79.95,qty:1000,store:"cw",online:true,url:"https://www.chemistwarehouse.com.au/buy/159056/pure-lean-nutrition-creatine-monohydrate-powder-1kg"},
   {id:"cw-faction-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Faction Labs",name:"Creatine Monohydrate 1kg",meta:"Unflavoured",now:59.95,was:79.95,qty:1000,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/170194/faction-labs-creatine-monohydrate-unflavoured-1kg"},
   {id:"nw-on-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"Optimum Nutrition",name:"Micronized Creatine 1.2kg",meta:"400 serves",now:75.96,was:94.95,qty:1200,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/creatine-monohydrate"},
@@ -1235,7 +1255,7 @@ const P=[
   // ---- PRE-WORKOUT (qty = serves) ----
   {id:"cw-disorder",sec:"pre",img:"pre",tile:"tile2",brand:"Faction Labs",name:"Disorder Original, 50 serves",meta:"",now:69.95,qty:50,store:"cw",url:"https://www.chemistwarehouse.com.au/buy/152193/faction-labs-disorder-original-50-serves-orange-firm"},
   {id:"cw-spike",sec:"pre",img:"pre",tile:"tile1",brand:"Pure Lean Nutrition",name:"SPIKE Pre-Workout, 60 serves",meta:"2 × 30-serve tubs · online only",now:94.95,was:119.95,qty:60,store:"cw",online:true,url:"https://www.chemistwarehouse.com.au/buy/161744/pure-lean-nutrition-spike-pre-workout-extreme-focus-energy-fuel-gym-caffeine-pumps-bulk-60-serves"},
-  {id:"nw-per4m",sec:"pre",img:"pre",tile:"tile3",brand:"Nexus Sports Nutrition",name:"Per4m 2.0, 50 serves",meta:"",now:89.99,qty:50,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
+  {id:"nw-per4m",group:"per4m",sec:"pre",img:"pre",tile:"tile3",brand:"Nexus Sports Nutrition",name:"Per4m 2.0, 50 serves",meta:"",now:89.99,qty:50,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
   {id:"nw-abe",sec:"pre",img:"pre",tile:"tile4",brand:"Applied Nutrition",name:"ABE Pre-Workout, 30 serves",meta:"",now:59.46,was:69.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
   {id:"nw-stack3d",sec:"pre",img:"pre",tile:"tile1",brand:"Anabolix Nutrition",name:"Stack3d, 40 serves",meta:"",now:79.95,qty:40,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
   {id:"nw-freak3d",sec:"pre",img:"pre",tile:"tile2",brand:"Anabolix Nutrition",name:"Freak3d, 30 serves",meta:"",now:64.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/collections/pre-workout"},
@@ -1245,11 +1265,46 @@ const P=[
   {id:"m-whey",type:"whey",pp:null,ppsrc:"est",scoop:33,sec:"protein",member:true,img:"tub",tile:"tile1",brand:"Musashi",name:"100% Whey Protein 900g",meta:"Member price",now:55.24,was:84.99,qty:900,store:"musashi",url:"https://musashi.com/products/100-whey-protein-powder"},
   {id:"m-whey-cr",type:"whey",pp:null,ppsrc:"est",scoop:33,sec:"protein",member:true,img:"tub",tile:"tile2",brand:"Musashi",name:"100% Whey + Creatine 900g",meta:"Member price",now:55.24,was:84.99,qty:900,store:"musashi",url:"https://musashi.com/collections/sale"},
   {id:"m-creatine",sec:"creatine",member:true,img:"jar",tile:"tile4",brand:"Musashi",name:"Creatine Monohydrate 350g",meta:"From price",now:25.99,was:39.99,qty:350,store:"musashi",url:"https://musashi.com/collections/sale"},
-  {id:"m-reaper-cr",sec:"creatine",member:true,img:"jar",tile:"tile1",brand:"Musashi",name:"Reaper Creatine Power Matrix 300g",meta:"Member price",now:38.34,was:58.99,qty:300,store:"musashi",url:"https://musashi.com/collections/sale"}
+  {id:"m-reaper-cr",sec:"creatine",member:true,img:"jar",tile:"tile1",brand:"Musashi",name:"Reaper Creatine Power Matrix 300g",meta:"Member price",now:38.34,was:58.99,qty:300,store:"musashi",url:"https://musashi.com/collections/sale"},
+  // added 27 Sep 2026
+  {id:"maxs-whey",type:"whey",kind:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Max's",name:"100% Whey Protein 2.27kg",meta:"75 serves",now:164.95,qty:2270,store:"maxs",url:"https://maxs.com.au/products/100-pure-whey-protein"},
+  {id:"maxs-monster",type:"whey",kind:"isolate",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"Max's",name:"Monster WPI 1.8kg",meta:"60 serves · whey isolate",now:189.95,qty:1800,store:"maxs",url:"https://maxs.com.au/products/monster-wpi"},
+  {id:"maxs-supershred",type:"whey",kind:"whey",pp:null,ppsrc:"est",scoop:40,sec:"protein",img:"tub",tile:"tile3",brand:"Max's",name:"Super Shred 1.8kg",meta:"45 serves",now:114.95,qty:1800,store:"maxs",url:"https://maxs.com.au/products/super-shred-protein"},
+  {id:"maxs-shred",type:"whey",kind:"whey",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Max's",name:"Shred System 2.27kg",meta:"75 serves",now:174.95,qty:2270,store:"maxs",url:"https://maxs.com.au/products/lean-muscle-shred-system"},
+  {id:"maxs-night",type:"whey",kind:"casein",group:"maxs-night",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Max's",name:"Anabolic Night Casein 1.8kg",meta:"60 serves",now:144.95,qty:1820,store:"maxs",url:"https://maxs.com.au/products/anabolic-night-casein"},
+  {id:"elite-maxs-night",type:"whey",kind:"casein",group:"maxs-night",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Max's",name:"Anabolic Night Casein 1.8kg",meta:"60 serves",now:144.90,qty:1800,store:"elite",url:"https://www.elitesupps.com.au/products/anabolic-night"},
+  {id:"elite-on-casein",type:"whey",kind:"casein",pp:null,ppsrc:"est",scoop:33,sec:"protein",img:"tub",tile:"tile2",brand:"Optimum Nutrition",name:"Gold Standard 100% Casein 1.8kg",meta:"55 serves",now:159.90,qty:1800,store:"elite",url:"https://www.elitesupps.com.au/products/gold-standard-100-casein"},
+  {id:"elite-mn-custard",type:"whey",kind:"casein",pp:null,ppsrc:"est",scoop:40,sec:"protein",img:"tub",tile:"tile3",brand:"Muscle Nation",name:"Casein Custard 1kg",meta:"25 serves",now:74.90,qty:1000,store:"elite",url:"https://www.elitesupps.com.au/products/muscle-nation-casein-custard"},
+  {id:"elite-emrald-creme",type:"whey",kind:"casein",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Emrald Labs",name:"Protein Creme 1kg",meta:"",now:79.90,qty:1000,store:"elite",url:"https://www.elitesupps.com.au/products/protein-creme"},
+  {id:"elite-rd-mousse",type:"whey",kind:"casein",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Red Dragon Nutritionals",name:"Protein Mousse 1kg",meta:"",now:69.90,qty:1000,store:"elite",url:"https://www.elitesupps.com.au/products/protein-mousse"},
+  {id:"sm-precision",type:"whey",kind:"isolate",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile2",brand:"Precision Nutrition",name:"Precision Isolate 2.27kg",meta:"5lb",now:249.95,was:259.95,qty:2270,store:"sm",url:"https://www.supplementmart.com.au/products/precision-nutrition-precision-isolate"},
+  {id:"sm-isopept",type:"whey",kind:"isolate",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile3",brand:"EHP Labs",name:"IsoPept 907g",meta:"2lb",now:114.95,qty:907,store:"sm",url:"https://www.supplementmart.com.au/products/ehp-labs-isopept-zero"},
+  {id:"sm-r1",type:"whey",kind:"isolate",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Rule 1",name:"R1 Protein Whey Isolate 1.36kg",meta:"3lb",now:199.95,qty:1360,store:"sm",url:"https://www.supplementmart.com.au/products/r1-protein-isolate-by-rule-1"},
+  {id:"mm-peanut",type:"plant",kind:"plant",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile1",brand:"Macro Mike",name:"Peanut Plant Protein 520g",meta:"Peanut Butter Deluxe Choc Bar",now:49.95,was:54.95,qty:520,store:"mm",url:"https://www.macromike.com.au/products/peanut-butter-deluxe-choc-bar-peanut-plant-protein-520g-bag"},
+  {id:"maxs-absolute",sec:"gainer",img:"tub",tile:"tile2",brand:"Max's",name:"Absolute Mass 4.2kg",meta:"21 serves",now:147.95,qty:4200,store:"maxs",url:"https://maxs.com.au/products/absolute-mass-gainer"},
+  {id:"maxs-supersize",sec:"gainer",img:"tub",tile:"tile3",brand:"Max's",name:"SuperSize Ultra 4kg",meta:"33 serves",now:112.95,qty:4000,store:"maxs",url:"https://maxs.com.au/products/super-size-ultra-gainer"},
+  {id:"maxs-clean",sec:"gainer",img:"tub",tile:"tile4",brand:"Max's",name:"Clean Mass 4.2kg",meta:"35 serves",now:159.95,qty:4200,store:"maxs",url:"https://maxs.com.au/products/clean-mass-gainer"},
+  {id:"nw-anabolix-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Anabolix Nutrition",name:"Cr3atine 400g",meta:"80 serves",now:39.95,qty:400,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/creatin3-by-anabolix"},
+  {id:"nw-crea8",sec:"creatine",img:"jar",tile:"tile2",brand:"EHP Labs",name:"CREA-8 Creatine 500g",meta:"",now:54.95,qty:500,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/crea-8-by-ehp-labs"},
+  {id:"nw-maxs-cr",sec:"creatine",img:"jar",tile:"tile3",brand:"Max's",name:"Creatine Monohydrate 1kg",meta:"",now:79.95,qty:1000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/creatine-monohydrate-by-maxs-lab-series"},
+  {id:"nw-zombie-cr",sec:"creatine",img:"jar",tile:"tile4",brand:"Zombie Labs",name:"100% Pure Micronised Creatine 1kg",meta:"",now:79.95,qty:1000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/100-pure-micronised-creatine-monohydrate-by-zombie-labs"},
+  {id:"nw-rd-cr",sec:"creatine",img:"jar",tile:"tile1",brand:"Red Dragon Nutritionals",name:"Creatine 1kg",meta:"",now:99.95,qty:1000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/creatine-by-red-dragon-nutritionals"},
+  {id:"nw-celltech",sec:"creatine",img:"jar",tile:"tile2",brand:"MuscleTech",name:"Cell Tech Creatine 2.72kg",meta:"6lb · creatine blend with carbs",now:139.95,qty:2720,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/cell-tech-performance-series-by-muscletech"},
+  {id:"nw-disorder-ult",sec:"pre",img:"pre",tile:"tile1",brand:"Faction Labs",name:"Disorder Ultimate, 30 serves",meta:"",now:89.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/disorder-ultimate-by-faction-labs"},
+  {id:"nw-ronin",sec:"pre",img:"pre",tile:"tile2",brand:"Kaizen",name:"Ronin Non-Stim Pre-Workout, 40 serves",meta:"",now:89.95,qty:40,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/ronin-non-stim-pre-workout-by-kaizen"},
+  {id:"nw-freak3d15",sec:"pre",img:"pre",tile:"tile3",brand:"Anabolix Nutrition",name:"Freak3d, 15 serves",meta:"",now:34.95,qty:15,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/freak3d-15-serves-by-anabolix-nutrition"},
+  {id:"nw-prelift",sec:"pre",img:"pre",tile:"tile4",brand:"Rule 1",name:"Pre Lift, 30 serves",meta:"",now:79.95,qty:30,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/pre-lift-by-rule-1-proteins"},
+  {id:"nw-infected",sec:"pre",img:"pre",tile:"tile1",brand:"Zombie Labs",name:"Infected, 40 serves",meta:"",now:69.95,qty:40,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/infected-by-zombie-labs"},
+  {id:"nw-thavage",sec:"pre",img:"pre",tile:"tile2",brand:"CBUM",name:"Thavage, 40 serves",meta:"",now:74.95,qty:40,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/thavage-by-cbum"},
+  {id:"nw-c4",sec:"pre",img:"pre",tile:"tile3",brand:"Cellucor",name:"C4 Original Pre-Workout, 50 serves",meta:"",now:74.95,qty:50,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/c4-original-pre-workout-by-cellucor"},
+  {id:"oxy-per4m",group:"per4m",sec:"pre",img:"pre",tile:"tile3",brand:"Nexus Sports Nutrition",name:"Per4m 2.0, 50 serves",meta:"",now:71.90,was:87.90,qty:50,store:"oxy",url:"https://oxygennutrition.com.au/products/nexus-per4m-2"},
+  {id:"oxy-blackwolf",sec:"pre",img:"pre",tile:"tile4",brand:"Black Wolf",name:"Pump Non-Stim, 40 serves",meta:"stimulant free",now:78.90,qty:40,store:"oxy",url:"https://oxygennutrition.com.au/products/black-wolf-pump-non-stim"},
+  {id:"bulk-pre101",sec:"pre",img:"pre",tile:"tile1",brand:"Bulk Nutrients",name:"Pre Workout 101, 30 serves",meta:"396g pouch · 272mg caffeine",now:39,qty:30,store:"bulk",url:"https://www.bulknutrients.com.au/products/pre-workout-101"},
+  {id:"oxy-emrald-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"Emrald Labs",name:"Creatine Monohydrate 2kg",meta:"",now:159.90,qty:2000,store:"oxy",url:"https://oxygennutrition.com.au/products/emrald-labs-creatine-monohydrate"}
 ];
 
 const VB={tub:"0 0 100 110",jar:"0 0 100 110",bottle:"0 0 100 110",pre:"0 0 100 110",caps:"0 0 100 110",shake:"0 0 100 110",bar:"0 0 120 80"};
-const CHECKED="26 Sep 2026";
+const CHECKED="26–27 Sep 2026";
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 const secOf=id=>SECTIONS.find(s=>s.id===id);
 const fmt=n=>"$"+n.toFixed(2);
@@ -1290,7 +1345,8 @@ const matches=(p,q)=>!q||(p.brand+" "+p.name+" "+p.meta+" "+STORES[p.store].name
 
 // ---------- protein plan (daily protein from shakes) ----------
 const EST={whey:75,plant:72};
-const ppOf=p=>p.pp||EST[p.type];
+const EST_KIND={isolate:88,casein:78};
+const ppOf=p=>p.pp||EST_KIND[p.kind]||EST[p.type];
 let plan=Object.assign({mode:"grams",grams:30,scoops:2,diet:"all"},store("bs-plan2")||{}); plan.mode="grams"; // grams only
 const savePlan=()=>keep("bs-plan2",plan);
 const powderPerDay=p=>plan.mode==="grams"?plan.grams/(ppOf(p)/100):plan.scoops*p.scoop;
@@ -1331,7 +1387,7 @@ function card(c,rank,opts={}){
   return `<article class="pcard" data-href="#p-${p.id}" id="card-${p.id}${opts.suffix||""}">
     <div class="img" style="background:var(--${p.tile})">${p.was?`<span class="off">-${pct(p)}%</span>`:""}${p.member?'<span class="mem">Members</span>':""}${icon(p)}</div>
     <div class="bd">
-      <div class="brand">${p.brand}${p.type==="plant"?" · Plant-based":""}</div>
+      <div class="brand">${p.brand}${p.type==="plant"?" · Plant-based":p.kind==="isolate"?" · Isolate":p.kind==="casein"?" · Casein":""}</div>
       <h3 class="name">${p.name}</h3>
       ${priceBlock(p)}
       <div class="cheap">${others?"Cheapest at":mode==="store"?"Pick up at":"At"} <b>${STORES[p.store].name}</b></div>
@@ -1360,6 +1416,7 @@ const CATS={
   health:{title:"Vitamins & health",sub:"Ranked by cost per day at the label dose."},
   creatine:{title:"Creatine",sub:"Ranked by price per 100g. At 5g a day, every 100g lasts 20 days."},
   pre:{title:"Pre-workout",sub:"Ranked by price per serve."},
+  gainer:{title:"Mass gainers",sub:"Ranked by price per 100g."},
   members:{title:"Member-only deals",sub:"Musashi shows these prices only after you join Musashi United (free). Sale ends 30 September."},
   "wear-men":{title:"Men's gymwear",soon:true},"wear-women":{title:"Women's gymwear",soon:true},"wear-kids":{title:"Kids' gymwear",soon:true},equip:{title:"Equipment",soon:true}
 };
@@ -1389,7 +1446,7 @@ function cityPrompt(){ return `<div class="city-prompt"><svg width="56" height="
 function renderHome(){
   if(mode==="store"&&!city){ view.innerHTML=cityPrompt(); return; }
   const recent=(store("bs-viewed")||[]).map(id=>byId[id]).filter(p=>p&&visible(p)).slice(0,10);
-  const rows=["protein","health","creatine","pre"].map(sec=>{
+  const rows=["protein","health","creatine","pre","gainer"].map(sec=>{
     const cards=cardsFor(P.filter(p=>p.sec===sec&&!p.member&&visible(p))).slice(0,8);
     return `<section class="hrow" aria-labelledby="hr-${sec}"><div class="hrow-head"><div><h2 id="hr-${sec}">${CATS[sec].title}</h2><p>${CATS[sec].sub}</p></div><a class="seeall" href="#cat-${sec}">See all ›</a></div>
       <div class="scroller">${cards.map((c,i)=>card(c,i,{suffix:"-h"})).join("")}</div></section>`;
@@ -1799,6 +1856,26 @@ function closeMenus(except){ MENUS.forEach(([b,m])=>{ if(m!==except){ m.hidden=t
 MENUS.forEach(([b,m])=>b.addEventListener("click",e=>{e.stopPropagation(); const open=m.hidden; closeMenus(m); m.hidden=!open; b.setAttribute("aria-expanded",open?"true":"false");}));
 document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus(); });
 
+
+// ---------- moving announcement bar ----------
+function renderPromo(){
+  const el=document.getElementById("promo"); if(!el) return;
+  const pub=P.filter(p=>!p.member&&p.was);
+  const top=pub.slice().sort((a,b)=>pct(b)-pct(a))[0];
+  const nStores=Object.keys(STORES).length;
+  const free=Object.entries(STORES).filter(([k,st])=>st.free!==null).sort((a,b)=>(a[0]==="mp"?-1:b[0]==="mp"?1:a[1].free-b[1].free)).map(([k,st])=>st);
+  const msgs=[
+    `<b>Australia's supplement price comparison</b>: ${nStores} stores, one search`,
+    top?`<b>Up to ${pct(top)}% off</b> today: ${esc(top.brand)} ${esc(top.name)} ${fmt(top.now)} at ${STORES[top.store].name}`:"",
+    ...free.slice(0,6).map(st=>`<b>Free shipping</b> over $${st.free} at ${st.name}`),
+    `Ranked by <b>price per 100g</b>, not sticker price`,
+    `<b>${pub.length} products on sale</b> right now`,
+    `Prices checked <b>${CHECKED}</b>`
+  ].filter(Boolean);
+  const run=msgs.map(m=>`<span class="pm">${m}</span>`).join("");
+  el.innerHTML=`<div class="promo-track"><div class="promo-run">${run}</div><div class="promo-run" aria-hidden="true">${run}</div></div>`;
+}
+
 // ---------- compact sticky header ----------
 const head=document.getElementById("site-head");
 window.addEventListener("scroll",()=>head.classList.toggle("compact",window.scrollY>40),{passive:true});
@@ -2029,7 +2106,7 @@ function wire(formId,inputId,okId,text="Preview only: signups aren't saved yet. 
 }
 wire("join-form","email","join-ok");
 
-renderMode(); route();
+renderMode(); renderPromo(); route();
 
 </script>
 
