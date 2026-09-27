@@ -8,7 +8,7 @@
 <title>Bearsaves</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700;800&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
 <style>
 :root{
   color-scheme:light;
@@ -998,7 +998,7 @@ footer .row a{white-space:nowrap}
 
 /* moving announcement bar */
 .promo{overflow:hidden;padding:0!important;text-align:left}
-.promo-track{display:flex;width:max-content;animation:promo-scroll 55s linear infinite}
+.promo-track{display:flex;width:max-content;animation:promo-scroll 100s linear infinite}
 .promo:hover .promo-track{animation-play-state:paused}
 .promo-run{display:flex;flex:none}
 .pm{white-space:nowrap;padding:9px 0;font-size:13.5px;display:block}
@@ -1010,6 +1010,170 @@ footer .row a{white-space:nowrap}
 .site-head .menu-list a{color:#111!important;border-radius:0}
 .site-head .menu-list a:hover{background:#EEF1FF;color:var(--blue)!important}
 .site-head .menu-list a span{color:#6F6F6F!important}
+
+.site-head .cats{gap:30px;white-space:nowrap}
+.site-head .cat{flex:none}
+.site-head .menu-list{min-width:230px}
+/* brands */
+.pcard .blink{color:inherit;text-decoration:none}.pcard .blink:hover{color:var(--blue);text-decoration:underline}
+.bh{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.bh h1{font-size:clamp(34px,5vw,52px)}.bh p{color:#555;margin:6px 0 0;max-width:60ch}
+.bsearch input{font:inherit;width:min(360px,100%);height:48px;border:2px solid #111;padding:0 14px}
+.btabs{display:flex;gap:18px;align-items:center;margin-bottom:14px;font-weight:700}
+.btabs button{font:inherit;background:none;border:0;padding:4px 0;border-bottom:3px solid transparent;color:#555;cursor:pointer}.btabs button.on{color:#111;border-color:var(--blue)}.btabs span{margin-left:auto;color:#777;font-weight:500}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:40px}
+.btile{border:2px solid #111;padding:14px;display:grid;gap:6px;text-decoration:none;color:#111;background:#fff}
+.btile:hover{background:#F2F2F2}
+.btile b{font:700 22px/1.05 "Barlow Condensed",sans-serif;text-transform:uppercase}.btile span{font-size:13px;color:#555}
+.btile em,.bs em{font-style:normal;justify-self:start;font:700 11px "Barlow",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#999}
+.btile em.on,.bs em.on{background:var(--blue);color:#fff;padding:3px 7px}.btile em.mem,.bs em.mem{background:#111;color:#fff;padding:3px 7px}
+.bhero{background:#111;color:#fff;margin:0 -20px 18px;padding:28px max(20px,calc(50% - 570px));display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.bhero h1{color:#fff;font-size:clamp(40px,7vw,76px);line-height:.95}.bhero p{color:#bbb;margin:8px 0 0}
+.bstats{display:flex;gap:28px;text-align:right}.bstats b{display:block;font:700 44px/1 "Barlow Condensed",sans-serif}.bstats span{font-size:13px;color:#aaa}
+.bbar2{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.bchip{font:700 15px "Barlow",sans-serif;border:2px solid #111;background:#fff;padding:8px 14px;cursor:pointer;color:#111}.bchip.on{background:#111;color:#fff}
+.btoggle{margin-left:auto;font-weight:700;display:flex;gap:8px;align-items:center;cursor:pointer}.btoggle input{width:18px;height:18px;accent-color:var(--blue)}
+.brows{display:grid;gap:10px;margin-bottom:40px}
+.brow{display:grid;grid-template-columns:80px minmax(0,1.6fr) minmax(0,1.1fr) 150px 220px;gap:18px;align-items:center;border:2px solid #111;padding:12px 16px;background:#fff;cursor:pointer}
+.brow .th{height:72px;display:grid;place-items:center}.brow .th svg{height:60px;width:auto}
+.bn{display:grid;gap:2px}.bn b{font:600 22px/1.1 "Barlow Condensed",sans-serif;text-transform:uppercase}.bn small{font-size:13px;color:#555}
+.bs{display:grid;gap:3px}.bs small{font-size:13px;color:#555}.bs b{font-size:17px}
+.bp{display:flex;flex-direction:column}.bp .now{font:700 32px/1 "Barlow Condensed",sans-serif}
+.bc{display:grid;gap:4px}.bc .golink{font-size:12.5px}
+.sg .th.bm{background:#111;color:#fff;font:700 22px "Barlow Condensed",sans-serif;display:grid;place-items:center}
+.sgb{background:#EEF1FF!important}
+@media (max-width:860px){.brow{grid-template-columns:64px 1fr;}.brow .th{grid-row:span 2}.bs,.bp,.bc{grid-column:2}.bstats{text-align:left;gap:18px}.bstats b{font-size:34px}}
+
+/* small screens: open the dropdown right under the menu bar, not at the bottom of the screen */
+@media (max-width:760px){
+  .site-head .menu-list{position:fixed;top:calc(var(--head-h,160px) + 6px);bottom:auto;left:16px;right:16px;min-width:0;box-shadow:0 18px 40px -12px rgba(0,0,0,.45)}
+}
+
+/* SALE stickers */
+.salest{position:absolute;top:10px;right:10px;z-index:2;background:var(--blue);color:#fff;font:700 18px/1 "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:7px 11px 6px;transform:rotate(5deg);box-shadow:3px 3px 0 #111}
+.salest.big{top:16px;right:16px;font-size:26px;padding:9px 14px 8px}
+.salest.sm{top:-6px;right:-8px;font-size:12px;padding:4px 6px 3px;box-shadow:2px 2px 0 #111}
+.pcard .off{font-size:22px;padding:7px 10px}
+.pcard:has(.salest){border-color:var(--blue);box-shadow:inset 0 3px 0 var(--blue)}
+
+/* ================= BEAR MARKET THEME (navy) ================= */
+:root{--nv:#0B1633;--nv2:#13224A;--nvl:#233563;--drop:#FF4A3D;--blue:#2240FF;--blue-deep:#1A33D6;--pg:#F3F5FB;--imgbg:#EEF1F8;--line:#DDE3EF}
+body{background:var(--pg)}
+h1,h2{font-family:"Anton",Impact,sans-serif!important;font-weight:400!important;text-transform:uppercase;letter-spacing:.005em}
+h3{font-family:"Barlow",sans-serif}
+.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+/* ticker + header */
+.promo{background:var(--nv)!important;color:#C9D1EA!important;border-bottom:1px solid var(--nvl)}
+.pm{font:500 13px "JetBrains Mono",monospace!important}
+.pm b{color:#fff}.pm.tk em{font-style:normal;color:var(--drop);font-weight:700}
+.pm::after{background:var(--nvl)!important;opacity:1!important}
+.site-head{background:var(--nv)!important}
+.site-head .cats{background:var(--nv)!important;border-top:1px solid var(--nvl)!important}
+.search{background:var(--nv2)!important;border:1px solid var(--nvl)!important}
+.search input{color:#fff!important}.search input::placeholder{color:#8C97B8}
+.search svg{color:#8C97B8!important}
+.count{background:var(--drop)!important}
+.site-head .cat.on{border-bottom-color:var(--drop)!important}
+.logo-text small{color:#8C97B8!important}
+/* home hero */
+.bm-hero{background:var(--nv);color:#fff;margin:-22px 0 30px;padding:30px 0 38px;box-shadow:0 0 0 100vmax var(--nv);clip-path:inset(0 -100vmax)}
+.bm-hero-in{display:grid;grid-template-columns:1fr 1.35fr;gap:34px;align-items:center}
+.bm-live{font:700 13px "JetBrains Mono",monospace;color:var(--drop);margin:0 0 12px}
+.bm-h h1{color:#fff;font-size:clamp(44px,5.4vw,72px);line-height:.94}
+.bm-h h1 span{color:var(--drop)}
+.bm-sub{color:#B7C0DC;font-size:17px;margin:16px 0 0;max-width:42ch}
+.bm-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bmt{background:var(--nv2);border:1px solid var(--nvl);padding:13px 13px 12px;display:grid;gap:6px;text-decoration:none;color:#fff;transition:border-color .15s,transform .15s}
+.bmt:hover{border-color:var(--drop);transform:translateY(-2px)}
+.bmt-h{display:flex;justify-content:space-between;align-items:flex-start;font:700 13.5px "JetBrains Mono",monospace;text-transform:uppercase;line-height:1.2}
+.bmt-h b{font-weight:700}.bmt-h i{font-style:normal;color:var(--drop);font-size:12px}
+.bmt svg{width:100%;height:26px;color:var(--drop)}
+.bmt-flat{height:26px;display:block;border-bottom:2px solid var(--nvl);margin-bottom:-2px}
+.bmt strong{font:800 24px/1.05 "JetBrains Mono",monospace}
+.bmt small{font:500 11.5px "JetBrains Mono",monospace;color:#8C97B8}
+.bm-spot{background:var(--nv);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 28px;margin:6px 0 34px;flex-wrap:wrap}
+.bm-spot h2{color:#fff;font-size:34px}.bm-spot p{margin:4px 0 0;font:500 14px "JetBrains Mono",monospace;color:#B7C0DC}
+.bm-spot-btn{background:var(--drop);color:#fff;font:700 16px Barlow,sans-serif;padding:14px 22px;text-decoration:none;white-space:nowrap}
+/* section headings */
+.hrow-head,.shelf-head,.picks-head{border-bottom:2px solid var(--nv)!important}
+.hrow-head h2,.cat-head h1{color:var(--nv)}
+.seeall{font:700 14px "JetBrains Mono",monospace;color:var(--blue)!important;text-transform:uppercase}
+/* product cards */
+.pcard{border:1px solid var(--line)!important;box-shadow:none!important;background:#fff}
+.pcard:hover{border-color:var(--nv)!important}
+.pcard .img{background:var(--imgbg)!important}
+.pcard .off,.off{position:absolute;top:10px;left:10px;background:var(--drop)!important;color:#fff!important;font:800 15px "JetBrains Mono",monospace!important;padding:5px 8px!important;border:0!important;transform:none!important;box-shadow:none!important}
+.off.sm{top:-6px;left:-6px;font-size:11px!important;padding:3px 5px!important}
+.salest{display:none!important}
+.pcard .mem{background:var(--nv)!important;color:#fff!important;border:0!important}
+.spark{width:100%;height:30px;color:var(--drop);display:block;margin:2px 0 -2px}
+.pcard .now,.brow .now{font:800 30px/1 "JetBrains Mono",monospace!important;color:var(--nv)}
+.pcard .was,.brow .was{font:500 14px "JetBrains Mono",monospace!important;color:#8A93AB!important}
+.was::before{font-family:"JetBrains Mono",monospace!important}
+.you{color:var(--drop)!important;font:700 13.5px "JetBrains Mono",monospace!important}
+.pcard .cheap,.pcard .foot{font-family:Barlow,sans-serif}
+.addb{background:var(--blue)!important}.addb:hover{background:var(--blue-deep)!important}
+.addb.added{background:var(--nv)!important}
+.lasts u{color:var(--blue)!important}
+/* deal of the day */
+.dotd{background:#fff!important;border:1px solid var(--line)!important}
+.dotd .img{background:var(--imgbg)!important}
+.dotd .big-off{background:var(--drop)!important;font:800 22px "JetBrains Mono",monospace!important;box-shadow:none!important;transform:none!important}
+.dotd .label{background:var(--nv)!important;color:#fff!important;font-family:"JetBrains Mono",monospace!important}
+.dotd h1{color:var(--nv)!important}
+.dotd .now{font:800 clamp(52px,6vw,80px)/1 "JetBrains Mono",monospace!important;color:var(--nv)!important}
+/* category + brand pages */
+.cat-head h1,.bh h1{color:var(--nv)}
+.bhero{background:var(--nv)!important}
+.bstats b{font-family:"JetBrains Mono",monospace!important}
+.bchip.on,.btabs button.on{background:var(--nv);color:#fff}
+.btabs button.on{background:none;color:var(--nv);border-color:var(--drop)}
+.btile,.brow{border:1px solid var(--line)!important}
+.btile em.on,.bs em.on{background:var(--drop)!important}
+.btile em.mem,.bs em.mem{background:var(--nv)!important}
+.filters{border:1px solid var(--line)!important}
+.modebar{border:1px solid var(--line)!important;background:#fff}
+.switch .thumb{background:var(--nv)!important}
+/* stack, teasers, join, footer */
+.stack{border:1px solid var(--line)!important;background:#fff}
+.teaser a.dark,.join,footer{background:var(--nv)!important}
+.join{box-shadow:0 0 0 100vmax var(--nv)!important}
+footer{box-shadow:0 0 0 100vmax var(--nv)!important}
+.mnav{background:var(--nv)!important}
+.bbar{background:var(--nv)!important}
+.storeline{margin:10px 0 30px;font:500 13px "JetBrains Mono",monospace}
+@media (max-width:1000px){.bm-hero-in{grid-template-columns:1fr}.bm-tiles{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:640px){.bm-tiles{grid-template-columns:repeat(2,1fr)}.bm-hero{padding-top:24px}.bmt strong{font-size:21px}.pcard .now{font-size:24px!important}}
+
+.pp-price .save{color:var(--drop)!important;font-family:"JetBrains Mono",monospace!important}
+.pp-price .now{font-family:"JetBrains Mono",monospace!important;color:var(--nv)}
+.pp-info h1{color:var(--nv)}
+.pp-img{background:var(--imgbg)!important}
+.drawer .sv2{background:var(--drop)!important}
+.drawer .sv2-pct{color:var(--drop)!important}
+.drawer .sv2 .why li b{color:var(--drop)!important}
+.drawer .d-head,.drawer .d-foot{background:var(--nv)!important}
+.drawer .store-box .btn{background:var(--blue)!important}
+.drawer .line .s{color:var(--blue)!important}
+.ctable tr.best td{background:#EEF1FF}
+.ctable .tag{color:var(--drop)!important}
+
+.bhero{margin:0 0 18px!important;padding:28px 0!important;box-shadow:0 0 0 100vmax var(--nv);clip-path:inset(0 -100vmax)}
+
+/* simplify */
+.pm{font:500 13.5px Barlow,sans-serif!important}
+.pm.tk em{color:#FF8A80!important;font-weight:700}
+.bmt{gap:8px;padding:16px 14px}
+.bmt b{font:700 17px Barlow,sans-serif}
+.bmt strong{font:800 22px/1.1 Barlow,sans-serif}
+.bmt strong.dn{color:#FF6B5F}
+.bmt small{font:600 13px Barlow,sans-serif;color:#B7C0DC}
+.bm-live{font:700 14px Barlow,sans-serif!important;color:#FF6B5F!important}
+.you{font:700 15px Barlow,sans-serif!important}
+.pcard .off{font:800 14px Barlow,sans-serif!important;letter-spacing:.04em}
+.pcard .now,.brow .now{font:800 30px/1 Barlow,sans-serif!important}
+.pcard .was,.brow .was{font:500 15px Barlow,sans-serif!important}
+.num{font-family:inherit}
 </style>
 </head>
 <body>
@@ -1061,22 +1225,30 @@ footer .row a{white-space:nowrap}
   </nav>
   <div class="cats" role="navigation" aria-label="Categories">
     <div class="menu">
-      <button class="cat on" id="supps-btn" aria-expanded="false" aria-controls="supps-menu">Supplements <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button class="cat" id="supps-btn" aria-expanded="false" aria-controls="supps-menu">Supplements <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="menu-list" id="supps-menu" hidden>
-        <a href="#cat-protein">Protein <span>Whey &amp; plant</span></a>
-        <a href="#cat-health">Vitamins &amp; health <span>Daily cost</span></a>
-        <a href="#cat-creatine">Creatine <span>Per 100g</span></a>
-        <a href="#cat-pre">Pre-workout <span>Per serve</span></a>
-        <a href="#cat-gainer">Mass gainers <span>Per 100g</span></a>
-        <a href="#cat-members">Member-only deals <span>Free sign-up</span></a>
+        <a href="#cat-protein" style="color:#111 !important;-webkit-text-fill-color:#111">Protein</a>
+        <a href="#cat-creatine" style="color:#111 !important;-webkit-text-fill-color:#111">Creatine</a>
+        <a href="#cat-pre" style="color:#111 !important;-webkit-text-fill-color:#111">Pre-workout</a>
+        <a href="#cat-health" style="color:#111 !important;-webkit-text-fill-color:#111">Vitamins &amp; health</a>
+        <a href="#cat-gainer" style="color:#111 !important;-webkit-text-fill-color:#111">Mass gainers</a>
+        <a href="#cat-members" style="color:#111 !important;-webkit-text-fill-color:#111">Member-only deals</a>
       </div>
     </div>
     <div class="menu">
-      <button class="cat soon menu-btn" id="wear-btn" aria-expanded="false" aria-controls="wear-menu">Gymwear <em>Soon</em> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button class="cat" id="food-btn" aria-expanded="false" aria-controls="food-menu">Food &amp; snacks <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="menu-list" id="food-menu" hidden>
+        <a href="#cat-snacks" style="color:#111 !important;-webkit-text-fill-color:#111">Protein bars &amp; snacks</a>
+        <a href="#cat-meals" style="color:#111 !important;-webkit-text-fill-color:#111">Meals</a>
+      </div>
+    </div>
+    <a class="cat" href="#brands">Brands</a>
+    <div class="menu">
+      <button class="cat soon" id="wear-btn" aria-expanded="false" aria-controls="wear-menu">Gymwear <em>Soon</em> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="menu-list" id="wear-menu" hidden>
-        <a href="#cat-wear-men">Men <span>Coming soon</span></a>
-        <a href="#cat-wear-women">Women <span>Coming soon</span></a>
-        <a href="#cat-wear-kids">Kids <span>Coming soon</span></a>
+        <a href="#cat-wear-men" style="color:#111 !important;-webkit-text-fill-color:#111">Men</a>
+        <a href="#cat-wear-women" style="color:#111 !important;-webkit-text-fill-color:#111">Women</a>
+        <a href="#cat-wear-kids" style="color:#111 !important;-webkit-text-fill-color:#111">Kids</a>
       </div>
     </div>
     <a class="cat soon" href="#cat-equip">Equipment <em>Soon</em></a>
@@ -1173,6 +1345,7 @@ const STORES={
   mp:{name:"Myprotein",pickup:false,ship:null,free:150,url:"https://au.myprotein.com"},
   maxs:{name:"Max's",pickup:false,ship:null,free:150,url:"https://maxs.com.au"},
   oxy:{name:"Oxygen Nutrition",pickup:false,ship:null,free:null,url:"https://oxygennutrition.com.au"},
+  mmc:{name:"My Muscle Chef",pickup:false,ship:null,free:null,url:"https://www.mymusclechef.com"},
   mm:{name:"Macro Mike",pickup:false,ship:null,free:null,url:"https://www.macromike.com.au"},
   vpa:{name:"VPA",pickup:false,ship:null,free:150,url:"https://www.vpa.com.au"},
   tp:{name:"True Protein",pickup:false,ship:null,free:null,url:"https://www.trueprotein.com.au"},
@@ -1187,7 +1360,9 @@ const SECTIONS=[
   {id:"health",title:"Vitamins & health",unit:"day",sub:"Ranked by cost per day at the label dose."},
   {id:"creatine",title:"Creatine",unit:"100g",sub:"Ranked by price per 100g."},
   {id:"pre",title:"Pre-workout",unit:"serve",sub:"Ranked by price per serve."},
-  {id:"gainer",title:"Mass gainers",unit:"100g",sub:"Ranked by price per 100g."}
+  {id:"gainer",title:"Mass gainers",unit:"100g",sub:"Ranked by price per 100g."},
+  {id:"snacks",title:"Protein bars & snacks",unit:"bar",sub:"Ranked by price per bar."},
+  {id:"meals",title:"Meals",unit:"meal",sub:"Ranked by price per meal."}
 ];
 // qty = grams (100g units), days, or serves. group = same product at several stores.
 const P=[
@@ -1300,7 +1475,16 @@ const P=[
   {id:"oxy-per4m",group:"per4m",sec:"pre",img:"pre",tile:"tile3",brand:"Nexus Sports Nutrition",name:"Per4m 2.0, 50 serves",meta:"",now:71.90,was:87.90,qty:50,store:"oxy",url:"https://oxygennutrition.com.au/products/nexus-per4m-2"},
   {id:"oxy-blackwolf",sec:"pre",img:"pre",tile:"tile4",brand:"Black Wolf",name:"Pump Non-Stim, 40 serves",meta:"stimulant free",now:78.90,qty:40,store:"oxy",url:"https://oxygennutrition.com.au/products/black-wolf-pump-non-stim"},
   {id:"bulk-pre101",sec:"pre",img:"pre",tile:"tile1",brand:"Bulk Nutrients",name:"Pre Workout 101, 30 serves",meta:"396g pouch · 272mg caffeine",now:39,qty:30,store:"bulk",url:"https://www.bulknutrients.com.au/products/pre-workout-101"},
-  {id:"oxy-emrald-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"Emrald Labs",name:"Creatine Monohydrate 2kg",meta:"",now:159.90,qty:2000,store:"oxy",url:"https://oxygennutrition.com.au/products/emrald-labs-creatine-monohydrate"}
+  {id:"oxy-emrald-cr",sec:"creatine",img:"jar",tile:"tile2",brand:"Emrald Labs",name:"Creatine Monohydrate 2kg",meta:"",now:159.90,qty:2000,store:"oxy",url:"https://oxygennutrition.com.au/products/emrald-labs-creatine-monohydrate"},
+  {id:"elite-rawbar",sec:"snacks",img:"bar",tile:"tile1",brand:"Elite Supplements",name:"Raw Bar, box of 12",meta:"",now:17.90,was:59.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/raw-bar"},
+  {id:"elite-smartbar",sec:"snacks",img:"bar",tile:"tile2",brand:"Smart Diet Solutions",name:"Smart Protein Bar, box of 12",meta:"",now:54.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/smart-protein-bar"},
+  {id:"elite-mnbar",sec:"snacks",img:"bar",tile:"tile3",brand:"Muscle Nation",name:"Custard Protein Bar, box of 12",meta:"",now:54.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/muscle-nation-custard-protein-bar"},
+  {id:"elite-maxines",sec:"snacks",img:"bar",tile:"tile4",brand:"Maxine's",name:"Burn Bars, box of 12",meta:"",now:35.90,was:41.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/maxines-burn-bars"},
+  {id:"elite-noway",sec:"snacks",img:"bar",tile:"tile1",brand:"ATP Science",name:"Noway Collagen Jelly Bar, box of 12",meta:"",now:54.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/collagen-jelly-bar"},
+  {id:"elite-eqbar",sec:"snacks",img:"bar",tile:"tile2",brand:"EQ",name:"Protein & Fibre Bar, box of 12",meta:"",now:49.90,was:59.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/protein-fibre-bar"},
+  {id:"elite-fibreboost",sec:"snacks",img:"bar",tile:"tile3",brand:"Fibre Boost",name:"Cold Pressed Protein Bar, box of 12",meta:"",now:53.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/cold-pressed-protein-bar"},
+  {id:"mmc-10",sec:"meals",img:"meal",tile:"tile1",brand:"My Muscle Chef",name:"Ready meals, 10-pack",meta:"70+ meals to choose from",now:104.95,qty:10,store:"mmc",url:"https://www.mymusclechef.com"},
+  {id:"mmc-20",sec:"meals",img:"meal",tile:"tile2",brand:"My Muscle Chef",name:"Ready meals, 20-pack",meta:"70+ meals to choose from",now:199.95,qty:20,store:"mmc",url:"https://www.mymusclechef.com"}
 ];
 
 const VB={tub:"0 0 100 110",jar:"0 0 100 110",bottle:"0 0 100 110",pre:"0 0 100 110",caps:"0 0 100 110",shake:"0 0 100 110",bar:"0 0 120 80"};
@@ -1322,6 +1506,7 @@ function icon(p){
   const shade=(x,y,w,h,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" ${S}/>`;
   let g;
   if(p.img==="bar") return `<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="4" fill="url(#gSh)"/><rect x="12" y="24" width="96" height="34" rx="3" fill="${l}"/><rect x="12" y="24" width="96" height="34" rx="3" ${S} opacity=".6"/><rect x="6" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="106" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="36" y="33" width="48" height="7" fill="${t}"/><rect x="44" y="45" width="32" height="4" fill="${t}" opacity=".6"/></svg>`;
+  if(p.img==="meal") return `<svg viewBox="0 0 120 90" aria-hidden="true"><ellipse cx="60" cy="80" rx="50" ry="5" fill="url(#gSh)"/><rect x="10" y="22" width="100" height="54" rx="6" fill="${b}"/><rect x="10" y="22" width="100" height="54" rx="6" ${S} opacity=".5"/><rect x="18" y="30" width="46" height="38" rx="4" fill="${l}" opacity=".85"/><rect x="70" y="30" width="32" height="17" rx="3" fill="${c}" opacity=".7"/><rect x="70" y="51" width="32" height="17" rx="3" fill="${l}" opacity=".5"/><rect x="10" y="16" width="100" height="8" rx="3" fill="#fff" opacity=".7"/></svg>`;
   if(p.img==="caps") g=`${body(26,24,48,80,9)}<rect x="26" y="50" width="48" height="30" fill="${l}"/><ellipse cx="50" cy="65" rx="9" ry="4.5" fill="${t}"/>${shade(26,24,48,80,9)}<rect x="33" y="10" width="34" height="17" rx="3" fill="${c}"/>${shade(33,10,34,17,3)}`;
   else if(p.img==="bottle") g=`${body(24,26,52,78,10)}<rect x="24" y="54" width="52" height="28" fill="${l}"/><circle cx="50" cy="68" r="6" fill="${t}"/>${shade(24,26,52,78,10)}<rect x="36" y="10" width="28" height="18" rx="3" fill="${c}"/>${shade(36,10,28,18,3)}`;
   else if(p.img==="shake") g=`${body(18,30,28,74,7)}${body(54,30,28,74,7)}<rect x="18" y="52" width="28" height="28" fill="${l}"/><rect x="54" y="52" width="28" height="28" fill="${l}"/>${shade(18,30,28,74,7)}${shade(54,30,28,74,7)}<rect x="23" y="18" width="18" height="14" rx="3" fill="${c}"/><rect x="59" y="18" width="18" height="14" rx="3" fill="${c}"/>`;
@@ -1381,18 +1566,19 @@ function cardsFor(list,sortBy="unit"){
 const buyLink=(p,cls="buy")=>`<a class="${cls}" href="${esc(p.url)}" target="_blank" rel="sponsored noopener">${cls==="golink"?"or buy now at":mode==="store"&&pickupOk(p)?"Reserve at":"Buy at"} ${STORES[p.store].name} ${ARR}</a>`;
 const bkBtn=p=>{const inB=!!basket[p.id];return `<button class="bk${inB?" added":""}" data-add="${p.id}" aria-label="${inB?"Remove from basket":"Add to basket"}" title="${inB?"In your basket":"Add to basket"}">${BK}<span class="bk-t">${inB?"✓":"+"}</span></button>`;};
 const addRow=p=>{const inB=!!basket[p.id];return `<div class="buyrow"><button class="addb${inB?" added":""}" data-add="${p.id}">${inB?"✓ In basket":"Add to basket"}</button></div>${buyLink(p,"golink")}`;};
-const priceBlock=p=>`<div class="prices">${p.was?`<span class="was num">${fmt(p.was)}</span>`:""}<span class="now num">${fmt(p.now)}</span></div>${p.was?`<div class="you num">You save ${fmt(p.was-p.now)}</div>`:""}`;
+const priceBlock=p=>`<div class="prices">${p.was?`<span class="was num">${fmt(p.was)}</span>`:""}<span class="now num">${fmt(p.now)}</span></div>${p.was?`<div class="you">You save ${fmt(p.was-p.now)}</div>`:""}`;
+const spark=p=>p.was?`<svg class="spark" viewBox="0 0 220 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,8 150,8 172,32 220,32" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="218" cy="32" r="4" fill="currentColor"/></svg>`:"";
 function card(c,rank,opts={}){
   const p=c.main, others=c.others.filter(visible).length;
   return `<article class="pcard" data-href="#p-${p.id}" id="card-${p.id}${opts.suffix||""}">
-    <div class="img" style="background:var(--${p.tile})">${p.was?`<span class="off">-${pct(p)}%</span>`:""}${p.member?'<span class="mem">Members</span>':""}${icon(p)}</div>
+    <div class="img" style="background:var(--${p.tile})">${p.was?`<span class="off">${pct(p)}% OFF</span>`:""}${p.member?'<span class="mem">Members</span>':""}${icon(p)}</div>
     <div class="bd">
-      <div class="brand">${p.brand}${p.type==="plant"?" · Plant-based":p.kind==="isolate"?" · Isolate":p.kind==="casein"?" · Casein":""}</div>
+      <div class="brand"><a class="blink" href="#brand-${slug(p.brand)}">${p.brand}</a>${p.type==="plant"?" · Plant-based":p.kind==="isolate"?" · Isolate":p.kind==="casein"?" · Casein":""}</div>
       <h3 class="name">${p.name}</h3>
       ${priceBlock(p)}
       <div class="cheap">${others?"Cheapest at":mode==="store"?"Pick up at":"At"} <b>${STORES[p.store].name}</b></div>
       ${opts.extra||""}
-      ${p.sec==="protein"?`<button class="lasts" data-restock="${p.id}"><span>Lasts <b>${Math.round(daysLast(p))} days</b> · <b class="num">${fmt(perMonth(p))}</b>/mo</span><u>Restock plan ›</u></button>`:""}
+      ${p.sec==="protein"&&opts.lasts?`<button class="lasts" data-restock="${p.id}"><span>Lasts <b>${Math.round(daysLast(p))} days</b> · <b class="num">${fmt(perMonth(p))}</b>/mo</span><u>Restock plan ›</u></button>`:""}
       ${addRow(p)}
       <div class="foot"><span class="num">${fmt(value(p))}${p.sec==="protein"?" per 30g protein":unitLabel(p).replace("/"," per ")}</span>${others?`<a class="cmp" href="#p-${p.id}">Compare ${others+1} stores</a>`:""}</div>
     </div>
@@ -1417,6 +1603,8 @@ const CATS={
   creatine:{title:"Creatine",sub:"Ranked by price per 100g. At 5g a day, every 100g lasts 20 days."},
   pre:{title:"Pre-workout",sub:"Ranked by price per serve."},
   gainer:{title:"Mass gainers",sub:"Ranked by price per 100g."},
+  snacks:{title:"Protein bars & snacks",sub:"Ranked by price per bar. Boxes compared per bar, so bigger boxes aren't hidden."},
+  meals:{title:"Meals",sub:"Ready-made high-protein meals, ranked by price per meal."},
   members:{title:"Member-only deals",sub:"Musashi shows these prices only after you join Musashi United (free). Sale ends 30 September."},
   "wear-men":{title:"Men's gymwear",soon:true},"wear-women":{title:"Women's gymwear",soon:true},"wear-kids":{title:"Kids' gymwear",soon:true},equip:{title:"Equipment",soon:true}
 };
@@ -1427,6 +1615,8 @@ function route(){
   closeSg();
   if(h.startsWith("p-")&&byId[h.slice(2)]) renderProduct(byId[h.slice(2)]);
   else if(h.startsWith("cat-")&&CATS[h.slice(4)]) renderCategory(h.slice(4));
+  else if(h==="brands") renderBrands();
+  else if(h.startsWith("brand-")&&brandBySlug(h.slice(6))) renderBrand(brandBySlug(h.slice(6)));
   else if(h==="about") renderAbout();
   else if(h==="contact"||h==="privacy"||h==="disclosure") renderLegal(h);
   else if(h==="pro") renderPro();
@@ -1446,23 +1636,39 @@ function cityPrompt(){ return `<div class="city-prompt"><svg width="56" height="
 function renderHome(){
   if(mode==="store"&&!city){ view.innerHTML=cityPrompt(); return; }
   const recent=(store("bs-viewed")||[]).map(id=>byId[id]).filter(p=>p&&visible(p)).slice(0,10);
-  const rows=["protein","health","creatine","pre","gainer"].map(sec=>{
+  const rows=["protein","snacks","health","creatine","pre","gainer","meals"].map(sec=>{
     const cards=cardsFor(P.filter(p=>p.sec===sec&&!p.member&&visible(p))).slice(0,8);
     return `<section class="hrow" aria-labelledby="hr-${sec}"><div class="hrow-head"><div><h2 id="hr-${sec}">${CATS[sec].title}</h2><p>${CATS[sec].sub}</p></div><a class="seeall" href="#cat-${sec}">See all ›</a></div>
       <div class="scroller">${cards.map((c,i)=>card(c,i,{suffix:"-h"})).join("")}</div></section>`;
   }).join("");
+  const pub=P.filter(p=>!p.member&&p.was&&visible(p));
+  const T=[["protein","Protein"],["snacks","Bars & snacks"],["creatine","Creatine"],["pre","Pre-workout"],["health","Vitamins"],["gainer","Mass gainers"],["meals","Meals"],["members","Member deals"]].map(([k,t])=>{
+    const pool=k==="members"?P.filter(p=>p.member):P.filter(p=>p.sec===k&&!p.member&&visible(p));
+    const sale=pool.filter(p=>p.was); const best=sale.slice().sort((a,b)=>pct(b)-pct(a))[0];
+    const cheap=pool.slice().sort((a,b)=>rankKey(a)-rankKey(b))[0];
+    const big=k==="members"?`${pool.length}`:best?`${pct(best)}% off`:cheap?fmt(k==="protein"?value(cheap):unitPrice(cheap)):"—";
+    const small=k==="members"?"member prices":best?"up to":cheap?(k==="snacks"?"per bar":k==="meals"?"per meal":k==="health"?"per day":k==="pre"?"per serve":"per 100g")+", cheapest":"coming soon";
+    const line1=k==="members"?`${pool.length} member prices`:best?`Up to ${pct(best)}% off`:cheap?`From ${fmt(k==="protein"?value(cheap):unitPrice(cheap))}${k==="snacks"?" a bar":k==="meals"?" a meal":k==="pre"?" a serve":k==="health"?" a day":" /100g"}`:"Coming soon";
+    const line2=k==="members"?"Free sign-up":sale.length?`${sale.length} on sale`:`${pool.length} products`;
+    return `<a class="bmt" href="#cat-${k}"><b>${t}</b><strong class="${best||k==="members"?"dn":""}">${line1}</strong><small>${line2} ›</small></a>`;}).join("");
+  const crashes=cardsFor(pub,"save").slice(0,8);
   view.innerHTML=`
+    <section class="bm-hero"><div class="bm-hero-in">
+      <div class="bm-h"><p class="bm-live">${pub.length} deals on right now</p><h1>It's a bear market for <span>supplement prices</span></h1><p class="bm-sub">We compare ${Object.values(STORES).filter(st=>mode==="online"||st.pickup).length} Aussie stores so you pay less. What are you shopping for?</p></div>
+      <div class="bm-tiles">${T}</div></div></section>
+    <section class="hrow"><div class="hrow-head"><div><h2>Biggest price drops today</h2><p>The biggest discounts across every store we compare.</p></div><a class="seeall" href="#cat-protein">See all ${pub.length} ›</a></div>
+      <div class="grid">${crashes.map((c,i)=>card(c,null,{suffix:"-x"})).join("")}</div></section>
+    <section class="bm-spot"><div><h2>Spotted it lower?</h2><p>Report any lower price, online or on a shelf near you. We verify every one within 24 hours.</p></div><a class="bm-spot-btn" href="mailto:bearsavesau@gmail.com?subject=Lower%20price%20spotted">Report a lower price ▼</a></section>
     <header class="hero" id="top"><div class="dotd" id="dotd"></div></header>
-    <p class="storeline"><span><b>${Object.values(STORES).filter(st=>mode==="online"||st.pickup).length} Australian stores</b> compared</span><span>Cheapest first, ranked by price per 100g</span><span>Prices checked by hand on ${CHECKED} · always confirm at checkout</span></p>
     ${recent.length?`<section class="hrow"><div class="hrow-head"><div><h2>Your usual</h2><p>Products you've looked at, with today's cheapest price.</p></div></div><div class="scroller">${recent.map(p=>card({main:cheapestOf(p),others:family(p).filter(x=>x.id!==cheapestOf(p).id)},null,{suffix:"-u"})).join("")}</div></section>`:""}
-    <section class="picks" id="picks" aria-label="Bear's picks"></section>
     ${stackHTML()}
     ${rows}
+    <p class="storeline"><span>Prices checked by hand on ${CHECKED} · always confirm at checkout</span></p>
     <div class="teaser">
       <a href="#pro" class="dark"><h3>Bearsaves Pro · $3.49 a month</h3><p>Instant price-drop alerts, a monthly $20 gift card draw, and half goes to a children's charity.</p><span class="go">See Pro ›</span></a>
       <a href="#about"><h3>Why Bearsaves exists</h3><p>How we find the cheapest prices, how we make money, and how Pro gives back to kids.</p><span class="go">About us ›</span></a>
     </div>`;
-  renderDotd(); renderPicks();
+  renderDotd();
 }
 
 // Deal of the day (face of the business)
@@ -1471,9 +1677,9 @@ function renderDotd(){
   const el=document.getElementById("dotd"); if(!el) return;
   const p=DOTD, n=family(p).length;
   el.innerHTML=`
-    <a class="img" href="#p-${p.id}" aria-label="View ${p.brand} ${p.name}">${icon(p)}<span class="big-off">-${pct(p)}%</span></a>
+    <a class="img" href="#p-${p.id}" aria-label="View ${p.brand} ${p.name}">${icon(p)}<span class="big-off">▼ ${pct(p)}%</span></a>
     <div class="info">
-      <span class="label">Deal of the day</span>
+      <span class="label">● Deal of the day</span>
       <h1><a href="#p-${p.id}" style="color:inherit;text-decoration:none">${p.brand} ${p.name}</a></h1>
       ${priceBlock(p).replace("You save "+fmt(p.was-p.now),"You save "+fmt(p.was-p.now)+(pct(p)>=49?" · half price":""))}
       ${addRow(p)}
@@ -1519,6 +1725,50 @@ function stackHTML(){
   </section>`;
 }
 
+// ---------- BRANDS ----------
+const slug=t=>String(t).toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const BRANDS=()=>{const m={}; P.forEach(p=>{const k=slug(p.brand); (m[k]=m[k]||{name:p.brand,slug:k,items:[]}).items.push(p);}); return Object.values(m);};
+const brandBySlug=k=>BRANDS().find(b=>b.slug===k);
+const brandStats=b=>{const pub=b.items.filter(p=>p.was&&!p.member&&visible(p)); const mem=b.items.filter(p=>p.member); const fams=new Set(b.items.map(p=>p.group||p.id));
+  const best=b.items.filter(p=>p.was).reduce((a,p)=>Math.max(a,pct(p)),0); return {n:fams.size,sale:pub.length,mem:mem.length,best};};
+let brandState={sort:"deals",q:""};
+function renderBrands(){
+  const list=BRANDS().map(b=>({...b,st:brandStats(b)})).filter(b=>!brandState.q||b.name.toLowerCase().includes(brandState.q));
+  list.sort(brandState.sort==="az"?(a,b)=>a.name.localeCompare(b.name):(a,b)=>(b.st.sale+b.st.mem)-(a.st.sale+a.st.mem)||b.st.n-a.st.n);
+  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › Brands</p>
+  <div class="bh"><div><h1>Shop by brand</h1><p>Pick the brand you always buy. We'll show every product we track and the cheapest place to get each one today.</p></div>
+    <label class="bsearch"><span hidden>Find a brand</span><input id="bq" type="search" placeholder="Find a brand, e.g. Musashi" value="${esc(brandState.q)}" autocomplete="off"></label></div>
+  <div class="btabs"><button data-bsort="deals" class="${brandState.sort==="deals"?"on":""}">Most deals</button><button data-bsort="az" class="${brandState.sort==="az"?"on":""}">A–Z</button><span>${list.length} brands</span></div>
+  <div class="bgrid">${list.map(b=>`<a class="btile" href="#brand-${b.slug}"><b>${esc(b.name)}</b><span>${b.st.n} product${b.st.n===1?"":"s"}</span>${b.st.sale?`<em class="on">${b.st.sale} on sale</em>`:b.st.mem?`<em class="mem">${b.st.mem} member deal${b.st.mem===1?"":"s"}</em>`:`<em>No sales today</em>`}</a>`).join("")||'<p class="nores">No brand matches that yet.</p>'}</div>`;
+  const q=document.getElementById("bq"); q.addEventListener("input",()=>{brandState.q=q.value.trim().toLowerCase(); const pos=q.selectionStart; renderBrands(); const n=document.getElementById("bq"); n.focus(); n.setSelectionRange(pos,pos);});
+  view.querySelectorAll("[data-bsort]").forEach(b=>b.addEventListener("click",()=>{brandState.sort=b.dataset.bsort; renderBrands();}));
+}
+let bpState={f:"all",mem:true};
+function renderBrand(b){
+  const st=brandStats(b);
+  const rows=[]; const seen={};
+  b.items.filter(visible).forEach(p=>{const k=p.group||p.id; if(seen[k]) return; seen[k]=1; const fam=family(p).filter(visible).sort((x,y)=>x.now-y.now); const c=fam[0]||p; rows.push({c,fam});});
+  const secs=[...new Set(rows.map(r=>r.c.sec))];
+  let show=rows.filter(r=>bpState.mem||!r.c.member);
+  if(bpState.f==="sale") show=show.filter(r=>r.c.was&&!r.c.member);
+  else if(bpState.f==="mem") show=show.filter(r=>r.c.member);
+  else if(bpState.f!=="all") show=show.filter(r=>r.c.sec===bpState.f);
+  show.sort((x,y)=>(y.c.was?pct(y.c):0)-(x.c.was?pct(x.c):0));
+  const chip=(k,l)=>`<button class="bchip${bpState.f===k?" on":""}" data-bf="${k}">${l}</button>`;
+  view.innerHTML=`<div class="bhero"><div><p class="crumbs" style="color:#aaa;margin:0 0 6px"><a href="#brands" style="color:#aaa">Brands</a> › ${esc(b.name)}</p><h1>${esc(b.name)} deals</h1><p>Every ${esc(b.name)} product we track, and the cheapest place to buy each one today.</p></div>
+    <div class="bstats">${[[st.n,"products tracked"],[st.sale,"public sale"+(st.sale===1?"":"s")],[st.mem,"member deal"+(st.mem===1?"":"s")],[st.best?st.best+"%":"—","biggest saving"]].map(([a,l])=>`<div><b class="num">${a}</b><span>${l}</span></div>`).join("")}</div></div>
+  <div class="bbar2">${chip("all","All "+rows.length)}${chip("sale","On sale ("+rows.filter(r=>r.c.was&&!r.c.member).length+")")}${st.mem?chip("mem","Member deals ("+rows.filter(r=>r.c.member).length+")"):""}${secs.length>1?secs.map(sc=>chip(sc,secOf(sc).title)).join(""):""}
+    ${st.mem?`<label class="btoggle"><input type="checkbox" id="bmem"${bpState.mem?" checked":""}> Show member prices</label>`:""}</div>
+  <div class="brows">${show.map(({c,fam})=>{const other=fam.length>1?fam[fam.length-1]:null; const note=c.member?`Members price · free sign-up at ${STORES[c.store].name}`:other&&other.now>c.now?`Save ${fmt(other.now-c.now)} vs ${STORES[other.store].name} (${fmt(other.now)})`:c.meta||"";
+    return `<div class="brow" data-href="#p-${c.id}"><div class="th" style="background:#F2F2F2;position:relative">${icon(c)}${c.was&&!c.member?`<span class="off sm">▼ ${pct(c)}%</span>`:""}</div>
+      <div class="bn"><span class="brand">${esc(b.name)}</span><b>${esc(c.name)}</b><small>${esc(note)}</small></div>
+      <div class="bs"><small>${fam.length>1?"Cheapest today at":"Sold at"}</small><b>${STORES[c.store].name}</b>${c.member?'<em class="mem">Members</em>':c.was?'<em class="on">Public sale</em>':'<em>Regular price</em>'}</div>
+      <div class="bp">${c.was?`<span class="was num">${fmt(c.was)}</span>`:""}<span class="now num">${fmt(c.now)}</span></div>
+      <div class="bc">${addRow(c)}</div></div>`;}).join("")||'<p class="nores">Nothing here right now. Try "All".</p>'}</div>`;
+  view.querySelectorAll("[data-bf]").forEach(x=>x.addEventListener("click",()=>{bpState.f=x.dataset.bf; renderBrand(b);}));
+  const t=document.getElementById("bmem"); if(t) t.addEventListener("change",()=>{bpState.mem=t.checked; renderBrand(b);});
+}
+
 // ---------- CATEGORY ----------
 function renderCategory(sec){
   const meta=CATS[sec];
@@ -1536,7 +1786,7 @@ function renderCategory(sec){
   const cards=cardsFor(list,catState.sort);
   const isG=plan.mode==="grams", val=isG?plan.grams:plan.scoops;
   const seg=(k,v,l,cur)=>`<button class="seg-b${cur===v?" on":""}" data-pk="${k}" data-pv="${v}">${l}</button>`;
-  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › <a href="#cat-protein">Supplements</a> › ${meta.title}</p>
+  view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › ${sec==="snacks"||sec==="meals"?"Food &amp; snacks":`<a href="#cat-protein">Supplements</a>`} › ${meta.title}</p>
     <div class="cat-head"><div><h1>${meta.title}</h1><p>${meta.sub}</p></div><span class="fresh"><i></i>Prices checked ${CHECKED}</span></div>
     <div class="cat-layout">
       <aside class="filters${catState.filtersOpen?" show":""}" aria-label="Filters">
@@ -1584,7 +1834,7 @@ function renderProduct(p){
   const lastsNote=p.sec==="protein"?`At ${isG?plan.grams+"g of protein":plan.scoops+" scoops"} a day (about ${Math.round(powderPerDay(p))}g of powder)`:p.sec==="creatine"?"At 5g a day":p.sec==="pre"?"At 5 workouts a week":"At the label dose";
   view.innerHTML=`<p class="crumbs"><a href="#home">Home</a> › <a href="#cat-${p.member?"members":p.sec}">${p.member?"Member-only deals":secOf(p.sec).title}</a> › ${p.brand} ${p.name}</p>
   <div class="pp">
-    <div class="pp-img" style="background:var(--${p.tile})">${p.was?`<span class="off">-${pct(p)}%</span>`:""}${p.type==="plant"?'<span class="leaf" style="font-size:12px">Plant-based</span>':""}${icon(p)}</div>
+    <div class="pp-img" style="background:var(--${p.tile})">${p.was?`<span class="off">▼ ${pct(p)}%</span>`:""}${p.type==="plant"?'<span class="leaf" style="font-size:12px">Plant-based</span>':""}${icon(p)}</div>
     <div class="pp-info">
       <span class="brand">${p.brand}</span>
       <h1>${p.name}</h1>
@@ -1820,7 +2070,7 @@ document.addEventListener("click",e=>{
   const vt=e.target.closest("[data-view]"); if(vt){ catState.view=vt.dataset.view; route(); return; }
   if(e.target.closest("#toggle-filters")){ catState.filtersOpen=!catState.filtersOpen; route(); return; }
   const pk=e.target.closest("[data-pk]"); if(pk){ const v=pk.dataset.pv; plan[pk.dataset.pk]=isNaN(v)?v:Number(v); savePlan(); route(); return; }
-  const lnk=e.target.closest("[data-href]"); if(lnk&&!e.target.closest("a[href^='http']")){ go(lnk.dataset.href); return; }
+  const lnk=e.target.closest("[data-href]"); if(lnk&&!e.target.closest("a")){ go(lnk.dataset.href); return; }
 });
 function refreshButtons(){
   document.querySelectorAll("[data-add]").forEach(b=>{const inB=!!basket[b.dataset.add]; b.classList.toggle("added",inB); if(b.classList.contains("bk")){ const t=b.querySelector(".bk-t"); if(t) t.textContent=inB?"✓":"+"; b.setAttribute("aria-label",inB?"Remove from basket":"Add to basket"); b.title=inB?"In your basket":"Add to basket"; return; } const short=b.closest(".lrow"); b.textContent=inB?(short?"✓ Added":"✓ In basket"):(short?"Add":"Add to basket");});
@@ -1850,10 +2100,18 @@ document.getElementById("mode-switch").addEventListener("click",()=>{mode=mode==
 document.getElementById("city").addEventListener("change",e=>{city=e.target.value;keep("bs-city2",city);route();});
 
 // ---------- supplements dropdown ----------
-const sBtn=document.getElementById("supps-btn"), sMenu=document.getElementById("supps-menu");
-const MENUS=[[sBtn,sMenu],[document.getElementById("wear-btn"),document.getElementById("wear-menu")]];
+const MENUS=[[document.getElementById("supps-btn"),document.getElementById("supps-menu")],[document.getElementById("food-btn"),document.getElementById("food-menu")],[document.getElementById("wear-btn"),document.getElementById("wear-menu")]];
 function closeMenus(except){ MENUS.forEach(([b,m])=>{ if(m!==except){ m.hidden=true; b.setAttribute("aria-expanded","false"); } }); }
 MENUS.forEach(([b,m])=>b.addEventListener("click",e=>{e.stopPropagation(); const open=m.hidden; closeMenus(m); m.hidden=!open; b.setAttribute("aria-expanded",open?"true":"false");}));
+document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus(); });
+// highlight the current category in the menu bar
+function markNav(){ const h=location.hash||"#home";
+  const sup=["#cat-protein","#cat-creatine","#cat-pre","#cat-health","#cat-gainer","#cat-members"].includes(h)||h.startsWith("#p-")||h==="#home";
+  document.getElementById("supps-btn").classList.toggle("on",sup);
+  document.getElementById("wear-btn").classList.toggle("on",h.startsWith("#cat-wear"));
+  document.getElementById("food-btn").classList.toggle("on",h==="#cat-snacks"||h==="#cat-meals");
+  document.querySelectorAll(".cats a.cat").forEach(a=>a.classList.toggle("on",a.getAttribute("href")===h||(a.getAttribute("href")==="#brands"&&h.startsWith("#brand-")))); }
+window.addEventListener("hashchange",markNav);
 document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus(); });
 
 
@@ -1872,7 +2130,9 @@ function renderPromo(){
     `<b>${pub.length} products on sale</b> right now`,
     `Prices checked <b>${CHECKED}</b>`
   ].filter(Boolean);
-  const run=msgs.map(m=>`<span class="pm">${m}</span>`).join("");
+  const ticks=pub.slice().sort((a,b)=>pct(b)-pct(a)).slice(0,4).map(p=>`<span class="pm tk">${esc(p.brand)} ${esc(p.name)} <em>now ${fmt(p.now)}, ${pct(p)}% off</em></span>`);
+  const mix=[]; ticks.forEach((t,i)=>{ mix.push(t); if(msgs[i]) mix.push(`<span class="pm">${msgs[i]}</span>`); });
+  const run=mix.join("");
   el.innerHTML=`<div class="promo-track"><div class="promo-run">${run}</div><div class="promo-run" aria-hidden="true">${run}</div></div>`;
 }
 
@@ -1900,8 +2160,9 @@ function renderSg(){
   if(term.length<2){ closeSg(); return; }
   const seen={}, rows=[];
   P.filter(p=>visible(p)&&matches(p,term)).sort((a,b)=>value(a)-value(b)).forEach(p=>{const k=p.group||p.id; if(seen[k]){seen[k].n++;return;} seen[k]={n:1}; rows.push({p,k});});
-  sgItems=rows.slice(0,7).map(r=>({type:"product",p:r.p,n:seen[r.k].n}));
-  sgEl.innerHTML=sgItems.length?`<div class="sg-head"><span>${rows.length} match${rows.length===1?"":"es"} · best value first</span></div>`+sgItems.map((it,i)=>{const p=it.p;return `<button type="button" class="sg" role="option" id="sg-${i}" data-i="${i}">
+  const bm=BRANDS().filter(b=>b.name.toLowerCase().includes(term)).slice(0,2);
+  sgItems=[...bm.map(b=>({type:"brand",b})),...rows.slice(0,7-bm.length).map(r=>({type:"product",p:r.p,n:seen[r.k].n}))];
+  sgEl.innerHTML=sgItems.length?`<div class="sg-head"><span>${rows.length+bm.length} match${rows.length===1?"":"es"} · best value first</span></div>`+sgItems.map((it,i)=>{ if(it.type==="brand"){const st=brandStats(it.b); return `<button type="button" class="sg sgb" role="option" id="sg-${i}" data-i="${i}"><span class="th bm">${esc(it.b.name[0])}</span><span><span class="t">Brand: ${hl(it.b.name,term)}</span><br><span class="st">${st.n} products${st.sale+st.mem?` · <b>${st.sale+st.mem} deals today</b>`:""}</span></span><span class="r"><b>See all ›</b></span></button>`;} const p=it.p;return `<button type="button" class="sg" role="option" id="sg-${i}" data-i="${i}">
       <span class="th" style="background:var(--${p.tile})">${icon(p)}</span>
       <span><span class="t">${hl(p.brand+" "+p.name,term)}</span><br><span class="st">${STORES[p.store].name}${it.n>1?` · cheapest of ${it.n} stores`:""}${p.member?" · members":""}</span></span>
       <span class="r"><b class="num">${fmt(p.now)}</b><span class="num">${fmt(value(p))}${p.sec==="protein"?"/30g prot.":unitLabel(p)}</span></span></button>`;}).join("")
@@ -1912,6 +2173,7 @@ function moveSg(d){ const btns=[...sgEl.querySelectorAll(".sg")]; if(!btns.lengt
 function pickSg(i){
   const it=sgItems[i]; if(!it) return;
   if(it.type==="recent"){ qEl.value=it.term; renderSg(); return; }
+  if(it.type==="brand"){ saveRecent(qEl.value.trim()); closeSg(); qEl.blur(); go("#brand-"+it.b.slug); return; }
   saveRecent(qEl.value.trim()); closeSg(); qEl.blur(); go("#p-"+cheapestOf(it.p).id);
 }
 qEl.addEventListener("input",renderSg);
@@ -2106,7 +2368,7 @@ function wire(formId,inputId,okId,text="Preview only: signups aren't saved yet. 
 }
 wire("join-form","email","join-ok");
 
-renderMode(); renderPromo(); route();
+renderMode(); renderPromo(); route(); markNav();
 
 </script>
 
