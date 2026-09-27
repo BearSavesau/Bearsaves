@@ -922,6 +922,10 @@ body{font-size:17px}
 .legal-mail span{font:600 13px "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#666}
 .legal-mail .btn{font-size:17px;text-transform:none;letter-spacing:0;min-height:52px;padding:0 20px}
 footer .row a{white-space:nowrap}
+.about-contact{display:grid;gap:10px;justify-items:start}
+.socials{display:inline-flex;gap:14px;margin-left:12px;vertical-align:middle}.socials a{display:inline-flex;align-items:center;gap:5px}
+.soon-pill{display:inline-block;background:#fff;color:var(--nv,#0B1633);font:700 11px/1 "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;margin-bottom:8px}
+@media (max-width:600px){.socials{display:flex;margin:8px 0 0}}
 .pcard .golink{display:block;text-align:center;line-height:1.35}
 .pcard .golink svg{display:inline;vertical-align:-1px;margin-left:3px}
 
@@ -1281,13 +1285,13 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
 
   <section class="join" id="join">
     <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
-    <div><h2>Never pay full price for supplements</h2><p>The week's best deals in one email. Pick only the topics you care about.</p></div>
-    <form class="inline-form" id="join-form" novalidate><label for="email" hidden>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Get free deals</button></form>
+    <div><span class="soon-pill">Coming soon</span><h2>Never pay full price for supplements</h2><p>A weekly deals email is on the way. Until then, get daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener">TikTok</a>.</p></div>
+    <form class="inline-form" id="join-form" novalidate><label for="email" hidden>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Notify me</button></form>
     <p class="ok" id="join-ok" hidden></p>
   </section>
 
   <footer>
-    <div class="row"><span>© 2026 Bearsaves · Made in Melbourne</span><span><a href="#about">About</a> · <a href="#contact">Contact</a> · <a href="#privacy">Privacy</a> · <a href="#disclosure">Affiliate disclosure</a> · <a href="#pro">Pro</a> · <a href="#account">Account</a></span></div>
+    <div class="row"><span>© 2026 Bearsaves · Made in Melbourne · <a class="foot-mail" href="mailto:hello@bearsaves.com.au">hello@bearsaves.com.au</a></span><span class="socials"><a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener" aria-label="Bearsaves on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram</a><a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener" aria-label="Bearsaves on TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.3 1.9 3.8 4.2 4v3.1c-1.5.1-2.9-.4-4.2-1.2v6.3c0 3.6-2.6 5.8-5.7 5.8-3.3 0-5.7-2.5-5.7-5.6 0-3.4 2.9-5.9 6.5-5.5v3.2c-1.6-.4-3.2.6-3.2 2.3 0 1.4 1.1 2.4 2.4 2.4 1.5 0 2.5-1 2.5-2.7V3h3.2z"/></svg>TikTok</a></span><span><a href="#about">About</a> · <a href="#contact">Contact</a> · <a href="#privacy">Privacy</a> · <a href="#disclosure">Affiliate disclosure</a> · <a href="#pro">Pro</a> · <a href="#account">Account</a></span></div>
     <span>Some links may earn us a small commission at no extra cost to you. Prices checked 26 September 2026 from each store's website and may have changed. Protein value uses label protein per serve where loaded, otherwise a typical protein % (marked "est."). Vitamin cost per day uses the label dose. Musashi prices marked "Members" need a free Musashi United account. Bearsaves is independent and not affiliated with the stores listed. Product pictures are illustrations.</span>
   </footer>
 </div>
@@ -1345,6 +1349,7 @@ const STORES={
   mp:{name:"Myprotein",pickup:false,ship:null,free:150,url:"https://au.myprotein.com"},
   maxs:{name:"Max's",pickup:false,ship:null,free:150,url:"https://maxs.com.au"},
   oxy:{name:"Oxygen Nutrition",pickup:false,ship:null,free:null,url:"https://oxygennutrition.com.au"},
+  macros:{name:"Macros",pickup:false,ship:15,free:150,url:"https://www.macros.com.au"},
   mmc:{name:"My Muscle Chef",pickup:false,ship:null,free:null,url:"https://www.mymusclechef.com"},
   mm:{name:"Macro Mike",pickup:false,ship:null,free:null,url:"https://www.macromike.com.au"},
   vpa:{name:"VPA",pickup:false,ship:null,free:150,url:"https://www.vpa.com.au"},
@@ -1484,7 +1489,18 @@ const P=[
   {id:"elite-eqbar",sec:"snacks",img:"bar",tile:"tile2",brand:"EQ",name:"Protein & Fibre Bar, box of 12",meta:"",now:49.90,was:59.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/protein-fibre-bar"},
   {id:"elite-fibreboost",sec:"snacks",img:"bar",tile:"tile3",brand:"Fibre Boost",name:"Cold Pressed Protein Bar, box of 12",meta:"",now:53.90,qty:12,store:"elite",url:"https://www.elitesupps.com.au/products/cold-pressed-protein-bar"},
   {id:"mmc-10",sec:"meals",img:"meal",tile:"tile1",brand:"My Muscle Chef",name:"Ready meals, 10-pack",meta:"70+ meals to choose from",now:104.95,qty:10,store:"mmc",url:"https://www.mymusclechef.com"},
-  {id:"mmc-20",sec:"meals",img:"meal",tile:"tile2",brand:"My Muscle Chef",name:"Ready meals, 20-pack",meta:"70+ meals to choose from",now:199.95,qty:20,store:"mmc",url:"https://www.mymusclechef.com"}
+  {id:"mmc-20",sec:"meals",img:"meal",tile:"tile2",brand:"My Muscle Chef",name:"Ready meals, 20-pack",meta:"70+ meals to choose from",now:199.95,qty:20,store:"mmc",url:"https://www.mymusclechef.com"},
+  {id:"nw-monst3r",sec:"gainer",img:"tub",tile:"tile1",brand:"Anabolix Nutrition",name:"Monst3r Gainer 4.55kg",meta:"33 serves",now:159.95,qty:4550,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/monst3r-gainer-by-anabolix-nutrition"},
+  {id:"nw-r1mass",sec:"gainer",img:"tub",tile:"tile2",brand:"Rule 1",name:"R1 Mass Gainer 5.44kg",meta:"12lb",now:149.95,qty:5440,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/r1-mass-gainer-by-rule-1-proteins"},
+  {id:"nw-critical",sec:"gainer",img:"tub",tile:"tile3",brand:"Genetix Nutrition",name:"Critical Mass 4kg",meta:"50 serves",now:174.95,qty:4000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/critical-mass-by-genetix-nutrition"},
+  {id:"nw-extrememass",sec:"gainer",img:"tub",tile:"tile4",brand:"International Protein",name:"Extreme Mass 4kg",meta:"",now:245,qty:4000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/extreme-mass-by-international-protein-2"},
+  {id:"nw-seriousmass",sec:"gainer",img:"tub",tile:"tile1",brand:"Optimum Nutrition",name:"Serious Mass 5.54kg",meta:"16 serves",now:170.45,qty:5540,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/serious-mass-by-optimum-nutrition"},
+  {id:"nw-braw",type:"plant",kind:"plant",pp:null,ppsrc:"est",scoop:40,sec:"protein",img:"tub",tile:"tile2",brand:"bRaw",name:"Ultimate Plant Protein 1kg",meta:"25 serves",now:69.95,qty:1000,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/ultimate-plant-protein-by-b-raw"},
+  {id:"nw-on-plant",type:"plant",kind:"plant",pp:null,ppsrc:"est",scoop:37,sec:"protein",img:"tub",tile:"tile3",brand:"Optimum Nutrition",name:"Gold Standard 100% Plant Protein 740g",meta:"20 serves",now:79.95,qty:740,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/gold-standard-100-plant-protein-by-optimum-nutrition-1"},
+  {id:"nw-prana",type:"plant",kind:"plant",pp:null,ppsrc:"est",scoop:30,sec:"protein",img:"tub",tile:"tile4",brand:"Prana ON",name:"Power Plant Protein 2.5kg",meta:"",now:169.95,qty:2500,store:"nw",url:"https://www.nutritionwarehouse.com.au/products/power-plant-protein-by-prana-on-pr-2546"},
+  {id:"macros-hp",sec:"meals",img:"meal",tile:"tile3",brand:"Macros",name:"High protein meals, single",meta:"22–50g protein each · e.g. Butter Chicken 36g",now:12.20,qty:1,store:"macros",url:"https://www.macros.com.au/collections/high-protein"},
+  {id:"macros-satay",sec:"meals",img:"meal",tile:"tile4",brand:"Macros",name:"Classic Chicken Satay, single",meta:"",now:11.70,qty:1,store:"macros",url:"https://www.macros.com.au"},
+  {id:"macros-family",sec:"meals",img:"meal",tile:"tile1",brand:"Macros",name:"Family meal 750g (serves ~3)",meta:"e.g. Massaman Beef Curry, 96g protein",now:19.95,qty:3,store:"macros",url:"https://www.macros.com.au"}
 ];
 
 const VB={tub:"0 0 100 110",jar:"0 0 100 110",bottle:"0 0 100 110",pre:"0 0 100 110",caps:"0 0 100 110",shake:"0 0 100 110",bar:"0 0 120 80"};
@@ -1658,7 +1674,7 @@ function renderHome(){
       <div class="bm-tiles">${T}</div></div></section>
     <section class="hrow"><div class="hrow-head"><div><h2>Biggest price drops today</h2><p>The biggest discounts across every store we compare.</p></div><a class="seeall" href="#cat-protein">See all ${pub.length} ›</a></div>
       <div class="grid">${crashes.map((c,i)=>card(c,null,{suffix:"-x"})).join("")}</div></section>
-    <section class="bm-spot"><div><h2>Spotted it lower?</h2><p>Report any lower price, online or on a shelf near you. We verify every one within 24 hours.</p></div><a class="bm-spot-btn" href="mailto:bearsavesau@gmail.com?subject=Lower%20price%20spotted">Report a lower price ▼</a></section>
+    <section class="bm-spot"><div><h2>Spotted it lower?</h2><p>Report any lower price, online or on a shelf near you. We verify every one within 24 hours.</p></div><a class="bm-spot-btn" href="mailto:hello@bearsaves.com.au?subject=Lower%20price%20spotted">Report a lower price ▼</a></section>
     <header class="hero" id="top"><div class="dotd" id="dotd"></div></header>
     ${recent.length?`<section class="hrow"><div class="hrow-head"><div><h2>Your usual</h2><p>Products you've looked at, with today's cheapest price.</p></div></div><div class="scroller">${recent.map(p=>card({main:cheapestOf(p),others:family(p).filter(x=>x.id!==cheapestOf(p).id)},null,{suffix:"-u"})).join("")}</div></section>`:""}
     ${stackHTML()}
@@ -1883,7 +1899,7 @@ function renderResults(){
 // ---------- ABOUT ----------
 
 // ---------- contact, privacy, affiliate disclosure ----------
-const CONTACT_EMAIL="bearsavesau@gmail.com";
+const CONTACT_EMAIL="hello@bearsaves.com.au";
 function renderLegal(kind){
   const mail=`<a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>`;
   const pages={
@@ -1959,6 +1975,7 @@ function renderAbout(){
         <li class="soon"><b>Price history</b>See if today's "sale" is really a low, with 90-day price charts.</li>
         <li class="soon"><b>Price-drop alerts</b>Get told the moment the things you buy drop in price.</li>
       </ul></div>
+    <div class="about-card about-contact"><h3>Get in touch</h3><p>Spotted a lower price, want your store listed, or have a question? Email us and a real person replies, usually within a day.</p><a class="btn" href="mailto:hello@bearsaves.com.au">hello@bearsaves.com.au</a><p style="margin:0">Daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener"><b>Instagram @bearsavesau</b></a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener"><b>TikTok @bearsaves</b></a>.</p></div>
     <div class="story">
       <h2 style="color:#fff;font-size:clamp(24px,3vw,32px)">Giving back</h2>
       <p>Bearsaves has a simple mission: save people money while they look after their health, and turn that into a way to give back to kids. Half of every Bearsaves Pro membership, after card fees, will go to a registered children's charity.</p>
@@ -1968,11 +1985,11 @@ function renderAbout(){
 
 // ---------- PRO ----------
 function renderPro(){
-  view.innerHTML=`<div class="page-hero"><span class="pill" style="justify-self:start">Bearsaves Pro</span><h1>Save more, and help kids while you do it</h1><p>Pro gets you the alerts that catch the best prices first. Half of every membership goes to a children's charity.</p></div>
+  view.innerHTML=`<div class="page-hero"><span class="pill" style="justify-self:start">Bearsaves Pro · Coming soon</span><h1>Save more, and help kids while you do it</h1><p>Pro gets you the alerts that catch the best prices first. Half of every membership goes to a children's charity.</p></div>
   <div class="plans">
     <div class="plan-card"><h3>Free</h3><div class="pr">$0</div><ul><li>Every price comparison and value ranking</li><li>Protein planner and restock calendar</li><li>Weekly deals email, only the topics you pick</li><li>Barcode scanner and multi-store basket</li></ul><a class="btn line" href="#account">Create free account</a></div>
-    <div class="plan-card hot"><span class="ribbon">Most popular</span><h3>Pro monthly</h3><div class="pr">$3.49 <span>/ month</span></div><ul><li>Everything in Free</li><li>Instant alerts when your products drop</li><li>Target prices, e.g. whey under $3.50/100g</li><li>Restock reminders before you run out</li><li>Monthly $20 gift card draw</li><li>Half goes to a children's charity</li></ul><button class="btn" data-pro="monthly">Join Pro</button></div>
-    <div class="plan-card"><span class="ribbon" style="background:var(--good);color:#fff">2 months free</span><h3>Pro yearly</h3><div class="pr">$34.99 <span>/ year</span></div><ul><li>Everything in Pro</li><li>Works out about $2.92 a month</li><li>More of your money reaches the charity (one card fee instead of twelve)</li></ul><button class="btn" data-pro="yearly">Join Pro yearly</button></div>
+    <div class="plan-card hot"><span class="ribbon">Most popular</span><h3>Pro monthly</h3><div class="pr">$3.49 <span>/ month</span></div><ul><li>Everything in Free</li><li>Instant alerts when your products drop</li><li>Target prices, e.g. whey under $3.50/100g</li><li>Restock reminders before you run out</li><li>Monthly $20 gift card draw</li><li>Half goes to a children's charity</li></ul><button class="btn" data-pro="monthly">Coming soon</button></div>
+    <div class="plan-card"><span class="ribbon" style="background:var(--good);color:#fff">2 months free</span><h3>Pro yearly</h3><div class="pr">$34.99 <span>/ year</span></div><ul><li>Everything in Pro</li><li>Works out about $2.92 a month</li><li>More of your money reaches the charity (one card fee instead of twelve)</li></ul><button class="btn" data-pro="yearly">Coming soon</button></div>
   </div>
   <p class="note" id="pro-note" hidden></p>
   <h2 style="font-size:26px;margin:10px 0 12px">Where your $3.49 goes</h2>
@@ -1994,7 +2011,7 @@ function renderAccount(){
         <div class="interests">${topics.map((t,i)=>`<label><input type="checkbox" data-topic="${esc(t)}" id="t-${i}"${chosen.includes(t)?" checked":""}> ${esc(t)}</label>`).join("")}</div>
         <button class="btn" type="submit">Sign up free</button> <a href="#home" style="margin-left:10px;font-weight:800;color:var(--muted)">Continue as guest</a></form>
         <p class="ok" id="acct-ok" hidden></p>
-        <button class="btn line" id="acct-demo" style="margin-top:10px;font-size:13px;padding:8px 14px">Preview a signed-in account</button></div>
+        <p style="margin:10px 0 0;color:var(--muted);font-size:14px">Accounts are in early access: your saved products and settings stay on this device. Deal emails launch soon.</p></div>
       <div class="block" style="background:#111111;color:#fff;border-color:#111111"><h2 style="color:#fff">What you get with an account</h2>
         <ul class="acct-list"><li>Your saved products, always at today's cheapest price</li><li>Restock reminders before you run out</li><li>Price alerts at your target price</li><li>Your total savings through Bearsaves</li><li>Weekly deals, only on topics you choose</li></ul><a class="btn" href="#pro" style="margin-top:6px">See Pro · $3.49/mo</a></div>
     </div>`;
@@ -2066,7 +2083,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#acct-demo")){ keep("bs-user",{email:"you@email.com",demo:true}); renderAccount(); return; }
   if(e.target.closest("#acct-out")){ try{localStorage.removeItem("bs-user");}catch(err){} renderAccount(); return; }
   const tgt=e.target.closest("[data-target-save]"); if(tgt){ const id=tgt.dataset.targetSave, v=Number(document.getElementById("tp-"+id).value); const t=store("bs-targets")||{}; if(v>0) t[id]=v; else delete t[id]; keep("bs-targets",t); renderAccount(); return; }
-  const pro=e.target.closest("[data-pro]"); if(pro){ const n=document.getElementById("pro-note"); n.hidden=false; n.textContent=`Preview: on the live site this opens secure checkout for Pro ${pro.dataset.pro} (${pro.dataset.pro==="yearly"?"$34.99 a year":"$3.49 a month"}).`; return; }
+  const pro=e.target.closest("[data-pro]"); if(pro){ const n=document.getElementById("pro-note"); n.hidden=false; n.innerHTML=`Pro isn't open yet, so nothing has been charged. It launches soon. Want to hear first? Email <a href="mailto:hello@bearsaves.com.au?subject=Tell%20me%20when%20Pro%20launches">hello@bearsaves.com.au</a>.`; return; }
   const vt=e.target.closest("[data-view]"); if(vt){ catState.view=vt.dataset.view; route(); return; }
   if(e.target.closest("#toggle-filters")){ catState.filtersOpen=!catState.filtersOpen; route(); return; }
   const pk=e.target.closest("[data-pk]"); if(pk){ const v=pk.dataset.pv; plan[pk.dataset.pk]=isNaN(v)?v:Number(v); savePlan(); route(); return; }
@@ -2304,7 +2321,7 @@ function renderBasket(){
       <a class="bj-btn" href="#account" data-close-basket>Join free</a></div>`}
     <div class="bj-pro"><div class="bj-glow" aria-hidden="true"></div><span class="bj-tag">Pro <b>Best value</b></span><h4>Never miss a drop</h4><div class="bj-price num">$3.49<small>/month</small></div>
       <ul><li>${CK}<span>Live price-tracking emails</span></li><li>${CK}<span>Monthly gift card draw</span></li><li>${CK}<span>Half of proceeds to a kids' charity</span></li></ul>
-      <a class="bj-btn" href="#pro" data-close-basket>Go Pro</a></div>
+      <a class="bj-btn" href="#pro" data-close-basket>Pro · coming soon</a></div>
   </div>`;
   dBody.innerHTML=summary+oneStoreHTML(n)+progress+html+join;
   dBody.querySelectorAll("[data-close-basket]").forEach(a=>a.addEventListener("click",()=>closeBasket()));
@@ -2361,7 +2378,7 @@ document.addEventListener("mouseout",e=>{
   document.getElementById("exit-no").addEventListener("click",closeExit);
 });
 
-function wire(formId,inputId,okId,text="Preview only: signups aren't saved yet. They go live with the website."){
+function wire(formId,inputId,okId,text="Email sign-ups aren't open yet, so we haven't saved your email. Follow @bearsavesau on Instagram or @bearsaves on TikTok for daily deals until they launch."){
   const f=document.getElementById(formId); if(!f) return;
   f.addEventListener("submit",e=>{ e.preventDefault(); const ok=document.getElementById(okId), v=document.getElementById(inputId).value.trim(); ok.hidden=false;
     ok.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?text:"Enter a valid email address, like you@email.com."; });
