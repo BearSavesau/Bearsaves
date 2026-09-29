@@ -1292,7 +1292,7 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
 
   <section class="join" id="join">
     <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
-    <div><h2>Never pay full price for supplements</h2><p>A weekly deals email is on the way. Until then, get daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener">TikTok</a>.</p></div>
+    <div><h2>Never pay full price for supplements</h2><p>Get the week's best supplement deals in your inbox. Free, one email a week. Daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener">TikTok</a>.</p></div>
     <form class="inline-form" id="join-form" novalidate><label for="email" hidden>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Notify me</button></form>
     <p class="ok" id="join-ok" hidden></p>
   </section>
@@ -2383,10 +2383,18 @@ document.addEventListener("mouseout",e=>{
   document.getElementById("exit-no").addEventListener("click",closeExit);
 });
 
-function wire(formId,inputId,okId,text="Email sign-ups aren't open yet, so we haven't saved your email. Follow @bearsavesau on Instagram or @bearsaves on TikTok for daily deals until they launch."){
+const ML_URL="https://assets.mailerlite.com/jsonp/2669065/forms/199932444285077216/subscribe";
+function wire(formId,inputId,okId){
   const f=document.getElementById(formId); if(!f) return;
-  f.addEventListener("submit",e=>{ e.preventDefault(); const ok=document.getElementById(okId), v=document.getElementById(inputId).value.trim(); ok.hidden=false;
-    ok.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?text:"Enter a valid email address, like you@email.com."; });
+  f.addEventListener("submit",async e=>{ e.preventDefault(); const ok=document.getElementById(okId), inp=document.getElementById(inputId), v=inp.value.trim(); ok.hidden=false;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ ok.textContent="Enter a valid email address, like you@email.com."; return; }
+    const btn=f.querySelector("button"); if(btn) btn.disabled=true; ok.textContent="Signing you up…";
+    const body=new FormData(); body.append("fields[email]",v); body.append("ml-submit","1"); body.append("anticsrf","true");
+    try{ await fetch(ML_URL,{method:"POST",body,mode:"no-cors"});
+      ok.textContent="You're in. Check your inbox and tap the link to confirm, then you'll get the week's best deals.";
+      inp.value=""; try{ if(window.gtag) gtag("event","sign_up",{method:"email",form:formId}); }catch(err){}
+    }catch(err){ ok.textContent="That didn't go through. Try again, or email hello@bearsaves.com.au."; }
+    if(btn) btn.disabled=false; });
 }
 wire("join-form","email","join-ok");
 
