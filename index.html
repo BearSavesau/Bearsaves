@@ -1178,6 +1178,14 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
 .pcard .now,.brow .now{font:800 30px/1 Barlow,sans-serif!important}
 .pcard .was,.brow .was{font:500 15px Barlow,sans-serif!important}
 .num{font-family:inherit}
+
+/* value row: option A (no boxes) */
+.pp-values{gap:22px;align-items:baseline}
+.pp-values .unit,.pp-values .unit.alt{background:none!important;padding:0!important;border:0!important}
+.unit.alt b{color:var(--nv,#0B1633)!important}.unit.alt span{color:var(--muted)!important}
+.cval{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:8px 0;margin:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:600 12.5px Barlow,sans-serif;color:var(--muted)}
+.cval b{font:700 18px "Barlow Condensed",sans-serif}
+.cval .p b{color:var(--blue)}.cval .g b{color:var(--nv,#0B1633)}
 </style>
 </head>
 <body>
@@ -1247,15 +1255,6 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
       </div>
     </div>
     <a class="cat" href="#brands">Brands</a>
-    <div class="menu">
-      <button class="cat soon" id="wear-btn" aria-expanded="false" aria-controls="wear-menu">Gymwear <em>Soon</em> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-      <div class="menu-list" id="wear-menu" hidden>
-        <a href="#cat-wear-men" style="color:#111 !important;-webkit-text-fill-color:#111">Men</a>
-        <a href="#cat-wear-women" style="color:#111 !important;-webkit-text-fill-color:#111">Women</a>
-        <a href="#cat-wear-kids" style="color:#111 !important;-webkit-text-fill-color:#111">Kids</a>
-      </div>
-    </div>
-    <a class="cat soon" href="#cat-equip">Equipment <em>Soon</em></a>
     <span class="cat-div" aria-hidden="true"></span>
     <a class="cat" href="#pro">Pro</a>
     <a class="cat" href="#about">About Bearsaves</a>
@@ -1285,7 +1284,7 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
 
   <section class="join" id="join">
     <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#bear"/></svg>
-    <div><span class="soon-pill">Coming soon</span><h2>Never pay full price for supplements</h2><p>A weekly deals email is on the way. Until then, get daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener">TikTok</a>.</p></div>
+    <div><h2>Never pay full price for supplements</h2><p>A weekly deals email is on the way. Until then, get daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener">Instagram</a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener">TikTok</a>.</p></div>
     <form class="inline-form" id="join-form" novalidate><label for="email" hidden>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><button class="btn" type="submit">Notify me</button></form>
     <p class="ok" id="join-ok" hidden></p>
   </section>
@@ -1593,10 +1592,11 @@ function card(c,rank,opts={}){
       <h3 class="name">${p.name}</h3>
       ${priceBlock(p)}
       <div class="cheap">${others?"Cheapest at":mode==="store"?"Pick up at":"At"} <b>${STORES[p.store].name}</b></div>
+      <div class="cval">${p.sec==="protein"?`<span class="p"><b class="num">${fmt(per30Protein(p))}</b> /30g protein${p.pp?"":" est."}</span><span class="g"><b class="num">${fmt(unitPrice(p))}</b> /100g</span>`:`<span class="p"><b class="num">${fmt(unitPrice(p))}</b> ${unitLabel(p)}</span>`}</div>
       ${opts.extra||""}
       ${p.sec==="protein"&&opts.lasts?`<button class="lasts" data-restock="${p.id}"><span>Lasts <b>${Math.round(daysLast(p))} days</b> · <b class="num">${fmt(perMonth(p))}</b>/mo</span><u>Restock plan ›</u></button>`:""}
       ${addRow(p)}
-      <div class="foot"><span class="num">${fmt(value(p))}${p.sec==="protein"?" per 30g protein":unitLabel(p).replace("/"," per ")}</span>${others?`<a class="cmp" href="#p-${p.id}">Compare ${others+1} stores</a>`:""}</div>
+      <div class="foot">${others?`<a class="cmp" href="#p-${p.id}">Compare ${others+1} stores</a>`:""}</div>
     </div>
   </article>`;
 }
@@ -1630,7 +1630,7 @@ function route(){
   closeMenus();
   closeSg();
   if(h.startsWith("p-")&&byId[h.slice(2)]) renderProduct(byId[h.slice(2)]);
-  else if(h.startsWith("cat-")&&CATS[h.slice(4)]) renderCategory(h.slice(4));
+  else if(h.startsWith("cat-")&&CATS[h.slice(4)]&&!CATS[h.slice(4)].soon) renderCategory(h.slice(4));
   else if(h==="brands") renderBrands();
   else if(h.startsWith("brand-")&&brandBySlug(h.slice(6))) renderBrand(brandBySlug(h.slice(6)));
   else if(h==="about") renderAbout();
@@ -1855,7 +1855,7 @@ function renderProduct(p){
       <span class="brand">${p.brand}</span>
       <h1>${p.name}</h1>
       ${p.meta?`<span class="meta">${p.meta}</span>`:""}
-      <div class="pp-values">${valueBox(p)}${p.sec==="protein"?`<div class="unit" style="background:var(--bg)"><b class="num" style="color:var(--ink)">${fmt(unitPrice(p))}</b><span style="color:var(--muted)">/100g powder</span></div>`:""}</div>
+      <div class="pp-values">${valueBox(p)}${p.sec==="protein"?`<div class="unit alt"><b class="num">${fmt(unitPrice(p))}</b><span>/100g powder</span></div>`:""}</div>
       <div class="pp-price"><span class="now num">${fmt(p.now)}</span>${p.was?`<span class="was num">${fmt(p.was)}</span><span class="save num">Save ${fmt(p.was-p.now)}</span>`:""}</div>
       <span class="fresh"><i></i>Price checked ${CHECKED} at ${st.name}</span>
       ${cheapest.id!==p.id?`<div class="pp-note">Cheaper at <b>${STORES[cheapest.store].name}</b>: ${fmt(cheapest.now)}. <a href="#p-${cheapest.id}">See it ›</a></div>`:fam.length>1?`<div class="pp-note" style="background:var(--good-bg)">This is the cheapest of the ${fam.length} stores we track for this product.</div>`:""}
@@ -1972,8 +1972,6 @@ function renderAbout(){
         <li><b>Cheaper alternatives</b>Every product page shows what you could switch to and how much you'd save.</li>
         <li><b>Multi-store basket</b>Group your haul by store, with delivery and free-shipping thresholds worked out.</li>
         <li><b>Barcode scanner</b>Scan a product in a shop and check if it's cheaper somewhere else.</li>
-        <li class="soon"><b>Price history</b>See if today's "sale" is really a low, with 90-day price charts.</li>
-        <li class="soon"><b>Price-drop alerts</b>Get told the moment the things you buy drop in price.</li>
       </ul></div>
     <div class="about-card about-contact"><h3>Get in touch</h3><p>Spotted a lower price, want your store listed, or have a question? Email us and a real person replies, usually within a day.</p><a class="btn" href="mailto:hello@bearsaves.com.au">hello@bearsaves.com.au</a><p style="margin:0">Daily deals on <a href="https://www.instagram.com/bearsavesau/" target="_blank" rel="noopener"><b>Instagram @bearsavesau</b></a> and <a href="https://www.tiktok.com/@bearsaves" target="_blank" rel="noopener"><b>TikTok @bearsaves</b></a>.</p></div>
     <div class="story">
@@ -2117,7 +2115,7 @@ document.getElementById("mode-switch").addEventListener("click",()=>{mode=mode==
 document.getElementById("city").addEventListener("change",e=>{city=e.target.value;keep("bs-city2",city);route();});
 
 // ---------- supplements dropdown ----------
-const MENUS=[[document.getElementById("supps-btn"),document.getElementById("supps-menu")],[document.getElementById("food-btn"),document.getElementById("food-menu")],[document.getElementById("wear-btn"),document.getElementById("wear-menu")]];
+const MENUS=[[document.getElementById("supps-btn"),document.getElementById("supps-menu")],[document.getElementById("food-btn"),document.getElementById("food-menu")]];
 function closeMenus(except){ MENUS.forEach(([b,m])=>{ if(m!==except){ m.hidden=true; b.setAttribute("aria-expanded","false"); } }); }
 MENUS.forEach(([b,m])=>b.addEventListener("click",e=>{e.stopPropagation(); const open=m.hidden; closeMenus(m); m.hidden=!open; b.setAttribute("aria-expanded",open?"true":"false");}));
 document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus(); });
@@ -2125,7 +2123,6 @@ document.addEventListener("click",e=>{ if(!e.target.closest(".menu")) closeMenus
 function markNav(){ const h=location.hash||"#home";
   const sup=["#cat-protein","#cat-creatine","#cat-pre","#cat-health","#cat-gainer","#cat-members"].includes(h)||h.startsWith("#p-")||h==="#home";
   document.getElementById("supps-btn").classList.toggle("on",sup);
-  document.getElementById("wear-btn").classList.toggle("on",h.startsWith("#cat-wear"));
   document.getElementById("food-btn").classList.toggle("on",h==="#cat-snacks"||h==="#cat-meals");
   document.querySelectorAll(".cats a.cat").forEach(a=>a.classList.toggle("on",a.getAttribute("href")===h||(a.getAttribute("href")==="#brands"&&h.startsWith("#brand-")))); }
 window.addEventListener("hashchange",markNav);
