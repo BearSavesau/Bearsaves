@@ -1194,6 +1194,26 @@ footer{box-shadow:0 0 0 100vmax var(--nv)!important}
 .cval{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:8px 0;margin:8px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:600 12.5px Barlow,sans-serif;color:var(--muted)}
 .cval b{font:700 18px "Barlow Condensed",sans-serif}
 .cval .p b{color:var(--blue)}.cval .g b{color:var(--nv,#0B1633)}
+
+/* ---- Style A: white studio product images + front-page category picker ---- */
+:root{--imgbg:#fff}
+.card .img,.pcard .img,.dotd .img,.pp-img,.mini .th,.mini2 .th,.sg .th,.rs-top .th,.sc-hit .th,.pick .th,.lrow .th,.stack-item .th,.thumb,.brow .th{background:#fff!important}
+.card .img,.pcard .img,.pp-img{border:1px solid var(--line)}
+.bm-hero{padding:22px 0 30px}
+.bm-hero-in{display:block}
+.bm-h h1{font-size:clamp(34px,5vw,56px);line-height:1}
+.bm-sub{margin:10px 0 0;max-width:60ch}
+.ct-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.ct{background:#fff;color:var(--nv);border-radius:14px;padding:12px 12px 14px;display:grid;gap:4px;text-decoration:none;text-align:center;justify-items:center;transition:transform .15s,box-shadow .15s;box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.ct:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.28)}
+.ct-img{display:grid;place-items:center;height:118px;width:100%}
+.ct-img svg{height:112px;width:auto;max-width:90%}
+.ct b{font:800 20px Barlow,sans-serif;color:var(--nv)}
+.ct strong{font:800 16px Barlow,sans-serif;color:var(--nv)}
+.ct strong.dn{color:#E5352B}
+.ct small{font:600 13px Barlow,sans-serif;color:#5B6788}
+@media (max-width:1000px){.ct-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:760px){.ct-grid{grid-template-columns:repeat(2,1fr);gap:10px}.ct-img{height:104px}.ct-img svg{height:98px}.ct b{font-size:19px}}
 </style>
 </head>
 <body>
@@ -1523,18 +1543,25 @@ const BRANDPAL={"Musashi":["#F2F2F2","#111111","#111111"],"Optimum Nutrition":["
 const palOf=p=>{if(BRANDPAL[p.brand]) return BRANDPAL[p.brand]; let h=0; for(const ch of p.brand) h=(h*31+ch.charCodeAt(0))>>>0; return PAL[h%PAL.length];};
 const lightHex=c=>{const n=parseInt(c.slice(1),16);return ((n>>16)*299+((n>>8)&255)*587+(n&255)*114)/1000>150;};
 function icon(p){
-  const [b,l,c]=palOf(p), t=lightHex(l)?"#111":"#fff", S='fill="url(#gShade)"';
+  /* Style A: clean white-studio render. Same palette, lighting and shadow for every product; each pack carries its own brand and name. */
+  const b="#E4E0D6", l="#FFFFFF", c="#222222", t="#111111", S='fill="url(#gShade)"';
   const sh='<ellipse cx="50" cy="105" rx="40" ry="4.5" fill="url(#gSh)"/>';
   const body=(x,y,w,h,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${b}"/>`;
   const shade=(x,y,w,h,r)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" ${S}/>`;
+  const words=String(p.name).trim().split(/\s+/);
+  const size=/\d/.test(words[words.length-1])&&words.length>1?words.pop():"";
+  const rest=words.join(" ");
+  const brand=String(p.brand).toUpperCase();
+  const txt=(cx,y,s,w,fs,wt)=>{ if(!s) return ""; const long=s.length*fs*0.56>w; return `<text x="${cx}" y="${y}" text-anchor="middle" font-family="Barlow,Arial,sans-serif" font-weight="${wt}" font-size="${fs}" fill="${t}"${long?` textLength="${w}" lengthAdjust="spacingAndGlyphs"`:""}>${esc(s)}</text>`; };
+  const lab=(cx,y0,w)=>txt(cx,y0,brand,w,10,800)+txt(cx,y0+10,rest.length>16?rest.slice(0,15)+"…":rest,w,7.5,600)+txt(cx,y0+19,size,w,7.5,700);
   let g;
-  if(p.img==="bar") return `<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="4" fill="url(#gSh)"/><rect x="12" y="24" width="96" height="34" rx="3" fill="${l}"/><rect x="12" y="24" width="96" height="34" rx="3" ${S} opacity=".6"/><rect x="6" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="106" y="26" width="8" height="30" fill="${c===l?"#111":c}"/><rect x="36" y="33" width="48" height="7" fill="${t}"/><rect x="44" y="45" width="32" height="4" fill="${t}" opacity=".6"/></svg>`;
-  if(p.img==="meal") return `<svg viewBox="0 0 120 90" aria-hidden="true"><ellipse cx="60" cy="80" rx="50" ry="5" fill="url(#gSh)"/><rect x="10" y="22" width="100" height="54" rx="6" fill="${b}"/><rect x="10" y="22" width="100" height="54" rx="6" ${S} opacity=".5"/><rect x="18" y="30" width="46" height="38" rx="4" fill="${l}" opacity=".85"/><rect x="70" y="30" width="32" height="17" rx="3" fill="${c}" opacity=".7"/><rect x="70" y="51" width="32" height="17" rx="3" fill="${l}" opacity=".5"/><rect x="10" y="16" width="100" height="8" rx="3" fill="#fff" opacity=".7"/></svg>`;
-  if(p.img==="caps") g=`${body(26,24,48,80,9)}<rect x="26" y="50" width="48" height="30" fill="${l}"/><ellipse cx="50" cy="65" rx="9" ry="4.5" fill="${t}"/>${shade(26,24,48,80,9)}<rect x="33" y="10" width="34" height="17" rx="3" fill="${c}"/>${shade(33,10,34,17,3)}`;
-  else if(p.img==="bottle") g=`${body(24,26,52,78,10)}<rect x="24" y="54" width="52" height="28" fill="${l}"/><circle cx="50" cy="68" r="6" fill="${t}"/>${shade(24,26,52,78,10)}<rect x="36" y="10" width="28" height="18" rx="3" fill="${c}"/>${shade(36,10,28,18,3)}`;
-  else if(p.img==="shake") g=`${body(18,30,28,74,7)}${body(54,30,28,74,7)}<rect x="18" y="52" width="28" height="28" fill="${l}"/><rect x="54" y="52" width="28" height="28" fill="${l}"/>${shade(18,30,28,74,7)}${shade(54,30,28,74,7)}<rect x="23" y="18" width="18" height="14" rx="3" fill="${c}"/><rect x="59" y="18" width="18" height="14" rx="3" fill="${c}"/>`;
-  else if(p.img==="jar") g=`${body(24,32,52,72,6)}<rect x="24" y="52" width="52" height="30" fill="${l}"/><rect x="34" y="62" width="32" height="5" fill="${t}"/><rect x="39" y="71" width="22" height="3.5" fill="${t}" opacity=".55"/>${shade(24,32,52,72,6)}<rect x="27" y="20" width="46" height="15" rx="3" fill="${c}"/>${shade(27,20,46,15,3)}<rect x="27" y="32" width="46" height="3" fill="#000" opacity=".25"/>`;
-  else g=`${body(14,20,72,84,7)}<rect x="14" y="44" width="72" height="36" fill="${l}"/><rect x="30" y="55" width="40" height="6" fill="${t}"/><rect x="37" y="66" width="26" height="4" fill="${t}" opacity=".6"/>${shade(14,20,72,84,7)}<rect x="16" y="6" width="68" height="17" rx="3" fill="${c}"/>${shade(16,6,68,17,3)}<rect x="16" y="20" width="68" height="3" fill="#000" opacity=".25"/>`;
+  if(p.img==="bar") return `<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="64" rx="52" ry="4" fill="url(#gSh)"/><rect x="12" y="24" width="96" height="34" rx="3" fill="${b}"/><rect x="12" y="24" width="96" height="34" rx="3" ${S} opacity=".6"/><rect x="6" y="26" width="8" height="30" fill="${c}"/><rect x="106" y="26" width="8" height="30" fill="${c}"/>${txt(60,38,brand,70,9,800)}${txt(60,47,rest.length>22?rest.slice(0,21)+"…":rest,70,6.5,600)}${txt(60,54,size,70,6,600)}</svg>`;
+  if(p.img==="meal") return `<svg viewBox="0 0 120 90" aria-hidden="true"><ellipse cx="60" cy="80" rx="50" ry="5" fill="url(#gSh)"/><rect x="10" y="22" width="100" height="54" rx="6" fill="${b}"/><rect x="10" y="22" width="100" height="54" rx="6" ${S} opacity=".5"/><rect x="18" y="30" width="84" height="38" rx="4" fill="${l}"/>${txt(60,46,brand,74,9,800)}${txt(60,56,rest.length>22?rest.slice(0,21)+"…":rest,74,6.5,600)}${txt(60,63,size,74,6,600)}<rect x="10" y="16" width="100" height="8" rx="3" fill="${c}"/></svg>`;
+  if(p.img==="caps") g=`${body(26,24,48,80,9)}<rect x="26" y="46" width="48" height="40" fill="${l}"/>${lab(50,58,42)}${shade(26,24,48,80,9)}<rect x="33" y="10" width="34" height="17" rx="3" fill="${c}"/>${shade(33,10,34,17,3)}`;
+  else if(p.img==="bottle") g=`${body(24,26,52,78,10)}<rect x="24" y="48" width="52" height="40" fill="${l}"/>${lab(50,60,46)}${shade(24,26,52,78,10)}<rect x="36" y="10" width="28" height="18" rx="3" fill="${c}"/>${shade(36,10,28,18,3)}`;
+  else if(p.img==="shake") g=`${body(18,30,28,74,7)}${body(54,30,28,74,7)}<rect x="18" y="52" width="28" height="28" fill="${l}"/><rect x="54" y="52" width="28" height="28" fill="${l}"/>${txt(32,68,brand.slice(0,6),24,6,800)}${txt(68,68,brand.slice(0,6),24,6,800)}${shade(18,30,28,74,7)}${shade(54,30,28,74,7)}<rect x="23" y="18" width="18" height="14" rx="3" fill="${c}"/><rect x="59" y="18" width="18" height="14" rx="3" fill="${c}"/>`;
+  else if(p.img==="jar") g=`${body(24,32,52,72,6)}<rect x="24" y="48" width="52" height="40" fill="${l}"/>${lab(50,60,46)}${shade(24,32,52,72,6)}<rect x="27" y="20" width="46" height="15" rx="3" fill="${c}"/>${shade(27,20,46,15,3)}<rect x="27" y="32" width="46" height="3" fill="#000" opacity=".25"/>`;
+  else g=`${body(14,20,72,84,7)}<rect x="14" y="42" width="72" height="42" fill="${l}"/>${lab(50,55,64)}${shade(14,20,72,84,7)}<rect x="16" y="6" width="68" height="17" rx="3" fill="${c}"/>${shade(16,6,68,17,3)}<rect x="16" y="20" width="68" height="3" fill="#000" opacity=".25"/>`;
   return `<svg viewBox="0 0 100 110" aria-hidden="true">${sh}${g}</svg>`;
 }
 const ARR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
@@ -1666,20 +1693,19 @@ function renderHome(){
       <div class="scroller">${cards.map((c,i)=>card(c,i,{suffix:"-h"})).join("")}</div></section>`;
   }).join("");
   const pub=P.filter(p=>!p.member&&p.was&&visible(p));
-  const T=[["protein","Protein"],["snacks","Bars & snacks"],["creatine","Creatine"],["pre","Pre-workout"],["health","Vitamins"],["gainer","Mass gainers"],["meals","Meals"],["members","Member deals"]].map(([k,t])=>{
+  const T=[["protein","Protein"],["creatine","Creatine"],["pre","Pre-workout"],["health","Vitamins"],["snacks","Bars & snacks"],["gainer","Mass gainers"],["meals","Meals"],["members","Member deals"]].map(([k,t])=>{
     const pool=k==="members"?P.filter(p=>p.member):P.filter(p=>p.sec===k&&!p.member&&visible(p));
     const sale=pool.filter(p=>p.was); const best=sale.slice().sort((a,b)=>pct(b)-pct(a))[0];
     const cheap=pool.slice().sort((a,b)=>rankKey(a)-rankKey(b))[0];
-    const big=k==="members"?`${pool.length}`:best?`${pct(best)}% off`:cheap?fmt(k==="protein"?value(cheap):unitPrice(cheap)):"—";
-    const small=k==="members"?"member prices":best?"up to":cheap?(k==="snacks"?"per bar":k==="meals"?"per meal":k==="health"?"per day":k==="pre"?"per serve":"per 100g")+", cheapest":"coming soon";
+    const rep=best||cheap||pool[0];
     const line1=k==="members"?`${pool.length} member prices`:best?`Up to ${pct(best)}% off`:cheap?`From ${fmt(k==="protein"?value(cheap):unitPrice(cheap))}${k==="snacks"?" a bar":k==="meals"?" a meal":k==="pre"?" a serve":k==="health"?" a day":" /100g"}`:"Coming soon";
     const line2=k==="members"?"Free sign-up":sale.length?`${sale.length} on sale`:`${pool.length} products`;
-    return `<a class="bmt" href="#cat-${k}"><b>${t}</b><strong class="${best||k==="members"?"dn":""}">${line1}</strong><small>${line2} ›</small></a>`;}).join("");
+    return `<a class="ct" href="#cat-${k}"><span class="ct-img">${rep?icon(rep):""}</span><b>${t}</b><strong class="${best||k==="members"?"dn":""}">${line1}</strong><small>${line2} ›</small></a>`;}).join("");
   const crashes=cardsFor(pub,"save").slice(0,8);
   view.innerHTML=`
     <section class="bm-hero"><div class="bm-hero-in">
-      <div class="bm-h"><p class="bm-live">${pub.length} deals on right now</p><h1>It's a bear market for <span>supplement prices</span></h1><p class="bm-sub">We compare ${Object.values(STORES).filter(st=>mode==="online"||st.pickup).length} Aussie stores so you pay less. What are you shopping for?</p></div>
-      <div class="bm-tiles">${T}</div></div></section>
+      <div class="bm-h"><p class="bm-live">${pub.length} deals on right now</p><h1>What are you <span>shopping for?</span></h1><p class="bm-sub">Tap a category and we'll show the cheapest price across ${Object.values(STORES).filter(st=>mode==="online"||st.pickup).length} Aussie stores.</p></div>
+      <div class="ct-grid">${T}</div></div></section>
     <section class="hrow"><div class="hrow-head"><div><h2>Biggest price drops today</h2><p>The biggest discounts across every store we compare.</p></div><a class="seeall" href="#cat-protein">See all ${pub.length} ›</a></div>
       <div class="grid">${crashes.map((c,i)=>card(c,null,{suffix:"-x"})).join("")}</div></section>
     <section class="bm-spot"><div><h2>Spotted it lower?</h2><p>Report any lower price, online or on a shelf near you. We verify every one within 24 hours.</p></div><a class="bm-spot-btn" href="mailto:hello@bearsaves.com.au?subject=Lower%20price%20spotted">Report a lower price ▼</a></section>
